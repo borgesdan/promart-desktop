@@ -113,6 +113,7 @@
                         Style="{StaticResource DefaultGroupBox}">
                         <TextBox
                             x:Name="RG"
+                            MaxLength="{StaticResource RGLength}"
                             Style="{StaticResource FormTextBox}"/>
                     </GroupBox>
 
@@ -372,7 +373,8 @@
                         Grid.ColumnSpan="7"
                         Style="{StaticResource DefaultGroupBox}">
                         <TextBox
-                            x:Name="SchoolName"                   
+                            x:Name="SchoolName"
+                            MaxLength="{StaticResource FullNameMaxLength}"
                             Style="{StaticResource FormTextBox}"/>
                     </GroupBox>
                     <GroupBox

@@ -19,5 +19,10 @@ namespace Promart.Database.Entities
         {
             Students = new HashSet<Student>();
         }
+
+        public override string ToString()
+        {
+            return Name ?? "Nome não informado";
+        }
     }
 }

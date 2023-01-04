@@ -15,5 +15,12 @@ namespace Promart
     /// </summary>
     public partial class App : Application
     {   
+        public static AppDbContext AppDbContext { get; set; }
+
+        public App() : base()
+        {
+            var factory = new AppDbContextFactory();
+            AppDbContext = factory.CreateDbContext(null);
+        }
     }
 }

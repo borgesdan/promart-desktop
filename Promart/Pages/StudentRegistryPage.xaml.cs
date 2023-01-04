@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
 
 namespace Promart.Pages
 {
@@ -23,13 +24,18 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentRegistryPage : Page
     {
+        bool isLoaded = false;
+
         public StudentRegistryPage()
         {
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (isLoaded)
+                return;
+
             Gender.AddEnum<GenderType>();
             FamilyRelationship.AddEnum<StudentRelationshipType>();
             Dwelling.AddEnum<DwellingType>();
@@ -38,6 +44,15 @@ namespace Promart.Pages
             SchoolYear.AddEnum<SchoolYearType>();
             ProjectStatus.AddEnum<ProjectStatusType>();
             ProjectShift.AddEnum<SchoolShiftType>();
+
+            var workshops = await App.AppDbContext.Workshops.ToListAsync();
+            workshops.ForEach(w => Workshops.Items.Add(new CheckBox() 
+                { 
+                    Content = w,
+                })
+            );
+
+            isLoaded = true;
         }
     }
 }
