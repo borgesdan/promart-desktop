@@ -100,7 +100,7 @@ namespace Promart.Database
     /// </summary>      
     public enum MonthlyIncomeType : byte
     {
-        [Description("Meno que 1/2 salário")]
+        [Description("Menor que 1/2 salário")]
         Menor_Meio_Salario_Minimo = 0,
         [Description("1/2 salário")]
         Meio_Salario_Minimo = 1,
@@ -115,7 +115,7 @@ namespace Promart.Database
     /// <summary>
     /// Obtém ou define a situação do aluno no projeto.s
     /// </summary>
-    public enum StudentProjectStatusType : byte
+    public enum ProjectStatusType : byte
     {
         [Description("Inscrito")]
         Inscrito = 0,
@@ -136,7 +136,7 @@ namespace Promart.Database
     }
 
     public enum SchoolYearType : byte
-    {
+    {        
         [Description("1º ano fundamental")]
         Fundamental1 = 0,
         [Description("2º ano fundamental")]
@@ -161,6 +161,8 @@ namespace Promart.Database
         Medio2 = 10,
         [Description("3º ano médio")]
         Medio3 = 11,
+        [Description("Outro ano ou ciclo")]
+        Outro = 98,
         [Description("Não informado")]
         Indefinido = 99
     }

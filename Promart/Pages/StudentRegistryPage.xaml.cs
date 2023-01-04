@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Promart.Core;
+using Promart.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +26,18 @@ namespace Promart.Pages
         public StudentRegistryPage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Gender.AddEnum<GenderType>();
+            FamilyRelationship.AddEnum<StudentRelationshipType>();
+            Dwelling.AddEnum<DwellingType>();
+            MonthlyIncome.AddEnum<MonthlyIncomeType>();
+            SchoolShift.AddEnum<SchoolShiftType>();
+            SchoolYear.AddEnum<SchoolYearType>();
+            ProjectStatus.AddEnum<ProjectStatusType>();
+            ProjectShift.AddEnum<SchoolShiftType>();
         }
     }
 }

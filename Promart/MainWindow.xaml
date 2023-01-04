@@ -4,9 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Promart"
+        xmlns:p="clr-namespace:Promart.Pages"
         mc:Ignorable="d"
         Title="Promart Gerenciador" Height="450" Width="800">
     <Grid>
-
+        <ScrollViewer>
+            <Frame>
+                <Frame.Content>                    
+                    <p:StudentRegistryPage />
+                </Frame.Content>
+            </Frame>
+        </ScrollViewer>
     </Grid>
 </Window>

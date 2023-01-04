@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Promart.Database.Context;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -12,6 +14,6 @@ namespace Promart
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {
+    {   
     }
 }
