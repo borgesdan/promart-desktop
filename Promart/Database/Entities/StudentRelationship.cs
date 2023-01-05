@@ -11,13 +11,15 @@ namespace Promart.Database.Entities
         [StringLength(500)]
         public string? FullName { get; set; }
         
+        public int? Age { get; set; }
+        
         public FamilyRelationshipType? Relationship { get; set; }
 
         [StringLength(500)]
         public string? Occupation { get; set; }
 
         [StringLength(500)] 
-        public string? Education { get; set; }
+        public string? Schooling { get; set; }
 
         [StringLength(500)] 
         public string? Income { get; set; }

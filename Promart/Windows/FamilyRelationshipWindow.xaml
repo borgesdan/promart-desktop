@@ -1,0 +1,83 @@
+﻿<Window x:Class="Promart.Windows.FamilyRelationshipWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Promart.Windows"
+        mc:Ignorable="d"
+        Title="Composição Familiar" Height="480" Width="800"
+        WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel>
+            <GroupBox
+                Header="Nome Completo" 
+                Style="{StaticResource DefaultGroupBox}">
+                <StackPanel>
+                    <TextBox
+                        x:Name="FullName"
+                        MaxLength="{StaticResource FullNameMaxLength}"
+                        Style="{StaticResource FormTextBox}"/>                    
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Header="Idade"                
+                Style="{StaticResource DefaultGroupBox}">
+                <TextBox
+                    x:Name="Age"  
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    MaxLength="{StaticResource AgeLength}"
+                    Style="{StaticResource FormTextBox}"/>
+            </GroupBox>            
+            <GroupBox
+                Header="Ocupação" 
+                Style="{StaticResource DefaultGroupBox}">
+                <TextBox
+                    x:Name="Ocupation"
+                    Style="{StaticResource FormTextBox}"/>
+            </GroupBox>
+            <GroupBox
+                Header="Escolaridade" 
+                Style="{StaticResource DefaultGroupBox}">
+                <TextBox
+                    x:Name="Schooling"
+                    MaxLength="{StaticResource FullNameMediumLength}"
+                    Style="{StaticResource FormTextBox}"/>
+            </GroupBox>
+            <GroupBox
+                Header="Renda" 
+                Style="{StaticResource DefaultGroupBox}">
+                <TextBox
+                    x:Name="Income"
+                    MaxLength="{StaticResource FullNameMediumLength}"
+                    Style="{StaticResource FormTextBox}"/>
+            </GroupBox>
+            <GroupBox
+                Header="Relacionamento"                
+                Style="{StaticResource DefaultGroupBox}">
+                <ComboBox
+                    x:Name="Relationship" 
+                    SelectedIndex="0"
+                    Style="{StaticResource FormComboBox}"/>
+            </GroupBox>
+            <Button
+                x:Name="Accept"
+                Content="Adicionar"                
+                Height="30"   
+                Click="Accept_Click"
+                VerticalAlignment="Bottom">
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

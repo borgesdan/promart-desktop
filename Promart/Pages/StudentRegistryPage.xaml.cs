@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
+using Promart.Windows;
 
 namespace Promart.Pages
 {
@@ -24,7 +25,7 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentRegistryPage : Page
     {
-        bool isLoaded = false;
+        bool isLoaded = false;        
 
         public StudentRegistryPage()
         {
@@ -53,6 +54,30 @@ namespace Promart.Pages
             );
 
             isLoaded = true;
+        }
+
+        private void AddRelationship_Click(object sender, RoutedEventArgs e)
+        {
+            var relationshipWindow = new FamilyRelationshipWindow();
+            var dialogResult = relationshipWindow.ShowDialog();
+
+            if (dialogResult != true)
+                return;
+
+            var result = relationshipWindow.GetResult();
+
+            var button = new Button
+            {
+                Content = $"{result.Relationship.Description()}: {result.FullName}, {result.Age}, {result.Occupation}, {result.Schooling}, {result.Income}",
+            };
+
+            var index = RelationshipPanel.Children.Count;
+            RelationshipPanel.Children.Insert(index - 1, button);
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

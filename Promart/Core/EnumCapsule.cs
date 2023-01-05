@@ -2,18 +2,18 @@
 
 namespace Promart.Core
 {
-    public class EnumCapsule
+    public class EnumCapsule<T> where T: struct, Enum
     {
-        public Enum? Value { get; set; }
-        
-        public EnumCapsule(Enum value) 
+        public T Value { get; set; }
+
+        public EnumCapsule(T value)
         {
             Value = value;
         }
 
         public override string ToString()
         {
-            return Value?.Description() ?? string.Empty;
+            return Value.Description() ?? string.Empty;
         }
     }
 }
