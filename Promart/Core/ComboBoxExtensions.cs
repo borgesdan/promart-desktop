@@ -13,7 +13,7 @@ namespace Promart.Core
                 .ForEach(e => value.Items.Add(new EnumCapsule<TEnum>(e)));
         }
 
-        public static TEnum? GetEnumInSelectedItem<TEnum>(this ComboBox value) where TEnum: struct, Enum
+        public static TEnum? GetEnum<TEnum>(this ComboBox value) where TEnum: struct, Enum
         {
             var item = value.SelectedItem;
 

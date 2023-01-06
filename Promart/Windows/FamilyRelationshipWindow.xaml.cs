@@ -10,7 +10,7 @@ namespace Promart.Windows
     /// </summary>
     public partial class FamilyRelationshipWindow : Window
     {
-        StudentRelationship _result;        
+        StudentRelationship? _result;        
 
         public FamilyRelationshipWindow()
         {
@@ -33,7 +33,7 @@ namespace Promart.Windows
                 Schooling = Schooling.Text,
                 Income = Income.Text,
                 Occupation = Ocupation.Text,
-                Relationship = Relationship.GetEnumInSelectedItem<FamilyRelationshipType>() ?? FamilyRelationshipType.Indefinido,                
+                Relationship = Relationship.GetEnum<FamilyRelationshipType>() ?? FamilyRelationshipType.Indefinido,                
             };
 
             DialogResult = true;

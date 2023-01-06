@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
+using Promart.Core;
 
 namespace Promart.Database.Entities
 {
@@ -25,5 +27,49 @@ namespace Promart.Database.Entities
         public string? Income { get; set; }
 
         public Student? Student { get; set; }
+
+        public string GetFullString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append(FullName);
+            builder.Append(',');
+
+            if(Age != null)
+            {
+                builder.Append(Age);
+                builder.Append(',');
+            }
+
+            if(Relationship != null)
+            {
+                builder.Append(Relationship.Description());
+                builder.Append(',');
+            }
+
+            if(Occupation != null)
+            {
+                builder.Append(Occupation);
+                builder.Append(',');
+            }
+
+            if(Schooling != null)
+            {
+                builder.Append(Schooling);
+                builder.Append(',');
+            }
+
+            if(Income != null)
+            {
+                builder.Append(Income);                
+            }
+
+            return builder.ToString();
+        }
+
+        public override string ToString()
+        {
+            return FullName ?? string.Empty;
+        }
     }
 }
