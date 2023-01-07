@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
+using Promart.Pages;
 
 namespace Promart
 {
@@ -26,6 +27,32 @@ namespace Promart
         public MainWindow()
         {   
             InitializeComponent();
+
+            StudentRegister.Click += async (sender, e) => StudentRegister_Click(sender, e);
+        }
+
+        private static TabItem CreateNewTab(object header, Page contentPage)
+        {
+            var frame = new Frame
+            {
+                Content = contentPage,
+                NavigationUIVisibility = NavigationUIVisibility.Hidden
+            };
+
+            var scrollViewer = new ScrollViewer();
+            scrollViewer.Content = frame;
+
+            var tabItem = new TabItem();
+            tabItem.Header = header;
+            tabItem.Content = scrollViewer;
+            tabItem.IsSelected = true;
+            return tabItem;
+        }
+
+        private async void StudentRegister_Click(object sender, RoutedEventArgs e)
+        {
+            var tabItem = CreateNewTab("Novo Estudante", new StudentRegistryPage());
+            MainTab.Items.Add(tabItem);
         }
     }
 }

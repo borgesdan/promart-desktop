@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Promart.Database.Context;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Promart.Database.Context;
 using System.Windows;
 
 namespace Promart
@@ -14,13 +7,8 @@ namespace Promart
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {   
-        public static AppDbContext AppDbContext { get; set; }
-
-        public App() : base()
-        {
-            var factory = new AppDbContextFactory();
-            AppDbContext = factory.CreateDbContext(null);
-        }
+    {
+        private static readonly AppDbContextFactory _factory = new AppDbContextFactory();
+        public static AppDbContext AppDbContext => _factory.CreateDbContext(null);
     }
 }

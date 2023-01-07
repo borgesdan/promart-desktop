@@ -86,6 +86,7 @@
                         Header="Idade"
                         Grid.Column="3"
                         Grid.Row="2"
+                        Grid.ColumnSpan="2"
                         Style="{StaticResource DefaultGroupBox}">
                         <Label
                             x:Name="Age"                            
@@ -95,7 +96,7 @@
 
                     <GroupBox
                         Header="Sexo"
-                        Grid.Column="4"
+                        Grid.Column="5"
                         Grid.Row="2"
                         Grid.ColumnSpan="3"
                         Style="{StaticResource DefaultGroupBox}">
@@ -464,6 +465,7 @@
                             x:Name="Workshops"
                             SelectedIndex="0"
                             Height="250"
+                            
                             Style="{StaticResource DefaultListBox}">
                         </ListBox>
                     </GroupBox>

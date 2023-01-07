@@ -6,14 +6,53 @@
         xmlns:local="clr-namespace:Promart"
         xmlns:p="clr-namespace:Promart.Pages"
         mc:Ignorable="d"
-        Title="Promart Gerenciador" Height="450" Width="800">
+        Title="Promart Gerenciador" Height="450" Width="800" WindowState="Maximized">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="/Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
-        <ScrollViewer>
-            <Frame>
-                <Frame.Content>                    
-                    <p:StudentRegistryPage />
-                </Frame.Content>
-            </Frame>
-        </ScrollViewer>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="Arquivo" />
+            <MenuItem Header="Cadastro" />
+            <MenuItem Header="Relatórios" />
+            <MenuItem Header="Configurações" />
+        </Menu>
+        <DockPanel
+            Grid.Row="1">
+            <StackPanel Width="250">
+                <Expander 
+                    Header="Aluno"
+                    IsExpanded="True">
+                    <StackPanel>
+                        <Button
+                            x:Name="StudentRegister"
+                            Content="Matricular"
+                            Height="24"
+                            />
+                        <Button
+                            x:Name="StudentFilter"
+                            Content="Filtrar"
+                            Height="24"
+                            />
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+            <TabControl x:Name="MainTab">
+            </TabControl>
+        </DockPanel>
     </Grid>
 </Window>

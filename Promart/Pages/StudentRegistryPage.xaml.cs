@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using Promart.Windows;
 using Promart.Database.Entities;
+using Promart.Core.Html;
 
 namespace Promart.Pages
 {
@@ -32,11 +33,25 @@ namespace Promart.Pages
         {
             InitializeComponent();
             
-            Loaded += async (sender, e) => await Page_Loaded(sender, e);
-            Register.Click += async (sender, e) => await Register_Click(sender, e);
+            Loaded += async (sender, e) => Page_Loaded(sender, e);
+            Register.Click += async (sender, e) => Register_Click(sender, e);
+            BirthDate.SelectedDateChanged += BirthDate_SelectedDateChanged;
         }
 
-        private async Task Page_Loaded(object sender, RoutedEventArgs e)
+        private void BirthDate_SelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+        {
+            var now = DateTime.Now;
+            var selected = BirthDate.SelectedDate;
+
+            if (selected == null)
+                return;
+
+            var diff = now - selected;
+
+            Age.Content = $"{(int)(diff.Value.TotalDays / 365)} anos";
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
                 return;
@@ -50,7 +65,9 @@ namespace Promart.Pages
             ProjectStatus.AddEnum<ProjectStatusType>();
             ProjectShift.AddEnum<SchoolShiftType>();
 
-            var workshops = await App.AppDbContext.Workshops.ToListAsync();
+            using var context = App.AppDbContext;
+
+            var workshops = await context.Workshops.ToListAsync();
             workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
             {
                 Content = w,
@@ -133,7 +150,7 @@ namespace Promart.Pages
             return true;
         }
 
-        private async Task Register_Click(object sender, RoutedEventArgs e)
+        private async void Register_Click(object sender, RoutedEventArgs e)
         {
             if (!Validate())
                 return;
@@ -185,9 +202,12 @@ namespace Promart.Pages
             }
 
             student.Workshops = workshops;
+            var create = HtmlBuilder.Create(student);
 
-            App.AppDbContext.Students.Add(student);
-            await App.AppDbContext.SaveChangesAsync();
+            using var context = App.AppDbContext;
+            context.Students.Add(student);
+            await context.SaveChangesAsync();
+
 
             Register.IsEnabled = false;
         }
