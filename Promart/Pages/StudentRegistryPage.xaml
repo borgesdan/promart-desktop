@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Promart.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="1550" d:DesignWidth="800"
-      Title="StudentRegistryPage" Loaded="Page_Loaded">
+      Title="StudentRegistryPage">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -17,9 +17,10 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="White" x:Name="MainGrid">
         <StackPanel>
             <Expander Header="Dados Pessoais" 
+                      x:Name="PersonalDataSession"
                 Style="{StaticResource FormExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -486,8 +487,7 @@
             <Button
                 x:Name="Register"
                 Content="Matricular"                
-                Height="50" 
-                Click="Register_Click"
+                Height="50"
                 Style="{StaticResource DefaultButton}"
             />
         </StackPanel>

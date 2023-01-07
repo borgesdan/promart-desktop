@@ -33,30 +33,30 @@ namespace Promart.Database.Entities
             StringBuilder builder = new StringBuilder();
 
             builder.Append(FullName);
-            builder.Append(',');
+            builder.Append(" ,");
 
             if(Age != null)
             {
                 builder.Append(Age);
-                builder.Append(',');
+                builder.Append(" ,");
             }
 
             if(Relationship != null)
             {
                 builder.Append(Relationship.Description());
-                builder.Append(',');
+                builder.Append(" ,");
             }
 
             if(Occupation != null)
             {
                 builder.Append(Occupation);
-                builder.Append(',');
+                builder.Append(" ,");
             }
 
             if(Schooling != null)
             {
                 builder.Append(Schooling);
-                builder.Append(',');
+                builder.Append(" ,");
             }
 
             if(Income != null)

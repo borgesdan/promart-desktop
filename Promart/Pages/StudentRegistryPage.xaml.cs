@@ -31,9 +31,12 @@ namespace Promart.Pages
         public StudentRegistryPage()
         {
             InitializeComponent();
+            
+            Loaded += async (sender, e) => await Page_Loaded(sender, e);
+            Register.Click += async (sender, e) => await Register_Click(sender, e);
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async Task Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
                 return;
@@ -48,11 +51,10 @@ namespace Promart.Pages
             ProjectShift.AddEnum<SchoolShiftType>();
 
             var workshops = await App.AppDbContext.Workshops.ToListAsync();
-            workshops.ForEach(w => Workshops.Items.Add(new CheckBox() 
-                { 
-                    Content = w,
-                })
-            );
+            workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
+            {
+                Content = w,
+            }));
 
             isLoaded = true;
         }
@@ -76,8 +78,66 @@ namespace Promart.Pages
             RelationshipPanel.Children.Insert(index - 1, button);
         }
 
-        private async void Register_Click(object sender, RoutedEventArgs e)
+        private bool Validate()
         {
+            MainGrid.TrimAllTextBox();
+
+            if (string.IsNullOrWhiteSpace(FullName.Text))
+            {
+                MessageBox.Show(
+                    "O nome do aluno é um dado obrigatório. Digite o nome do aluno antes de continuar.",
+                    "Nome do aluno",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                    );
+                FullName.Focus();
+                return false;
+            }
+
+            if(FullName.Text.Length < 3)
+            {
+                MessageBox.Show(
+                   "O nome do aluno deve conter no minímo 3 letras.",
+                   "Nome do aluno",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Warning
+                   );
+                FullName.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Responsible.Text))
+            {
+                MessageBox.Show(
+                    "O nome do responsável é um dado obrigatório. Digite o nome do responsável antes de continuar.",
+                    "Nome do responsável",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                    );
+                FullName.Focus();
+                return false;
+            }
+
+            if (FullName.Text.Length < 3)
+            {
+                MessageBox.Show(
+                   "O nome do responsável deve conter no minímo 3 letras.",
+                   "Nome do responsável",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Warning
+                   );
+                FullName.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task Register_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Validate())
+                return;
+
             var student = new Student
             {
                 FullName = FullName.Text,
@@ -108,6 +168,8 @@ namespace Promart.Pages
                 RegistryDate = DateTime.Now,
                 Observations = Observations.Text,
             };
+
+            student.Registry = RegistryGenerator.NewRegistry(student.FullName);
 
             var workshops = new List<Workshop>();
             
