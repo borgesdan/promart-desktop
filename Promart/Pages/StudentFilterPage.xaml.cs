@@ -1,27 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Core;
 using Promart.Database;
+using Promart.Filters;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel;
-using System.Reflection;
-using Promart.Filters;
-using System.Linq.Expressions;
-using Promart.Database.Entities;
 
 namespace Promart.Pages
 {
@@ -41,11 +28,15 @@ namespace Promart.Pages
         private async Task Search_Click(object sender, RoutedEventArgs e)
         {
             using var context = App.AppDbContext;
+            var students = context.Students.AsQueryable();
 
-            IQueryable<Student> students = students = context.Students.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(FullName.Text))
-                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));
+            if (!string.IsNullOrWhiteSpace(SearchBar.Text))
+            {
+                if(RadioName.IsChecked == true)
+                    students = students.Where(s => s.FullName != null && s.FullName.Contains(SearchBar.Text));
+                else
+                    students = students.Where(s => s.CPF != null && s.CPF == SearchBar.Text);
+            }                
 
             if (CheckAge.IsChecked == true && !string.IsNullOrWhiteSpace(Age.Text))
             {
@@ -53,18 +44,41 @@ namespace Promart.Pages
 
                 if (parse)
                 {
-                    var now = DateTime.Now;
-                    var one = new DateTime(now.Year, 1, 1);
-                    var span = now - one;
-                    var days = span.Days;
+                    var nowBirthday = DateTime.Now.AddYears(-age);
+                    var limit = new DateTime(nowBirthday.Year - 1, nowBirthday.Month, nowBirthday.Day + 1);
 
-                    var ageDays = (age * 365) + days;
-
-                    var niver = new DateTime(1989, 10, 05);
-
-                    var value = niver.AddYears(age).AddDays(days);
-
-                    students = students.Where(s => s.BirthDate != null && s.BirthDate.Value.AddDays(ageDays) == DateTime.Now);
+                    if(AgeSelector.SelectedIndex == 0) //Igual a
+                    {
+                        students = students.Where(s => 
+                            s.BirthDate != null 
+                            && s.BirthDate.Value > limit 
+                            && s.BirthDate.Value <= nowBirthday);
+                        
+                    }
+                    else if (AgeSelector.SelectedIndex == 1) //Igual ou maior
+                    {
+                        students = students.Where(s => 
+                            s.BirthDate != null
+                            && s.BirthDate.Value <= nowBirthday);
+                    }
+                    else if (AgeSelector.SelectedIndex == 2) //Igual ou menor
+                    {
+                        students = students.Where(s =>
+                            s.BirthDate != null
+                            && s.BirthDate.Value > limit);
+                    }
+                    else if (AgeSelector.SelectedIndex == 3) //Maior que
+                    {
+                        students = students.Where(s =>
+                            s.BirthDate != null
+                            && s.BirthDate.Value <= limit);
+                    }
+                    else if (AgeSelector.SelectedIndex == 4) //Menor que
+                    {
+                        students = students.Where(s =>
+                            s.BirthDate != null
+                            && s.BirthDate.Value > nowBirthday);
+                    }
                 }
             }
 
@@ -142,6 +156,7 @@ namespace Promart.Pages
             {
                 FullName = s.FullName,
                 Gender = s.Gender.Description(),
+                Age = s.BirthDate != null ? ((int)((DateTime.Now - s.BirthDate.Value).TotalDays / 365)).ToString() : null,
                 ResponsibleName = s.ResponsibleName,
                 ResponsiblePhone = s.ResponsiblePhone,
                 Registry = s.Registry,
@@ -168,7 +183,31 @@ namespace Promart.Pages
 
             if (displayName != null && !string.IsNullOrEmpty(displayName.DisplayName))
             {
-                e.Column.Header = displayName.DisplayName;
+                e.Column.Header = displayName.DisplayName;                
+            }
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            EnumVisual(FiltersGrid);
+        }
+
+        // Enumerate all the descendants of the visual object.
+        static public void EnumVisual(Visual myVisual)
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(myVisual); i++)
+            {
+                // Retrieve child visual at specified index value.
+                Visual childVisual = (Visual)VisualTreeHelper.GetChild(myVisual, i);
+
+                // Do processing of the child visual object.
+                if(childVisual is CheckBox cb)
+                {
+                    cb.IsChecked = false;
+                }
+
+                // Enumerate children of the child visual object.
+                EnumVisual(childVisual);
             }
         }
     }

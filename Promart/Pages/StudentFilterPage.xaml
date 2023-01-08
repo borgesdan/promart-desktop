@@ -24,279 +24,311 @@
                 <GroupBox
                         Header="Nome Completo"                                                
                         Style="{StaticResource DefaultGroupBox}">
-                    <TextBox
-                            x:Name="FullName"
+                    <StackPanel>
+                        <TextBox
+                            x:Name="SearchBar"
                             MaxLength="{StaticResource FullNameMaxLength}"                            
                             Style="{StaticResource FormTextBox}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton x:Name="RadioName" Content="Nome" GroupName="Search" IsChecked="True" VerticalContentAlignment="Center" Margin="10 0" />
+                            <RadioButton x:Name="RadioCpf" Content="CPF" GroupName="Search" VerticalContentAlignment="Center" Margin="20 0" />
+                        </StackPanel>                        
+                    </StackPanel>                    
                 </GroupBox>
             </Expander>
-            <Expander Header="Filtros" 
+            <Expander 
+                Header="Filtros"                 
                 Style="{StaticResource FormExpander}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="10" />
-                        <RowDefinition />
-                        <RowDefinition Height="10" />
-                        <RowDefinition />
-                        <RowDefinition Height="10" />
-                        <RowDefinition />
-                        <RowDefinition Height="10" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    
-                    <GroupBox
+                <StackPanel>
+                    <Button 
+                        x:Name="Clear"
+                        Content="Limpar"
+                        Width="200"
+                        Height="30"
+                        HorizontalAlignment="Right"
+                        Margin="0 10 10 10"
+                        Click="Clear_Click">                        
+                    </Button>
+                    <Grid x:Name="FiltersGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="10" />
+                            <RowDefinition />
+                            <RowDefinition Height="10" />
+                            <RowDefinition />
+                            <RowDefinition Height="10" />
+                            <RowDefinition />
+                            <RowDefinition Height="10" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <GroupBox
                         Grid.Column="0"
                         Grid.Row="0"
                         Grid.ColumnSpan="2"                        
                         Style="{StaticResource DefaultGroupBox}">
-                        <ComboBox
+                            <ComboBox
                             x:Name="Gender"
                             SelectedIndex="0"                            
                             IsEnabled="{Binding ElementName=CheckGender, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource FormComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox x:Name="CheckGender"
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox x:Name="CheckGender"
                                       VerticalContentAlignment="Center">
-                                Sexo
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Sexo
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="2"
                         Grid.Row="0"
-                        Grid.ColumnSpan="2"
+                        Grid.ColumnSpan="5"
                         Style="{StaticResource DefaultGroupBox}">
-                        <TextBox
-                            x:Name="Age"         
-                            IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormTextBox}"/>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            <DockPanel>
+                                <TextBox
+                                x:Name="Age"         
+                                Width="100"
+                                IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormTextBox}"/>
+                                <ComboBox
+                                x:Name="AgeSelector"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
+                                Margin="10 0 0 0">
+                                    <ComboBoxItem Content="Igual a" />
+                                    <ComboBoxItem Content="Igual ou maior que" />
+                                    <ComboBoxItem Content="Igual ou menor que" />
+                                    <ComboBoxItem Content="Maior que" />
+                                    <ComboBoxItem Content="Menor que" />
+                                </ComboBox>
+                            </DockPanel>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckAge"
                                 VerticalContentAlignment="Center">
-                                Idade
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
-                        Grid.Column="4"
+                                    Idade
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
+                        Grid.Column="7"
                         Grid.Row="0"
                         Grid.ColumnSpan="4">
-                        <ComboBox
+                            <ComboBox
                             Name="FamilyRelationship"
                             SelectedIndex="0"
                             IsEnabled="{Binding ElementName=CheckFamilyRelationship, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource FormComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckFamilyRelationship"
                                 VerticalContentAlignment="Center">
-                                Vínculo Familiar
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
-                        Grid.Column="8"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="4">
-                        <ComboBox
+                                    Vínculo Familiar
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
+                        Grid.Column="7"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="5">
+                            <ComboBox
                             Name="Dwelling"
                             SelectedIndex="0"
                             IsEnabled="{Binding ElementName=CheckDwelling, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource FormComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckDwelling"
                                 VerticalContentAlignment="Center">
-                                Tipo de Moradia
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Tipo de Moradia
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="0"
                         Grid.Row="2"
                         Grid.ColumnSpan="3">
-                        <ComboBox
+                            <ComboBox
                             Name="MonthlyIncome"
                             SelectedIndex="0"
                             IsEnabled="{Binding ElementName=CheckMonthlyIncome, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource FormComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckMonthlyIncome"
                                 VerticalContentAlignment="Center">
-                                Renda Familiar
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Renda Familiar
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="3"
                         Grid.Row="2"
                         Grid.ColumnSpan="4">
-                        <ComboBox           
+                            <ComboBox           
                             x:Name="BeneficiaryBox"
                             SelectedIndex="0"
                             IsEnabled="{Binding ElementName=CheckBeneficiaryBox, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource FormComboBox}">
-                            <ComboBoxItem Content="Sim" />
-                            <ComboBoxItem Content="Não" />
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox 
+                                <ComboBoxItem Content="Sim" />
+                                <ComboBoxItem Content="Não" />
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckBeneficiaryBox"
                                 VerticalContentAlignment="Center">
-                                Recebe Bolsa Família
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Recebe Bolsa Família
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="0"
                         Grid.Row="4"
                         Grid.ColumnSpan="8"
                         Style="{StaticResource DefaultGroupBox}">
-                        <TextBox
+                            <TextBox
                             x:Name="Address"
                             IsEnabled="{Binding ElementName=CheckAddress, Path=IsChecked, TargetNullValue=False}"
                             MaxLength="{StaticResource FullNameMaxLength}"
                             Style="{StaticResource FormTextBox}"/>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckAddress"
                                 VerticalContentAlignment="Center">
-                                Endereço
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Endereço
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="8"
                         Grid.Row="4"
                         Grid.ColumnSpan="4"
                         Style="{StaticResource DefaultGroupBox}">
-                        <TextBox
+                            <TextBox
                             x:Name="AddressDistrict"
                             IsEnabled="{Binding ElementName=CheckAddressDistrict, Path=IsChecked, TargetNullValue=False}"
                             MaxLength="{StaticResource FullNameMediumLength}"
                             Style="{StaticResource FormTextBox}"/>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckAddressDistrict"
                                 VerticalContentAlignment="Center">
-                                Bairro
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Bairro
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="0"
                         Grid.Row="6"
                         Grid.ColumnSpan="6"
                         Style="{StaticResource DefaultGroupBox}">
-                        <TextBox
+                            <TextBox
                             x:Name="SchoolName"
                             IsEnabled="{Binding ElementName=CheckSchoolName, Path=IsChecked, TargetNullValue=False}"
                             MaxLength="{StaticResource FullNameMaxLength}"
                             Style="{StaticResource FormTextBox}"/>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckSchoolName"
                                 VerticalContentAlignment="Center">
-                                Nome da Escola
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Nome da Escola
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="6"
                         Grid.Row="6"
                         Grid.ColumnSpan="3"
                         Style="{StaticResource DefaultGroupBox}">
-                        <ComboBox    
+                            <ComboBox    
                             Name="SchoolShift"
                             SelectedIndex="0"
                             IsEnabled="{Binding ElementName=CheckSchoolShift, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource FormComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckSchoolShift"
                                 VerticalContentAlignment="Center">
-                                Turno Escolar
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Turno Escolar
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="9"
                         Grid.Row="6"
                         Grid.ColumnSpan="3"
                         Style="{StaticResource DefaultGroupBox}">
-                        <ComboBox           
+                            <ComboBox           
                             Name="SchoolYear"
                             SelectedIndex="0"       
                             IsEnabled="{Binding ElementName=CheckSchoolYear, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource FormComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckSchoolYear"
                                 VerticalContentAlignment="Center">
-                                Ano Escolar
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox
+                                    Ano Escolar
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox
                         Grid.Column="0"
                         Grid.Row="8"
                         Grid.ColumnSpan="4">
-                        <ComboBox
+                            <ComboBox
                             Name="ProjectStatus"
                             SelectedIndex="0"
                             IsEnabled="{Binding ElementName=CheckProjectStatus, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource DefaultComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox 
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox 
                                 x:Name="CheckProjectStatus"
                                 VerticalContentAlignment="Center">
-                                Situação Projeto
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                    <GroupBox                        
+                                    Situação Projeto
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                        <GroupBox                        
                         Grid.Column="4"
                         Grid.Row="8"
                         Grid.ColumnSpan="4">
-                        <ComboBox
+                            <ComboBox
                             Name="ProjectShift"
                             SelectedIndex="0"
                             IsEnabled="{Binding ElementName=CheckProjectShift, Path=IsChecked, TargetNullValue=False}"
                             Style="{StaticResource DefaultComboBox}">
-                        </ComboBox>
-                        <GroupBox.Header>
-                            <CheckBox
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox
                                 x:Name="CheckProjectShift"
                                 VerticalContentAlignment="Center">
-                                Turno Projeto
-                            </CheckBox>
-                        </GroupBox.Header>
-                    </GroupBox>
-                </Grid>
+                                    Turno Projeto
+                                </CheckBox>
+                            </GroupBox.Header>
+                        </GroupBox>
+                    </Grid>
+                </StackPanel>
             </Expander>
 
             <Button 

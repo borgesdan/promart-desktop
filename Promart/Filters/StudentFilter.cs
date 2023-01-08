@@ -8,6 +8,8 @@ namespace Promart.Filters
         public string? FullName { get; set; }
         [DisplayName("Sexo")]
         public string? Gender { get; set; }
+        [DisplayName("Idade")]
+        public string? Age { get; set; }
         [DisplayName("Responsável")]
         public string? ResponsibleName { get; set; }
         [DisplayName("Telefone")]
