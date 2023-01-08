@@ -19,6 +19,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using System.Reflection;
+using Promart.Filters;
 
 namespace Promart.Pages
 {
@@ -38,6 +39,15 @@ namespace Promart.Pages
         {
             using var context = App.AppDbContext;
 
+            Gender.AddEnum<GenderType>();
+            FamilyRelationship.AddEnum<StudentRelationshipType>();
+            Dwelling.AddEnum<DwellingType>();
+            MonthlyIncome.AddEnum<MonthlyIncomeType>();
+            SchoolShift.AddEnum<SchoolShiftType>();
+            SchoolYear.AddEnum<SchoolYearType>();
+            ProjectStatus.AddEnum<ProjectStatusType>();
+            ProjectShift.AddEnum<SchoolShiftType>();
+
             var students = await context.Students.ToListAsync();
 
             DataGridResult.ItemsSource = students.Select(s => new StudentFilter
@@ -49,23 +59,7 @@ namespace Promart.Pages
                 Registry = s.Registry,
                 RegistryDate = s.RegistryDate?.ToShortDateString()
             });
-        }
-
-        public class StudentFilter
-        {
-            [DisplayName("Nome")]
-            public string? FullName { get; set; }
-            [DisplayName("Sexo")]
-            public string? Gender { get; set; }
-            [DisplayName("Responsável")]
-            public string? ResponsibleName { get; set; }
-            [DisplayName("Telefone")]
-            public string? ResponsiblePhone { get; set; }
-            [DisplayName("Matrícula")]
-            public string? Registry { get; set; }
-            [DisplayName("Data Matrícula")]
-            public string? RegistryDate { get; set; }
-        }
+        }        
 
         private void DataGridResult_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
