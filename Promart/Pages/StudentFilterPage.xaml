@@ -22,7 +22,7 @@
             <Expander Header="Busca" 
                 Style="{StaticResource FormExpander}">
                 <GroupBox
-                        Header="Nome Completo ou RG ou CPF"                                                
+                        Header="Nome Completo"                                                
                         Style="{StaticResource DefaultGroupBox}">
                     <TextBox
                             x:Name="FullName"
@@ -298,6 +298,14 @@
                     </GroupBox>
                 </Grid>
             </Expander>
+
+            <Button 
+                x:Name="Search"
+                Content="Pesquisar"
+                Height="30"
+                Margin="0 10 0 0">                
+            </Button>
+            
             <Expander Header="Resultado"                       
                 Style="{StaticResource FormExpander}">
                 <DataGrid x:Name="DataGridResult"

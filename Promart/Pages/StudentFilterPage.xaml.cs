@@ -20,6 +20,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using System.Reflection;
 using Promart.Filters;
+using System.Linq.Expressions;
+using Promart.Database.Entities;
 
 namespace Promart.Pages
 {
@@ -33,24 +35,110 @@ namespace Promart.Pages
             InitializeComponent();
 
             Loaded += StudentFilterPage_Loaded;
+            Search.Click += async (sender, e) => await Search_Click(sender, e);
         }
 
-        private async void StudentFilterPage_Loaded(object sender, RoutedEventArgs e)
+        private async Task Search_Click(object sender, RoutedEventArgs e)
         {
             using var context = App.AppDbContext;
 
-            Gender.AddEnum<GenderType>();
-            FamilyRelationship.AddEnum<StudentRelationshipType>();
-            Dwelling.AddEnum<DwellingType>();
-            MonthlyIncome.AddEnum<MonthlyIncomeType>();
-            SchoolShift.AddEnum<SchoolShiftType>();
-            SchoolYear.AddEnum<SchoolYearType>();
-            ProjectStatus.AddEnum<ProjectStatusType>();
-            ProjectShift.AddEnum<SchoolShiftType>();
+            IQueryable<Student> students = students = context.Students.AsQueryable();
 
-            var students = await context.Students.ToListAsync();
+            if (!string.IsNullOrWhiteSpace(FullName.Text))
+                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));
 
-            DataGridResult.ItemsSource = students.Select(s => new StudentFilter
+            if (CheckAge.IsChecked == true && !string.IsNullOrWhiteSpace(Age.Text))
+            {
+                var parse = int.TryParse(Age.Text, out int age);
+
+                if (parse)
+                {
+                    var now = DateTime.Now;
+                    var one = new DateTime(now.Year, 1, 1);
+                    var span = now - one;
+                    var days = span.Days;
+
+                    var ageDays = (age * 365) + days;
+
+                    var niver = new DateTime(1989, 10, 05);
+
+                    var value = niver.AddYears(age).AddDays(days);
+
+                    students = students.Where(s => s.BirthDate != null && s.BirthDate.Value.AddDays(ageDays) == DateTime.Now);
+                }
+            }
+
+            if (CheckGender.IsChecked == true)
+            {
+                var value = Gender.GetEnum<GenderType>() ?? GenderType.Indefinido;
+                students = students.Where(s => s.Gender == value);
+            }
+
+            if (CheckFamilyRelationship.IsChecked == true)
+            {
+                var value = Gender.GetEnum<StudentRelationshipType>() ?? StudentRelationshipType.Indefinido;
+                students = students.Where(s => s.Relationship == value);
+            }
+
+            if (CheckDwelling.IsChecked == true)
+            {
+                var value = Gender.GetEnum<DwellingType>() ?? DwellingType.Indefinido;
+                students = students.Where(s => s.Dwelling == value);
+            }
+
+            if (CheckMonthlyIncome.IsChecked == true)
+            {
+                var value = Gender.GetEnum<MonthlyIncomeType>() ?? MonthlyIncomeType.Indefinido;
+                students = students.Where(s => s.MonthlyIncome == value);
+            }
+
+            if (CheckBeneficiaryBox.IsChecked == true)
+            {
+                students = students.Where(s => s.IsGovernmentBeneficiary == (BeneficiaryBox.SelectedIndex == 0 ? true : false));
+            }
+
+            if (CheckAddress.IsChecked == true && !string.IsNullOrWhiteSpace(Address.Text))
+            {
+                students = students.Where(s => s.Street != null && s.Street.Contains(Address.Text));
+            }
+
+            if (CheckAddressDistrict.IsChecked == true && !string.IsNullOrWhiteSpace(AddressDistrict.Text))
+            {
+                students = students.Where(s => s.District != null && s.District.Contains(AddressDistrict.Text));
+            }
+
+            if (CheckSchoolName.IsChecked == true && !string.IsNullOrWhiteSpace(SchoolName.Text))
+            {
+                students = students.Where(s => s.SchoolName != null && s.SchoolName.Contains(SchoolName.Text));
+            }
+
+            if (CheckSchoolShift.IsChecked == true)
+            {
+                var value = Gender.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
+                students = students.Where(s => s.SchoolShift == value);
+            }
+
+            if (CheckSchoolYear.IsChecked == true)
+            {
+                var value = Gender.GetEnum<SchoolYearType>() ?? SchoolYearType.Indefinido;
+                students = students.Where(s => s.SchoolYear == value);
+            }
+
+            if (CheckProjectStatus.IsChecked == true)
+            {
+                var value = Gender.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido;
+                students = students.Where(s => s.Status == value);
+            }
+
+            if (CheckProjectShift.IsChecked == true)
+            {
+                var value = Gender.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
+                students = students.Where(s => s.ProjectShift == value);
+            }
+
+            var result = await students.ToListAsync();
+
+            DataGridResult.ItemsSource = result.Select(s => new StudentFilter
             {
                 FullName = s.FullName,
                 Gender = s.Gender.Description(),
@@ -59,7 +147,19 @@ namespace Promart.Pages
                 Registry = s.Registry,
                 RegistryDate = s.RegistryDate?.ToShortDateString()
             });
-        }        
+        }
+
+        private void StudentFilterPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Gender.AddEnum<GenderType>();
+            FamilyRelationship.AddEnum<StudentRelationshipType>();
+            Dwelling.AddEnum<DwellingType>();
+            MonthlyIncome.AddEnum<MonthlyIncomeType>();
+            SchoolShift.AddEnum<SchoolShiftType>();
+            SchoolYear.AddEnum<SchoolYearType>();
+            ProjectStatus.AddEnum<ProjectStatusType>();
+            ProjectShift.AddEnum<SchoolShiftType>();
+        }
 
         private void DataGridResult_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
