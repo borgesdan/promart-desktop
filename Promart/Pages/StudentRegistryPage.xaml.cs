@@ -33,9 +33,14 @@ namespace Promart.Pages
         {
             InitializeComponent();
             
-            Loaded += async (sender, e) => Page_Loaded(sender, e);
-            Register.Click += async (sender, e) => Register_Click(sender, e);
+            Loaded += async (sender, e) => await Page_Loaded(sender, e);
+            Register.Click += async (sender, e) => await Register_Click(sender, e);
             BirthDate.SelectedDateChanged += BirthDate_SelectedDateChanged;
+            
+            FullName.ApplyOnlyLetterOrWhiteSpace();
+            Responsible.ApplyOnlyLetterOrWhiteSpace();
+            CPF.ApplyOnlyNumbers();
+            Phone.ApplyOnlyNumbers();
         }
 
         private void BirthDate_SelectedDateChanged(object? sender, SelectionChangedEventArgs e)
@@ -51,7 +56,7 @@ namespace Promart.Pages
             Age.Content = $"{(int)(diff.Value.TotalDays / 365)} anos";
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async Task Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
                 return;
@@ -150,7 +155,7 @@ namespace Promart.Pages
             return true;
         }
 
-        private async void Register_Click(object sender, RoutedEventArgs e)
+        private async Task Register_Click(object sender, RoutedEventArgs e)
         {
             if (!Validate())
                 return;

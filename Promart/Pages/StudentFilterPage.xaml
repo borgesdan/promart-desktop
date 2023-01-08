@@ -22,7 +22,7 @@
             <Expander Header="Busca" 
                 Style="{StaticResource FormExpander}">
                 <GroupBox
-                        Header="Nome Completo"                                                
+                        Header="Barra de Pesquisa"                                                
                         Style="{StaticResource DefaultGroupBox}">
                     <StackPanel>
                         <TextBox
