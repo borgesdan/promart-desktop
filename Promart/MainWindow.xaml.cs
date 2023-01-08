@@ -29,6 +29,7 @@ namespace Promart
             InitializeComponent();
 
             StudentRegister.Click += async (sender, e) => StudentRegister_Click(sender, e);
+            StudentFilter.Click += async (sender, e) => StudentFilter_Click(sender, e);
         }
 
         private static TabItem CreateNewTab(object header, Page contentPage)
@@ -52,6 +53,12 @@ namespace Promart
         private async void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
             var tabItem = CreateNewTab("Novo Estudante", new StudentRegistryPage());
+            MainTab.Items.Add(tabItem);
+        }
+
+        private async void StudentFilter_Click(object sender, RoutedEventArgs e)
+        {
+            var tabItem = CreateNewTab("Filtro de Aluno", new StudentFilterPage());
             MainTab.Items.Add(tabItem);
         }
     }
