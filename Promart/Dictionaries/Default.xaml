@@ -4,6 +4,8 @@
 
     <System:Double x:Key="DefaultSize">16</System:Double>
     <System:Double x:Key="DefaultSize2">20</System:Double>
+    <System:Double x:Key="NormalSize">14</System:Double>
+    <System:Double x:Key="SmallSize">12</System:Double>
     <System:Double x:Key="ErrorSize">12</System:Double>
     <System:Double x:Key="MinSize">10</System:Double>
 

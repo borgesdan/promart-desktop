@@ -253,8 +253,10 @@
                         Grid.Row="6"
                         Grid.ColumnSpan="12"                        
                         >
-                        <StackPanel
-                            x:Name="RelationshipPanel">
+                        <StackPanel>
+                            <WrapPanel
+                                x:Name="RelationshipPanel">
+                            </WrapPanel>
                             <Button
                                 x:Name="AddRelationship"
                                 Content="Adicionar"
@@ -263,7 +265,7 @@
                                 HorizontalAlignment="Right"
                                 Click="AddRelationship_Click"
                                 Style="{StaticResource DefaultButton}"/>
-                        </StackPanel>
+                        </StackPanel>                        
                     </GroupBox>
                 </Grid>
             </Expander>

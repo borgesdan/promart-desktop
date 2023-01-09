@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Promart.Windows"
         mc:Ignorable="d"
-        Title="Composição Familiar" Height="480" Width="800"
+        Title="Composição Familiar" Height="460" Width="480"
         WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded">
 
@@ -18,7 +18,9 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+    <Grid     
+        x:Name="MainGrid"
+        Margin="20 20">
         <StackPanel>
             <GroupBox
                 Header="Nome Completo" 
@@ -29,6 +31,14 @@
                         MaxLength="{StaticResource FullNameMaxLength}"
                         Style="{StaticResource FormTextBox}"/>                    
                 </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Header="Relacionamento"                
+                Style="{StaticResource DefaultGroupBox}">
+                <ComboBox
+                    x:Name="Relationship" 
+                    SelectedIndex="0"
+                    Style="{StaticResource FormComboBox}"/>
             </GroupBox>
             <GroupBox
                 Header="Idade"                
@@ -62,20 +72,13 @@
                     x:Name="Income"
                     MaxLength="{StaticResource FullNameMediumLength}"
                     Style="{StaticResource FormTextBox}"/>
-            </GroupBox>
-            <GroupBox
-                Header="Relacionamento"                
-                Style="{StaticResource DefaultGroupBox}">
-                <ComboBox
-                    x:Name="Relationship" 
-                    SelectedIndex="0"
-                    Style="{StaticResource FormComboBox}"/>
-            </GroupBox>
+            </GroupBox>            
             <Button
                 x:Name="Accept"
                 Content="Adicionar"                
                 Height="30"   
                 Click="Accept_Click"
+                Margin="50 20"
                 VerticalAlignment="Bottom">
             </Button>
         </StackPanel>

@@ -26,15 +26,24 @@ namespace Promart.Windows
 
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
+            MainGrid.TrimAllTextBox();
+
+            if (string.IsNullOrWhiteSpace(FullName.Text))
+            {
+                DialogResult = false;
+                Close();
+                return;
+            }
+
             _result = new StudentRelationship
             {                
                 FullName = FullName.Text,
-                Age = int.Parse(Age.Text),
+                Age = int.TryParse(Age.Text, out int age) ? age : null,
                 Schooling = Schooling.Text,
                 Income = Income.Text,
                 Occupation = Ocupation.Text,
                 Relationship = Relationship.GetEnum<FamilyRelationshipType>() ?? FamilyRelationshipType.Indefinido,                
-            };
+            };            
 
             DialogResult = true;
 

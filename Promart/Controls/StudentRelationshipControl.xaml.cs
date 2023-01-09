@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Promart.Core;
+using Promart.Database;
+using Promart.Database.Entities;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Promart.Controls
 {
@@ -20,9 +10,69 @@ namespace Promart.Controls
     /// </summary>
     public partial class StudentRelationshipControl : UserControl
     {
+        private StudentRelationship? _relationship;
+
         public StudentRelationshipControl()
         {
             InitializeComponent();
+
+            _relationship = new StudentRelationship();
+            Relationship.AddEnum<FamilyRelationshipType>();
+        }        
+
+        public StudentRelationshipControl(StudentRelationship? relationship)
+        {
+            InitializeComponent();            
+
+            _relationship = relationship;
+            Relationship.AddEnum<FamilyRelationshipType>();
+
+            if (_relationship != null)
+            {
+                FullName.Text = _relationship.FullName;
+                Income.Text = _relationship.Income;
+                Occupation.Text = _relationship.Occupation;
+                Schooling.Text = _relationship.Schooling;
+                Relationship.SelectedIndex = (int)_relationship.Relationship;
+                Age.Text = _relationship.Age.ToString();
+            }            
+        }
+
+        private void FormularyChanged()
+        {
+            if (_relationship == null)
+                return;
+
+            MainGrid.TrimAllTextBox();
+
+            _relationship.FullName = FullName.Text;
+            _relationship.Income = Income.Text;
+            _relationship.Occupation = Occupation.Text;
+            _relationship.Schooling = Schooling.Text;
+            _relationship.Relationship = Relationship.GetEnum<FamilyRelationshipType>() ?? FamilyRelationshipType.Indefinido;
+
+            bool parse = int.TryParse(Age.Text, out int age);
+
+            if (parse)
+                _relationship.Age = age;
+        }
+
+        public StudentRelationship? GetRelationship() => _relationship;
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            FullName.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
+            Age.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
+            Income.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
+            Occupation.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
+            Schooling.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
+            Relationship.SelectionChanged += (object sender, SelectionChangedEventArgs e) => FormularyChanged();
+        }
+
+        private void Remove_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var parent = (Panel)Parent;
+            parent.Children.Remove(this);
         }
     }
 }

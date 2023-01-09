@@ -6,13 +6,11 @@ namespace Promart.Core
     {
         public static void TrimAllTextBox(this Panel panel)
         {
-            var children = panel.Children;
-
-            foreach (var child in children)
+            panel.ForEachVisual(v =>
             {
-                if (child is TextBox textbox)
+                if (v is TextBox textbox)
                     textbox.Text = textbox.Text.Trim();
-            }
+            });           
         }
     }
 }

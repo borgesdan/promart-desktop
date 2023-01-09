@@ -189,26 +189,13 @@ namespace Promart.Pages
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            EnumVisual(FiltersGrid);
-        }
-
-        // Enumerate all the descendants of the visual object.
-        static public void EnumVisual(Visual myVisual)
-        {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(myVisual); i++)
+            FiltersGrid.ForEachVisual(v =>
             {
-                // Retrieve child visual at specified index value.
-                Visual childVisual = (Visual)VisualTreeHelper.GetChild(myVisual, i);
-
-                // Do processing of the child visual object.
-                if(childVisual is CheckBox cb)
+                if (v is CheckBox cb)
                 {
                     cb.IsChecked = false;
                 }
-
-                // Enumerate children of the child visual object.
-                EnumVisual(childVisual);
-            }
-        }
+            });
+        }        
     }
 }

@@ -19,6 +19,8 @@ using Microsoft.EntityFrameworkCore;
 using Promart.Windows;
 using Promart.Database.Entities;
 using Promart.Core.Html;
+using Promart.Controls;
+using System.Security.RightsManagement;
 
 namespace Promart.Pages
 {
@@ -89,15 +91,10 @@ namespace Promart.Pages
             if (dialogResult != true)
                 return;
 
-            var result = relationshipWindow.GetResult();
+            var result = relationshipWindow.GetResult();            
+            var control = new StudentRelationshipControl(result);
 
-            var button = new Button
-            {
-                Content = result.GetFullString()
-            };
-
-            var index = RelationshipPanel.Children.Count;
-            RelationshipPanel.Children.Insert(index - 1, button);
+            RelationshipPanel.Children.Add(control);
         }
 
         private bool Validate()

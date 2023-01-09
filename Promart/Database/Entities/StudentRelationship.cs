@@ -14,8 +14,8 @@ namespace Promart.Database.Entities
         public string? FullName { get; set; }
         
         public int? Age { get; set; }
-        
-        public FamilyRelationshipType? Relationship { get; set; }
+
+        public FamilyRelationshipType Relationship { get; set; } = FamilyRelationshipType.Indefinido;
 
         [StringLength(500)]
         public string? Occupation { get; set; }
