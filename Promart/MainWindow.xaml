@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Promart"
         xmlns:p="clr-namespace:Promart.Pages"
         mc:Ignorable="d"
-        Title="Promart Gerenciador" Height="450" Width="800" WindowState="Maximized">
+        Title="Promart Gerenciador" Height="450" MinWidth="1280" WindowState="Maximized">
 
     <Window.Resources>
         <ResourceDictionary>

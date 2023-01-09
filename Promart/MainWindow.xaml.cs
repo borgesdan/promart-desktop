@@ -34,6 +34,9 @@ namespace Promart
 
         private static TabItem CreateNewTab(object header, Page contentPage)
         {
+            contentPage.MinWidth = 800;
+            contentPage.MaxWidth = 1280;
+
             var frame = new Frame
             {
                 Content = contentPage,

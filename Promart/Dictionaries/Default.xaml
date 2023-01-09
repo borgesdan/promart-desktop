@@ -82,6 +82,7 @@
                    TargetType="GroupBox"
                    x:Key="DefaultGroupBox">
     </Style>
+    
 
     <!-- END DEFAULT-->
 

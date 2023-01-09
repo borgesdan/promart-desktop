@@ -81,18 +81,18 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="2"                        
                         Style="{StaticResource DefaultGroupBox}">
-                            <ComboBox
-                            x:Name="Gender"
-                            SelectedIndex="0"                            
-                            IsEnabled="{Binding ElementName=CheckGender, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormComboBox}">
+                            <ComboBox                            
+                                x:Name="Gender"
+                                SelectedIndex="0"                            
+                                IsEnabled="{Binding ElementName=CheckGender, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox x:Name="CheckGender"
                                       VerticalContentAlignment="Center">
                                     Sexo
                                 </CheckBox>
-                            </GroupBox.Header>
+                            </GroupBox.Header>                            
                         </GroupBox>
                         <GroupBox
                         Grid.Column="2"
@@ -101,15 +101,15 @@
                         Style="{StaticResource DefaultGroupBox}">
                             <DockPanel>
                                 <TextBox
-                                x:Name="Age"         
-                                Width="100"
-                                IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormTextBox}"/>
+                                    x:Name="Age"         
+                                    Width="100"
+                                    IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
+                                    Style="{StaticResource FormTextBox}"/>
                                 <ComboBox
-                                x:Name="AgeSelector"
-                                SelectedIndex="0"
-                                IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
-                                Margin="10 0 0 0">
+                                    x:Name="AgeSelector"
+                                    SelectedIndex="0"
+                                    IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
+                                    Margin="10 0 0 0">
                                     <ComboBoxItem Content="Igual a" />
                                     <ComboBoxItem Content="Igual ou maior que" />
                                     <ComboBoxItem Content="Igual ou menor que" />
