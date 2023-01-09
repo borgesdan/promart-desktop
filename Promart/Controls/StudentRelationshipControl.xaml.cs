@@ -1,6 +1,7 @@
 ﻿using Promart.Core;
 using Promart.Database;
 using Promart.Database.Entities;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Promart.Controls
@@ -10,17 +11,11 @@ namespace Promart.Controls
     /// </summary>
     public partial class StudentRelationshipControl : UserControl
     {
-        private StudentRelationship? _relationship;
+        private FamilyRelationship? _relationship;
 
-        public StudentRelationshipControl()
-        {
-            InitializeComponent();
+        public bool IsFormularyValid => !string.IsNullOrWhiteSpace(FullName.Text);        
 
-            _relationship = new StudentRelationship();
-            Relationship.AddEnum<FamilyRelationshipType>();
-        }        
-
-        public StudentRelationshipControl(StudentRelationship? relationship)
+        public StudentRelationshipControl(FamilyRelationship? relationship)
         {
             InitializeComponent();            
 
@@ -57,7 +52,7 @@ namespace Promart.Controls
                 _relationship.Age = age;
         }
 
-        public StudentRelationship? GetRelationship() => _relationship;
+        public FamilyRelationship? GetRelationship() => _relationship;
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -71,6 +66,15 @@ namespace Promart.Controls
 
         private void Remove_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            var result = MessageBox.Show(
+                "Deseja realmente remover esse registro?",
+                "Remover",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
             var parent = (Panel)Parent;
             parent.Children.Remove(this);
         }

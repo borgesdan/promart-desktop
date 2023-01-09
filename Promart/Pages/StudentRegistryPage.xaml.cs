@@ -33,9 +33,8 @@ namespace Promart.Pages
 
         public StudentRegistryPage()
         {
-            InitializeComponent();
+            InitializeComponent();      
             
-            Loaded += async (sender, e) => await Page_Loaded(sender, e);
             Register.Click += async (sender, e) => await Register_Click(sender, e);
             BirthDate.SelectedDateChanged += BirthDate_SelectedDateChanged;
             
@@ -56,32 +55,7 @@ namespace Promart.Pages
             var diff = now - selected;
 
             Age.Content = $"{(int)(diff.Value.TotalDays / 365)} anos";
-        }
-
-        private async Task Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (isLoaded)
-                return;
-
-            Gender.AddEnum<GenderType>();
-            FamilyRelationship.AddEnum<StudentRelationshipType>();
-            Dwelling.AddEnum<DwellingType>();
-            MonthlyIncome.AddEnum<MonthlyIncomeType>();
-            SchoolShift.AddEnum<SchoolShiftType>();
-            SchoolYear.AddEnum<SchoolYearType>();
-            ProjectStatus.AddEnum<ProjectStatusType>();
-            ProjectShift.AddEnum<SchoolShiftType>();
-
-            using var context = App.AppDbContext;
-
-            var workshops = await context.Workshops.ToListAsync();
-            workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
-            {
-                Content = w,
-            }));
-
-            isLoaded = true;
-        }
+        }       
 
         private void AddRelationship_Click(object sender, RoutedEventArgs e)
         {
@@ -176,7 +150,7 @@ namespace Promart.Pages
                 Number = AddressNumber.Text,
                 Complement = AddressComplement.Text,
                 City = "Ipiaú",
-                State = "Bahia",
+                State = "BA",
                 CEP = "45570000",
                 ReferencePoint = AddressReference.Text,
                 SchoolName = SchoolName.Text,
@@ -204,14 +178,76 @@ namespace Promart.Pages
             }
 
             student.Workshops = workshops;
-            var create = HtmlBuilder.Create(student);
+
+            var relationships = new List<FamilyRelationship>();
+
+            foreach(var child in RelationshipPanel.Children)
+            {
+                if(child is StudentRelationshipControl relationshipControl)
+                {
+                    var relationship = relationshipControl.GetRelationship();
+
+                    if(relationship != null && relationshipControl.IsFormularyValid)
+                        relationships.Add(relationship);
+                }
+            }
+
+            student.Relationships = relationships;
+
+            this.IsEnabled = false;
+
+            try
+            {
+                using var context = App.AppDbContext;
+                context.Students.Add(student);
+                await context.SaveChangesAsync();
+
+                MessageBox.Show(
+                $"Aluno matrículado com sucesso. Matrícula: {student.Registry}",
+                "Aluno matriculado",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+                );
+            }
+            catch
+            {
+                MessageBox.Show(
+                "Ocorreu um erro ao matricular o aluno. Veja possíveis causas:\n\n" +
+                "1) O formulário contém dados inválidos.\n" +
+                "2) O banco de dados está desconectado ou não foi possível acesso ao banco de dados.\n\n",
+                "Ocorreu um erro ao matricular o aluno",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+                );
+                
+                this.IsEnabled = true;
+            }
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (isLoaded)
+                return;
+
+            Gender.AddEnum<GenderType>();
+            FamilyRelationship.AddEnum<StudentRelationshipType>();
+            Dwelling.AddEnum<DwellingType>();
+            MonthlyIncome.AddEnum<MonthlyIncomeType>();
+            SchoolShift.AddEnum<SchoolShiftType>();
+            SchoolYear.AddEnum<SchoolYearType>();
+            ProjectStatus.AddEnum<ProjectStatusType>();
+            ProjectShift.AddEnum<SchoolShiftType>();
 
             using var context = App.AppDbContext;
-            context.Students.Add(student);
-            await context.SaveChangesAsync();
 
+            var workshops = await context.Workshops.ToListAsync();
+            workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
+            {
+                Content = w,
+                VerticalContentAlignment = VerticalAlignment.Center
+            }));
 
-            Register.IsEnabled = false;
+            isLoaded = true;
         }
     }
 }

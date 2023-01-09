@@ -10,14 +10,14 @@ namespace Promart.Windows
     /// </summary>
     public partial class FamilyRelationshipWindow : Window
     {
-        StudentRelationship? _result;        
+        FamilyRelationship? _result;        
 
         public FamilyRelationshipWindow()
         {
             InitializeComponent();
         }
 
-        public StudentRelationship? GetResult() => _result;
+        public FamilyRelationship? GetResult() => _result;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -35,7 +35,7 @@ namespace Promart.Windows
                 return;
             }
 
-            _result = new StudentRelationship
+            _result = new FamilyRelationship
             {                
                 FullName = FullName.Text,
                 Age = int.TryParse(Age.Text, out int age) ? age : null,

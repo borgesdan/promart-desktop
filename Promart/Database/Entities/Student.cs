@@ -72,7 +72,7 @@ namespace Promart.Database.Entities
         public string? Observations { get; set; }
 
         public virtual ICollection<Workshop>? Workshops { get; set; }
-        public virtual ICollection<StudentRelationship>? Relationships { get; set; }
+        public virtual ICollection<FamilyRelationship>? Relationships { get; set; }
 
         public Student()
         {
@@ -84,7 +84,7 @@ namespace Promart.Database.Entities
             SchoolShift = SchoolShiftType.Indefinido;
 
             Workshops = new HashSet<Workshop>();
-            Relationships = new HashSet<StudentRelationship>();
+            Relationships = new HashSet<FamilyRelationship>();
         }
     }
 }

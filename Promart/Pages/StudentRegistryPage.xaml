@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Promart.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="1550" d:DesignWidth="800"
-      Title="StudentRegistryPage">
+      Title="StudentRegistryPage" Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -65,7 +65,8 @@
                         Grid.Row="0"            
                         Margin="0, 15, 10, 2"   
                         Content="Lupa"
-                        Style="{StaticResource SearchButton}"
+                        Background="{StaticResource Color2}"
+                        Foreground="White"
                         >
                     </Button>
 
@@ -260,11 +261,12 @@
                             <Button
                                 x:Name="AddRelationship"
                                 Content="Adicionar"
-                                Height="30"
+                                Height="35"
                                 Width="200"
                                 HorizontalAlignment="Right"
-                                Click="AddRelationship_Click"
-                                Style="{StaticResource DefaultButton}"/>
+                                Click="AddRelationship_Click"                                
+                                Background="{StaticResource Color2}"
+                                Foreground="White"/>
                         </StackPanel>                        
                     </GroupBox>
                 </Grid>
@@ -466,8 +468,7 @@
                         <ListBox
                             x:Name="Workshops"
                             SelectedIndex="0"
-                            Height="250"
-                            
+                            Height="250"                            
                             Style="{StaticResource DefaultListBox}">
                         </ListBox>
                     </GroupBox>
@@ -490,9 +491,13 @@
             </Expander>
             <Button
                 x:Name="Register"
-                Content="Matricular"                
+                Content="MATRICULAR"                
                 Height="50"
-                Style="{StaticResource DefaultButton}"
+                Margin="50 10" 
+                Background="{StaticResource Color2}"
+                FontSize="{StaticResource DefaultSize2}"                
+                FontWeight="Bold"   
+                BorderThickness="0"
             />
         </StackPanel>
     </Grid>

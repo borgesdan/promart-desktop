@@ -5,10 +5,8 @@ using Promart.Filters;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Promart.Pages
 {
@@ -22,21 +20,55 @@ namespace Promart.Pages
             InitializeComponent();
 
             Loaded += StudentFilterPage_Loaded;
-            Search.Click += async (sender, e) => await Search_Click(sender, e);
+            Search.Click += async (sender, e) => Search_Click(sender, e);
+        }        
+
+        private void StudentFilterPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Gender.AddEnum<GenderType>();
+            FamilyRelationship.AddEnum<StudentRelationshipType>();
+            Dwelling.AddEnum<DwellingType>();
+            MonthlyIncome.AddEnum<MonthlyIncomeType>();
+            SchoolShift.AddEnum<SchoolShiftType>();
+            SchoolYear.AddEnum<SchoolYearType>();
+            ProjectStatus.AddEnum<ProjectStatusType>();
+            ProjectShift.AddEnum<SchoolShiftType>();
         }
 
-        private async Task Search_Click(object sender, RoutedEventArgs e)
+        private void DataGridResult_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            var property = (PropertyDescriptor)e.PropertyDescriptor;
+            var displayName = property?.Attributes[typeof(DisplayNameAttribute)] as DisplayNameAttribute;
+
+            if (displayName != null && !string.IsNullOrEmpty(displayName.DisplayName))
+            {
+                e.Column.Header = displayName.DisplayName;                
+            }
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            FiltersGrid.ForEachVisual(v =>
+            {
+                if (v is CheckBox cb)
+                {
+                    cb.IsChecked = false;
+                }
+            });
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
         {
             using var context = App.AppDbContext;
             var students = context.Students.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(SearchBar.Text))
             {
-                if(RadioName.IsChecked == true)
+                if (RadioName.IsChecked == true)
                     students = students.Where(s => s.FullName != null && s.FullName.Contains(SearchBar.Text));
                 else
                     students = students.Where(s => s.CPF != null && s.CPF == SearchBar.Text);
-            }                
+            }
 
             if (CheckAge.IsChecked == true && !string.IsNullOrWhiteSpace(Age.Text))
             {
@@ -47,17 +79,17 @@ namespace Promart.Pages
                     var nowBirthday = DateTime.Now.AddYears(-age);
                     var limit = new DateTime(nowBirthday.Year - 1, nowBirthday.Month, nowBirthday.Day + 1);
 
-                    if(AgeSelector.SelectedIndex == 0) //Igual a
+                    if (AgeSelector.SelectedIndex == 0) //Igual a
                     {
-                        students = students.Where(s => 
-                            s.BirthDate != null 
-                            && s.BirthDate.Value > limit 
+                        students = students.Where(s =>
+                            s.BirthDate != null
+                            && s.BirthDate.Value > limit
                             && s.BirthDate.Value <= nowBirthday);
-                        
+
                     }
                     else if (AgeSelector.SelectedIndex == 1) //Igual ou maior
                     {
-                        students = students.Where(s => 
+                        students = students.Where(s =>
                             s.BirthDate != null
                             && s.BirthDate.Value <= nowBirthday);
                     }
@@ -163,39 +195,5 @@ namespace Promart.Pages
                 RegistryDate = s.RegistryDate?.ToShortDateString()
             });
         }
-
-        private void StudentFilterPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            Gender.AddEnum<GenderType>();
-            FamilyRelationship.AddEnum<StudentRelationshipType>();
-            Dwelling.AddEnum<DwellingType>();
-            MonthlyIncome.AddEnum<MonthlyIncomeType>();
-            SchoolShift.AddEnum<SchoolShiftType>();
-            SchoolYear.AddEnum<SchoolYearType>();
-            ProjectStatus.AddEnum<ProjectStatusType>();
-            ProjectShift.AddEnum<SchoolShiftType>();
-        }
-
-        private void DataGridResult_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            var property = (PropertyDescriptor)e.PropertyDescriptor;
-            var displayName = property?.Attributes[typeof(DisplayNameAttribute)] as DisplayNameAttribute;
-
-            if (displayName != null && !string.IsNullOrEmpty(displayName.DisplayName))
-            {
-                e.Column.Header = displayName.DisplayName;                
-            }
-        }
-
-        private void Clear_Click(object sender, RoutedEventArgs e)
-        {
-            FiltersGrid.ForEachVisual(v =>
-            {
-                if (v is CheckBox cb)
-                {
-                    cb.IsChecked = false;
-                }
-            });
-        }        
     }
 }

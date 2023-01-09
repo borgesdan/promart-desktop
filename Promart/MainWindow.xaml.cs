@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Promart.Pages;
+using Promart.Controls;
 
 namespace Promart
 {
@@ -28,11 +29,11 @@ namespace Promart
         {   
             InitializeComponent();
 
-            StudentRegister.Click += async (sender, e) => StudentRegister_Click(sender, e);
-            StudentFilter.Click += async (sender, e) => StudentFilter_Click(sender, e);
-        }
+            StudentRegister.Click += (sender, e) => StudentRegister_Click(sender, e);
+            StudentFilter.Click += (sender, e) => StudentFilter_Click(sender, e);
+        }        
 
-        private static TabItem CreateNewTab(object header, Page contentPage)
+        private static TabItem CreateNewTab(string header, Page contentPage)
         {
             contentPage.MinWidth = 800;
             contentPage.MaxWidth = 1280;
@@ -43,23 +44,29 @@ namespace Promart
                 NavigationUIVisibility = NavigationUIVisibility.Hidden
             };
 
-            var scrollViewer = new ScrollViewer();
-            scrollViewer.Content = frame;
+            var scrollViewer = new ScrollViewer
+            {
+                Content = frame
+            };
 
-            var tabItem = new TabItem();
-            tabItem.Header = header;
-            tabItem.Content = scrollViewer;
-            tabItem.IsSelected = true;
+            var tabItem = new TabItem
+            {
+                Header = new HeaderControl(header),
+                Content = scrollViewer,
+                IsSelected = true,
+                Background = Brushes.Gray
+            };
+
             return tabItem;
-        }
+        }        
 
-        private async void StudentRegister_Click(object sender, RoutedEventArgs e)
+        private async Task StudentRegister_Click(object sender, RoutedEventArgs e)
         {
-            var tabItem = CreateNewTab("Novo Estudante", new StudentRegistryPage());
+            var tabItem = CreateNewTab("Novo Aluno", new StudentRegistryPage());
             MainTab.Items.Add(tabItem);
         }
 
-        private async void StudentFilter_Click(object sender, RoutedEventArgs e)
+        private void StudentFilter_Click(object sender, RoutedEventArgs e)
         {
             var tabItem = CreateNewTab("Filtro de Aluno", new StudentFilterPage());
             MainTab.Items.Add(tabItem);

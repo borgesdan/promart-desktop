@@ -4,7 +4,7 @@ using Promart.Core;
 
 namespace Promart.Database.Entities
 {
-    public class StudentRelationship
+    public class FamilyRelationship
     {
         [Key]
         public int Id { get; set; }
@@ -35,15 +35,12 @@ namespace Promart.Database.Entities
             builder.Append(FullName);
             builder.Append(" ,");
 
-            if(Age != null)
+            builder.Append(Relationship.Description());
+            builder.Append(" ,");
+
+            if (Age != null)
             {
                 builder.Append(Age);
-                builder.Append(" ,");
-            }
-
-            if(Relationship != null)
-            {
-                builder.Append(Relationship.Description());
                 builder.Append(" ,");
             }
 

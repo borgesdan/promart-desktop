@@ -47,7 +47,10 @@
                         Height="30"
                         HorizontalAlignment="Right"
                         Margin="0 10 10 10"
-                        Click="Clear_Click">                        
+                        Click="Clear_Click"
+                        Background="{StaticResource Color2}"
+                        Foreground="White"
+                        FontSize="{StaticResource DefaultSize}">                        
                     </Button>
                     <Grid x:Name="FiltersGrid">
                         <Grid.ColumnDefinitions>
@@ -77,10 +80,9 @@
                         </Grid.RowDefinitions>
 
                         <GroupBox
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="2"                        
-                        Style="{StaticResource DefaultGroupBox}">
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2">
                             <ComboBox                            
                                 x:Name="Gender"
                                 SelectedIndex="0"                            
@@ -92,13 +94,21 @@
                                       VerticalContentAlignment="Center">
                                     Sexo
                                 </CheckBox>
-                            </GroupBox.Header>                            
+                            </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckGender, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="2"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="5"
-                        Style="{StaticResource DefaultGroupBox}">
+                            Grid.Column="2"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="5">
                             <DockPanel>
                                 <TextBox
                                     x:Name="Age"         
@@ -124,34 +134,52 @@
                                     Idade
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckAge, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="7"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="4">
+                            Grid.Column="7"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="4">
                             <ComboBox
-                            Name="FamilyRelationship"
-                            SelectedIndex="0"
-                            IsEnabled="{Binding ElementName=CheckFamilyRelationship, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormComboBox}">
+                                Name="FamilyRelationship"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckFamilyRelationship, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
-                                x:Name="CheckFamilyRelationship"
-                                VerticalContentAlignment="Center">
+                                    x:Name="CheckFamilyRelationship"
+                                    VerticalContentAlignment="Center">
                                     Vínculo Familiar
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckFamilyRelationship, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="7"
-                        Grid.Row="2"
-                        Grid.ColumnSpan="5">
+                            Grid.Column="7"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="5">
                             <ComboBox
-                            Name="Dwelling"
-                            SelectedIndex="0"
-                            IsEnabled="{Binding ElementName=CheckDwelling, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormComboBox}">
+                                Name="Dwelling"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckDwelling, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -160,16 +188,25 @@
                                     Tipo de Moradia
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckDwelling, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="0"
-                        Grid.Row="2"
-                        Grid.ColumnSpan="3">
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="3">
                             <ComboBox
-                            Name="MonthlyIncome"
-                            SelectedIndex="0"
-                            IsEnabled="{Binding ElementName=CheckMonthlyIncome, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormComboBox}">
+                                Name="MonthlyIncome"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckMonthlyIncome, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -178,16 +215,25 @@
                                     Renda Familiar
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckMonthlyIncome, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="3"
-                        Grid.Row="2"
-                        Grid.ColumnSpan="4">
+                            Grid.Column="3"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="4">
                             <ComboBox           
-                            x:Name="BeneficiaryBox"
-                            SelectedIndex="0"
-                            IsEnabled="{Binding ElementName=CheckBeneficiaryBox, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormComboBox}">
+                                x:Name="BeneficiaryBox"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckBeneficiaryBox, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormComboBox}">
                                 <ComboBoxItem Content="Sim" />
                                 <ComboBoxItem Content="Não" />
                             </ComboBox>
@@ -198,17 +244,25 @@
                                     Recebe Bolsa Família
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckBeneficiaryBox, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="0"
-                        Grid.Row="4"
-                        Grid.ColumnSpan="8"
-                        Style="{StaticResource DefaultGroupBox}">
+                            Grid.Column="0"
+                            Grid.Row="4"
+                            Grid.ColumnSpan="8">
                             <TextBox
-                            x:Name="Address"
-                            IsEnabled="{Binding ElementName=CheckAddress, Path=IsChecked, TargetNullValue=False}"
-                            MaxLength="{StaticResource FullNameMaxLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                                x:Name="Address"
+                                IsEnabled="{Binding ElementName=CheckAddress, Path=IsChecked, TargetNullValue=False}"
+                                MaxLength="{StaticResource FullNameMaxLength}"
+                                Style="{StaticResource FormTextBox}"/>
                             <GroupBox.Header>
                                 <CheckBox 
                                 x:Name="CheckAddress"
@@ -216,17 +270,25 @@
                                     Endereço
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckAddress, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="8"
-                        Grid.Row="4"
-                        Grid.ColumnSpan="4"
-                        Style="{StaticResource DefaultGroupBox}">
+                            Grid.Column="8"
+                            Grid.Row="4"
+                            Grid.ColumnSpan="4">
                             <TextBox
-                            x:Name="AddressDistrict"
-                            IsEnabled="{Binding ElementName=CheckAddressDistrict, Path=IsChecked, TargetNullValue=False}"
-                            MaxLength="{StaticResource FullNameMediumLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                                x:Name="AddressDistrict"
+                                IsEnabled="{Binding ElementName=CheckAddressDistrict, Path=IsChecked, TargetNullValue=False}"
+                                MaxLength="{StaticResource FullNameMediumLength}"
+                                Style="{StaticResource FormTextBox}"/>
                             <GroupBox.Header>
                                 <CheckBox 
                                 x:Name="CheckAddressDistrict"
@@ -234,17 +296,25 @@
                                     Bairro
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckAddressDistrict, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="0"
-                        Grid.Row="6"
-                        Grid.ColumnSpan="6"
-                        Style="{StaticResource DefaultGroupBox}">
+                            Grid.Column="0"
+                            Grid.Row="6"
+                            Grid.ColumnSpan="6">
                             <TextBox
-                            x:Name="SchoolName"
-                            IsEnabled="{Binding ElementName=CheckSchoolName, Path=IsChecked, TargetNullValue=False}"
-                            MaxLength="{StaticResource FullNameMaxLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                                x:Name="SchoolName"
+                                IsEnabled="{Binding ElementName=CheckSchoolName, Path=IsChecked, TargetNullValue=False}"
+                                MaxLength="{StaticResource FullNameMaxLength}"
+                                Style="{StaticResource FormTextBox}"/>
                             <GroupBox.Header>
                                 <CheckBox 
                                 x:Name="CheckSchoolName"
@@ -252,17 +322,25 @@
                                     Nome da Escola
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckSchoolName, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="6"
-                        Grid.Row="6"
-                        Grid.ColumnSpan="3"
-                        Style="{StaticResource DefaultGroupBox}">
+                            Grid.Column="6"
+                            Grid.Row="6"
+                            Grid.ColumnSpan="3">
                             <ComboBox    
-                            Name="SchoolShift"
-                            SelectedIndex="0"
-                            IsEnabled="{Binding ElementName=CheckSchoolShift, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormComboBox}">
+                                Name="SchoolShift"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckSchoolShift, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -271,17 +349,25 @@
                                     Turno Escolar
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckSchoolShift, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="9"
-                        Grid.Row="6"
-                        Grid.ColumnSpan="3"
-                        Style="{StaticResource DefaultGroupBox}">
-                            <ComboBox           
-                            Name="SchoolYear"
-                            SelectedIndex="0"       
-                            IsEnabled="{Binding ElementName=CheckSchoolYear, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource FormComboBox}">
+                            Grid.Column="9"
+                            Grid.Row="6"
+                            Grid.ColumnSpan="3">
+                            <ComboBox   
+                                Name="SchoolYear"
+                                SelectedIndex="0"       
+                                IsEnabled="{Binding ElementName=CheckSchoolYear, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource FormComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -290,16 +376,25 @@
                                     Ano Escolar
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckSchoolYear, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                        Grid.Column="0"
-                        Grid.Row="8"
-                        Grid.ColumnSpan="4">
+                            Grid.Column="0"
+                            Grid.Row="8"
+                            Grid.ColumnSpan="4">
                             <ComboBox
-                            Name="ProjectStatus"
-                            SelectedIndex="0"
-                            IsEnabled="{Binding ElementName=CheckProjectStatus, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource DefaultComboBox}">
+                                Name="ProjectStatus"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckProjectStatus, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource DefaultComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -308,16 +403,25 @@
                                     Situação Projeto
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckProjectStatus, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                         <GroupBox                        
-                        Grid.Column="4"
-                        Grid.Row="8"
-                        Grid.ColumnSpan="4">
+                            Grid.Column="4"
+                            Grid.Row="8"
+                            Grid.ColumnSpan="4">
                             <ComboBox
-                            Name="ProjectShift"
-                            SelectedIndex="0"
-                            IsEnabled="{Binding ElementName=CheckProjectShift, Path=IsChecked, TargetNullValue=False}"
-                            Style="{StaticResource DefaultComboBox}">
+                                Name="ProjectShift"
+                                SelectedIndex="0"
+                                IsEnabled="{Binding ElementName=CheckProjectShift, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource DefaultComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox
@@ -326,6 +430,15 @@
                                     Turno Projeto
                                 </CheckBox>
                             </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckProjectShift, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
                         </GroupBox>
                     </Grid>
                 </StackPanel>
@@ -335,7 +448,10 @@
                 x:Name="Search"
                 Content="Pesquisar"
                 Height="30"
-                Margin="0 10 0 0">                
+                Margin="100 10"
+                Background="{StaticResource Color2}"
+                Foreground="White"
+                FontSize="{StaticResource DefaultSize}">                
             </Button>
             
             <Expander Header="Resultado"                       

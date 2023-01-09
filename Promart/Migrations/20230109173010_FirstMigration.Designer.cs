@@ -12,7 +12,7 @@ using Promart.Database.Context;
 namespace Promart.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221218203510_FirstMigration")]
+    [Migration("20230109173010_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,47 @@ namespace Promart.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Promart.Database.Entities.FamilyRelationship", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Income")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Occupation")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<byte>("Relationship")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Schooling")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("FamilyRelationships");
+                });
 
             modelBuilder.Entity("Promart.Database.Entities.Student", b =>
                 {
@@ -142,44 +183,6 @@ namespace Promart.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("Promart.Database.Entities.StudentRelationship", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Education")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Income")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Occupation")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<byte?>("Relationship")
-                        .HasColumnType("tinyint");
-
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("StudentRelationships");
-                });
-
             modelBuilder.Entity("Promart.Database.Entities.Workshop", b =>
                 {
                     b.Property<int>("Id")
@@ -217,7 +220,7 @@ namespace Promart.Migrations
                     b.ToTable("StudentWorkshop");
                 });
 
-            modelBuilder.Entity("Promart.Database.Entities.StudentRelationship", b =>
+            modelBuilder.Entity("Promart.Database.Entities.FamilyRelationship", b =>
                 {
                     b.HasOne("Promart.Database.Entities.Student", "Student")
                         .WithMany("Relationships")

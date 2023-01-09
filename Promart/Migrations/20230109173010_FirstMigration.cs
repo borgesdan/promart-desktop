@@ -66,23 +66,24 @@ namespace Promart.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentRelationships",
+                name: "FamilyRelationships",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Relationship = table.Column<byte>(type: "tinyint", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: true),
+                    Relationship = table.Column<byte>(type: "tinyint", nullable: false),
                     Occupation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Education = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Schooling = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Income = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     StudentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentRelationships", x => x.Id);
+                    table.PrimaryKey("PK_FamilyRelationships", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudentRelationships_Students_StudentId",
+                        name: "FK_FamilyRelationships_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id");
@@ -113,8 +114,8 @@ namespace Promart.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentRelationships_StudentId",
-                table: "StudentRelationships",
+                name: "IX_FamilyRelationships_StudentId",
+                table: "FamilyRelationships",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -127,7 +128,7 @@ namespace Promart.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StudentRelationships");
+                name: "FamilyRelationships");
 
             migrationBuilder.DropTable(
                 name: "StudentWorkshop");
