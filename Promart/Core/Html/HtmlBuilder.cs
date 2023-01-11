@@ -26,15 +26,15 @@ namespace Promart.Core.Html
             builder.Replace("$$renda", student.MonthlyIncome.Description());
             builder.Replace("$$bolsa", student.IsGovernmentBeneficiary == true ? "Sim" : "Não");
             builder.Replace("$$telefone", student.ResponsiblePhone);
-            builder.Replace("$$rua", student.Street);
-            builder.Replace("$$bairro", student.District);
-            builder.Replace("$$num", student.Number);
-            builder.Replace("$$complemento", student.Complement);
-            builder.Replace("$$referencia", student.ReferencePoint);
+            builder.Replace("$$rua", student.AddressStreet);
+            builder.Replace("$$bairro", student.AddressDistrict);
+            builder.Replace("$$num", student.AddressNumber);
+            builder.Replace("$$complemento", student.AddressComplement);
+            builder.Replace("$$referencia", student.AddressReferencePoint);
             builder.Replace("$$escola", student.SchoolName);
             builder.Replace("$$turno", student.SchoolShift.Description());
             builder.Replace("$$ano", student.SchoolYear.Description());
-            builder.Replace("$$situacao", student.Status.Description());
+            builder.Replace("$$situacao", student.ProjectStatus.Description());
             builder.Replace("$$projeto_turno", student.ProjectShift.Description());
             builder.Replace("$$obs", student.Observations);
 

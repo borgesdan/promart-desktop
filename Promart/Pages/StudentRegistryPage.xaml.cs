@@ -145,18 +145,18 @@ namespace Promart.Pages
                 IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0,
                 Dwelling = Dwelling.GetEnum<DwellingType>() ?? DwellingType.Indefinido,
                 MonthlyIncome = MonthlyIncome.GetEnum<MonthlyIncomeType>() ?? MonthlyIncomeType.Indefinido,
-                Street = Address.Text,
-                District = AddressDistrict.Text,
-                Number = AddressNumber.Text,
-                Complement = AddressComplement.Text,
-                City = "Ipiaú",
-                State = "BA",
-                CEP = "45570000",
-                ReferencePoint = AddressReference.Text,
+                AddressStreet = Address.Text,
+                AddressDistrict = AddressDistrict.Text,
+                AddressNumber = AddressNumber.Text,
+                AddressComplement = AddressComplement.Text,
+                AddressCity = "Ipiaú",
+                AddressState = "BA",
+                AddressCEP = "45570000",
+                AddressReferencePoint = AddressReference.Text,
                 SchoolName = SchoolName.Text,
                 SchoolYear = SchoolYear.GetEnum<SchoolYearType>() ?? SchoolYearType.Indefinido,
                 SchoolShift = SchoolShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido,
-                Status = ProjectStatus.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido,
+                ProjectStatus = ProjectStatus.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido,
                 ProjectShift = ProjectShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido,
                 RegistryDate = DateTime.Now,
                 Observations = Observations.Text,
@@ -199,7 +199,8 @@ namespace Promart.Pages
             try
             {
                 using var context = App.AppDbContext;
-                context.Students.Add(student);
+
+                context.Update(student);
                 await context.SaveChangesAsync();
 
                 MessageBox.Show(
@@ -209,12 +210,13 @@ namespace Promart.Pages
                 MessageBoxImage.Information
                 );
             }
-            catch
+            catch(Exception ex ) 
             {
                 MessageBox.Show(
                 "Ocorreu um erro ao matricular o aluno. Veja possíveis causas:\n\n" +
                 "1) O formulário contém dados inválidos.\n" +
-                "2) O banco de dados está desconectado ou não foi possível acesso ao banco de dados.\n\n",
+                "2) O banco de dados está desconectado ou não foi possível acessar o banco de dados.\n\n\n" +
+                $"Erro completo:{ex.Message}",
                 "Ocorreu um erro ao matricular o aluno",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error
@@ -253,12 +255,70 @@ namespace Promart.Pages
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             StudentRegistryCopyDataWindow dataWindow = new StudentRegistryCopyDataWindow();
-            var result = dataWindow.ShowDialog();
+            var dialogResult = dataWindow.ShowDialog();
 
-            if (result != true)
+            if (dialogResult != true)
                 return;
 
+            var result = dataWindow.GetResult();            
 
+            if (result == null)
+                return;
+
+            var student = result.Student;
+            var fields = result.SelectedFields;
+
+            if (fields.FamilyData)
+            {
+                Responsible.Text = student.ResponsibleName;
+                Phone.Text = student.ResponsiblePhone;
+                FamilyRelationship.SelectedIndex = (int)student.Relationship != 99 ? (int)student.Relationship : FamilyRelationship.Items.Count - 1;
+                Dwelling.SelectedIndex = (int)student.Dwelling != 99 ? (int)student.Dwelling : Dwelling.Items.Count - 1;
+                MonthlyIncome.SelectedIndex = (int)student.MonthlyIncome != 99 ? (int)student.MonthlyIncome : MonthlyIncome.Items.Count - 1;
+                BeneficiaryBox.SelectedIndex = student.IsGovernmentBeneficiary != null ? 0 : 1;
+            }
+
+            if (fields.FamilyComposition)
+            {
+                foreach(var relationship in student.Relationships)
+                {                    
+                    var control = new StudentRelationshipControl(relationship);
+
+                    RelationshipPanel.Children.Add(control);
+                }
+            }
+            
+            if (fields.AddressData)
+            {
+                Address.Text = student.AddressStreet;
+                AddressComplement.Text = student.AddressComplement;
+                AddressDistrict.Text = student.AddressDistrict;
+                AddressNumber.Text = student.AddressNumber;
+                AddressReference.Text = student.AddressReferencePoint;
+            }
+
+            if (fields.SchoolData)
+            {
+                SchoolName.Text = student.SchoolName;
+                SchoolShift.SelectedIndex = (int)student.SchoolShift != 99 ? (int)student.SchoolShift : SchoolShift.Items.Count - 1;
+                SchoolYear.SelectedIndex = (int)student.SchoolYear != 99 ? (int)student.SchoolYear : SchoolYear.Items.Count - 1;
+            }
+            
+            if (fields.ProjectData)
+            {                
+                ProjectStatus.SelectedIndex = (int)student.ProjectStatus != 99 ? (int)student.ProjectStatus : ProjectStatus.Items.Count - 1;
+                ProjectShift.SelectedItem = (int)student.ProjectShift != 99 ? (int)student.ProjectShift : ProjectShift.Items.Count - 1;
+                Observations.Text = student.Observations;
+                
+                foreach(var workshop in Workshops.Items)
+                {
+                    var checkBox = (CheckBox)workshop;
+                    var content = (Workshop)checkBox.Content;
+
+                    if (student.Workshops.Any(w => w.Id == content.Id))
+                        checkBox.IsChecked = true;                    
+                }
+            }            
         }
     }
 }

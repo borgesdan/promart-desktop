@@ -149,12 +149,12 @@ namespace Promart.Pages
 
             if (CheckAddress.IsChecked == true && !string.IsNullOrWhiteSpace(Address.Text))
             {
-                students = students.Where(s => s.Street != null && s.Street.Contains(Address.Text));
+                students = students.Where(s => s.AddressStreet != null && s.AddressStreet.Contains(Address.Text));
             }
 
             if (CheckAddressDistrict.IsChecked == true && !string.IsNullOrWhiteSpace(AddressDistrict.Text))
             {
-                students = students.Where(s => s.District != null && s.District.Contains(AddressDistrict.Text));
+                students = students.Where(s => s.AddressDistrict != null && s.AddressDistrict.Contains(AddressDistrict.Text));
             }
 
             if (CheckSchoolName.IsChecked == true && !string.IsNullOrWhiteSpace(SchoolName.Text))
@@ -177,7 +177,7 @@ namespace Promart.Pages
             if (CheckProjectStatus.IsChecked == true)
             {
                 var value = Gender.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido;
-                students = students.Where(s => s.Status == value);
+                students = students.Where(s => s.ProjectStatus == value);
             }
 
             if (CheckProjectShift.IsChecked == true)

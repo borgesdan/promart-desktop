@@ -12,8 +12,7 @@ namespace Promart.Database.Entities
         [Required]
         [StringLength(500)]
         public string? FullName { get; set; }
-
-        [Required]
+        
         public DateTime? BirthDate { get; set; }
 
         [Required]
@@ -41,28 +40,28 @@ namespace Promart.Database.Entities
         public MonthlyIncomeType MonthlyIncome { get; set; }
 
         [StringLength(200)]
-        public string? Street { get; set; }
+        public string? AddressStreet { get; set; }
         [StringLength(50)]
-        public string? District { get; set; }
+        public string? AddressDistrict { get; set; }
         [StringLength(10)]
-        public string? Number { get; set; }
+        public string? AddressNumber { get; set; }
         [StringLength(50)]
-        public string? Complement { get; set; }
+        public string? AddressComplement { get; set; }
         [StringLength(50)]
-        public string? City { get; set; }
+        public string? AddressCity { get; set; }
         [StringLength(20)]
-        public string? State { get; set; }
+        public string? AddressState { get; set; }
         [StringLength(10)]
-        public string? CEP { get; set; }
+        public string? AddressCEP { get; set; }
         [StringLength(200)]
-        public string? ReferencePoint { get; set; }
+        public string? AddressReferencePoint { get; set; }
 
         [StringLength(500)]
         public string? SchoolName { get; set; }
         public SchoolYearType SchoolYear { get; set; }
         public SchoolShiftType SchoolShift { get; set; }
 
-        public ProjectStatusType Status { get; set; }
+        public ProjectStatusType ProjectStatus { get; set; }
         public SchoolShiftType ProjectShift { get; set; }
         [StringLength(20)]
         public string? Registry { get; set; }

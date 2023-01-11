@@ -162,7 +162,7 @@ namespace Promart.Database
         [Description("3º ano médio")]
         Medio3 = 11,
         [Description("Outro ano ou ciclo")]
-        Outro = 98,
+        Outro = 12,
         [Description("Não informado")]
         Indefinido = 99
     }
