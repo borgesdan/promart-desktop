@@ -13,14 +13,16 @@ namespace Promart.Filters
         public string? Gender { get; set; }
         [DisplayName("Idade")]
         public string? Age { get; set; }
-        [DisplayName("Responsável")]
-        public string? ResponsibleName { get; set; }
-        [DisplayName("Telefone")]
-        public string? ResponsiblePhone { get; set; }
+        [DisplayName("Situação")]
+        public string? Status { get; set; }
         [DisplayName("Matrícula")]
         public string? Registry { get; set; }
         [DisplayName("Data Matrícula")]
         public string? RegistryDate { get; set; }
+        [DisplayName("Responsável")]
+        public string? ResponsibleName { get; set; }
+        [DisplayName("Telefone")]
+        public string? ResponsiblePhone { get; set; }        
 
         public Student? Student { get; set; }
 
@@ -31,6 +33,7 @@ namespace Promart.Filters
             FullName = student.FullName;
             Gender = student.Gender.Description();
             Age = student.BirthDate != null ? ((int)((DateTime.Now - student.BirthDate.Value).TotalDays / 365)).ToString() : null;
+            Status = student.ProjectStatus.Description();
             ResponsibleName = student.ResponsibleName;
             ResponsiblePhone = student.ResponsiblePhone;
             Registry = student.Registry;

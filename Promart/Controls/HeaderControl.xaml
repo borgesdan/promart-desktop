@@ -23,6 +23,7 @@
             FontSize="14"
             VerticalContentAlignment="Center"
             Click="Remove_Click"
+            BorderThickness="0"
             />
     </Grid>
 </UserControl>

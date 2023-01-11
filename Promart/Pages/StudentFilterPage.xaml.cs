@@ -15,16 +15,20 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentFilterPage : Page
     {
+        bool isLoaded = false;
+
         public StudentFilterPage()
         {
             InitializeComponent();
 
             Loaded += StudentFilterPage_Loaded;
-            Search.Click += async (sender, e) => Search_Click(sender, e);
         }        
 
         private void StudentFilterPage_Loaded(object sender, RoutedEventArgs e)
         {
+            if (isLoaded)
+                return;
+
             Gender.AddEnum<GenderType>();
             FamilyRelationship.AddEnum<StudentRelationshipType>();
             Dwelling.AddEnum<DwellingType>();
@@ -126,19 +130,19 @@ namespace Promart.Pages
 
             if (CheckFamilyRelationship.IsChecked == true)
             {
-                var value = Gender.GetEnum<StudentRelationshipType>() ?? StudentRelationshipType.Indefinido;
+                var value = FamilyRelationship.GetEnum<StudentRelationshipType>() ?? StudentRelationshipType.Indefinido;
                 students = students.Where(s => s.Relationship == value);
             }
 
             if (CheckDwelling.IsChecked == true)
             {
-                var value = Gender.GetEnum<DwellingType>() ?? DwellingType.Indefinido;
+                var value = Dwelling.GetEnum<DwellingType>() ?? DwellingType.Indefinido;
                 students = students.Where(s => s.Dwelling == value);
             }
 
             if (CheckMonthlyIncome.IsChecked == true)
             {
-                var value = Gender.GetEnum<MonthlyIncomeType>() ?? MonthlyIncomeType.Indefinido;
+                var value = MonthlyIncome.GetEnum<MonthlyIncomeType>() ?? MonthlyIncomeType.Indefinido;
                 students = students.Where(s => s.MonthlyIncome == value);
             }
 
@@ -164,41 +168,31 @@ namespace Promart.Pages
 
             if (CheckSchoolShift.IsChecked == true)
             {
-                var value = Gender.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
+                var value = SchoolShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
                 students = students.Where(s => s.SchoolShift == value);
             }
 
             if (CheckSchoolYear.IsChecked == true)
             {
-                var value = Gender.GetEnum<SchoolYearType>() ?? SchoolYearType.Indefinido;
+                var value = SchoolYear.GetEnum<SchoolYearType>() ?? SchoolYearType.Indefinido;
                 students = students.Where(s => s.SchoolYear == value);
             }
 
             if (CheckProjectStatus.IsChecked == true)
             {
-                var value = Gender.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido;
+                var value = ProjectStatus.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido;
                 students = students.Where(s => s.ProjectStatus == value);
             }
 
             if (CheckProjectShift.IsChecked == true)
             {
-                var value = Gender.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
+                var value = ProjectShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
                 students = students.Where(s => s.ProjectShift == value);
             }
 
             var result = await students.ToListAsync();
 
-            DataGridResult.ItemsSource = result.Select(s => new StudentFilter
-            {
-                FullName = s.FullName,
-                Gender = s.Gender.Description(),
-                Age = s.BirthDate != null ? ((int)((DateTime.Now - s.BirthDate.Value).TotalDays / 365)).ToString() : null,
-                ResponsibleName = s.ResponsibleName,
-                ResponsiblePhone = s.ResponsiblePhone,
-                Registry = s.Registry,
-                RegistryDate = s.RegistryDate?.ToShortDateString(),
-                Student = s,
-            });
+            DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
         }
     }
 }

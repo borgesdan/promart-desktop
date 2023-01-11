@@ -10,9 +10,9 @@ namespace Promart.Core
 
             string firstChars = fullName.Substring(0, 3);
             string year = dateTime.Year.ToString();
-            string[] guid = Guid.NewGuid().ToString().Split('-');
+            string[] guid = Guid.NewGuid().ToString().Split('-');            
 
-            return $"{firstChars.ToUpperInvariant()}-{year}-{guid[1].ToUpperInvariant()}";
-        }
+            return $"{firstChars.RemoveDiacritics().ToUpperInvariant()}-{year}-{guid[1].ToUpperInvariant()}";
+        }        
     }
 }

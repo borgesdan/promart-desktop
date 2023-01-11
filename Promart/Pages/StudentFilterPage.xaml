@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Promart.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="650" d:DesignWidth="800"
+      d:DesignHeight="1260" d:DesignWidth="800"
       Title="StudentFilterPage">
 
     <Page.Resources>
@@ -392,13 +392,14 @@
                             Grid.ColumnSpan="4">
                             <ComboBox
                                 Name="ProjectStatus"
-                                SelectedIndex="0"
+                                SelectedIndex="3"
                                 IsEnabled="{Binding ElementName=CheckProjectStatus, Path=IsChecked, TargetNullValue=False}"
                                 Style="{StaticResource DefaultComboBox}">
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
                                 x:Name="CheckProjectStatus"
+                                    IsChecked="True"
                                 VerticalContentAlignment="Center">
                                     Situação Projeto
                                 </CheckBox>
@@ -451,16 +452,20 @@
                 Margin="100 10"
                 Background="{StaticResource Color2}"
                 Foreground="White"
-                FontSize="{StaticResource DefaultSize}">                
+                FontSize="{StaticResource DefaultSize}"
+                Click="Search_Click">                
             </Button>
             
             <Expander Header="Resultado"                       
                 Style="{StaticResource FormExpander}">
-                <DataGrid x:Name="DataGridResult"
-                      IsReadOnly="True"
-                      CanUserDeleteRows="True" CanUserReorderColumns="True"
-                      CanUserResizeColumns="True" CanUserSortColumns="True"
-                      AutoGeneratingColumn="DataGridResult_AutoGeneratingColumn">
+                <DataGrid 
+                    x:Name="DataGridResult"
+                    Height="400"
+                    Margin="0 0 0 50"
+                    IsReadOnly="True"
+                    CanUserDeleteRows="True" CanUserReorderColumns="True"
+                    CanUserResizeColumns="True" CanUserSortColumns="True"
+                    AutoGeneratingColumn="DataGridResult_AutoGeneratingColumn">
                 </DataGrid>
             </Expander>
         </StackPanel>
