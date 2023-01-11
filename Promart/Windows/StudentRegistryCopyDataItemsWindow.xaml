@@ -1,0 +1,102 @@
+﻿<Window x:Class="Promart.Windows.StudentRegistryCopyDataItemsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Promart.Windows"
+        mc:Ignorable="d"
+        Title="Selecionar Campos" Height="450" Width="400"
+        WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+        <StackPanel 
+            Margin="10"
+            VerticalAlignment="Stretch">
+            <ListBox 
+                Height="300" 
+                >
+                <ListBoxItem 
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource Color3}"
+                    Margin="0 5">
+                    <CheckBox
+                        x:Name="FamilyComposition"                    
+                        Content="Composição Familiar"
+                        IsChecked="True"
+                        Width="320"
+                        Height="30"
+                        VerticalContentAlignment="Center" />
+                </ListBoxItem>
+                <ListBoxItem 
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource Color3}"
+                    Margin="0 5">
+                    <CheckBox
+                        x:Name="FamilyData"                    
+                        Content="Nome do Responsável e Dados da Família"
+                        IsChecked="True"
+                        Width="320"
+                        Height="30"
+                        VerticalContentAlignment="Center" />
+                </ListBoxItem>                              
+                <ListBoxItem 
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource Color3}"
+                    Margin="0 5">
+                    <CheckBox
+                        x:Name="Address"                    
+                        Content="Dados de Endereço"
+                        IsChecked="True"
+                        Width="320"
+                        Height="30"
+                        VerticalContentAlignment="Center" />
+                </ListBoxItem>
+                <ListBoxItem 
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource Color3}"
+                    Margin="0 5">
+                    <CheckBox
+                        x:Name="School"                    
+                        Content="Dados Escolares"
+                        IsChecked="True"
+                        Width="320"
+                        Height="30"
+                        VerticalContentAlignment="Center" />
+                </ListBoxItem>
+                <ListBoxItem 
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource Color3}"
+                    Margin="0 5">
+                    <CheckBox
+                        x:Name="Project"                    
+                        Content="Dados de Projeto"
+                        IsChecked="True"
+                        Width="320"
+                        Height="30"
+                        VerticalContentAlignment="Center" />
+                </ListBoxItem>                
+            </ListBox>
+            <Button
+                x:Name="SelectData"                
+                Content="SELECIONAR"
+                Height="35"
+                Width="200"
+                Margin="10"
+                HorizontalAlignment="Right"
+                FontWeight="Bold"
+                Click="SelectData_Click"
+                FontSize="{StaticResource NormalSize}"
+                Background="{StaticResource Color2}"
+                Foreground="White" />
+        </StackPanel>
+    </Grid>
+</Window>

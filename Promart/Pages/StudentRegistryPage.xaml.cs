@@ -29,15 +29,15 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentRegistryPage : Page
     {
-        bool isLoaded = false;        
+        bool isLoaded = false;
 
         public StudentRegistryPage()
         {
-            InitializeComponent();      
-            
+            InitializeComponent();
+
             Register.Click += async (sender, e) => await Register_Click(sender, e);
             BirthDate.SelectedDateChanged += BirthDate_SelectedDateChanged;
-            
+
             FullName.ApplyOnlyLetterOrWhiteSpace();
             Responsible.ApplyOnlyLetterOrWhiteSpace();
             CPF.ApplyOnlyNumbers();
@@ -55,7 +55,7 @@ namespace Promart.Pages
             var diff = now - selected;
 
             Age.Content = $"{(int)(diff.Value.TotalDays / 365)} anos";
-        }       
+        }
 
         private void AddRelationship_Click(object sender, RoutedEventArgs e)
         {
@@ -65,7 +65,7 @@ namespace Promart.Pages
             if (dialogResult != true)
                 return;
 
-            var result = relationshipWindow.GetResult();            
+            var result = relationshipWindow.GetResult();
             var control = new StudentRelationshipControl(result);
 
             RelationshipPanel.Children.Add(control);
@@ -87,7 +87,7 @@ namespace Promart.Pages
                 return false;
             }
 
-            if(FullName.Text.Length < 3)
+            if (FullName.Text.Length < 3)
             {
                 MessageBox.Show(
                    "O nome do aluno deve conter no minímo 3 letras.",
@@ -165,12 +165,12 @@ namespace Promart.Pages
             student.Registry = RegistryGenerator.NewRegistry(student.FullName);
 
             var workshops = new List<Workshop>();
-            
-            foreach(var item in Workshops.Items)
+
+            foreach (var item in Workshops.Items)
             {
                 var checkbox = (CheckBox)item;
 
-                if(checkbox.IsChecked == true)
+                if (checkbox.IsChecked == true)
                 {
                     var content = (Workshop)checkbox.Content;
                     workshops.Add(content);
@@ -181,13 +181,13 @@ namespace Promart.Pages
 
             var relationships = new List<FamilyRelationship>();
 
-            foreach(var child in RelationshipPanel.Children)
+            foreach (var child in RelationshipPanel.Children)
             {
-                if(child is StudentRelationshipControl relationshipControl)
+                if (child is StudentRelationshipControl relationshipControl)
                 {
                     var relationship = relationshipControl.GetRelationship();
 
-                    if(relationship != null && relationshipControl.IsFormularyValid)
+                    if (relationship != null && relationshipControl.IsFormularyValid)
                         relationships.Add(relationship);
                 }
             }
@@ -219,7 +219,7 @@ namespace Promart.Pages
                 MessageBoxButton.OK,
                 MessageBoxImage.Error
                 );
-                
+
                 this.IsEnabled = true;
             }
         }
@@ -248,6 +248,17 @@ namespace Promart.Pages
             }));
 
             isLoaded = true;
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            StudentRegistryCopyDataWindow dataWindow = new StudentRegistryCopyDataWindow();
+            var result = dataWindow.ShowDialog();
+
+            if (result != true)
+                return;
+
+
         }
     }
 }

@@ -44,6 +44,10 @@ namespace Promart.Pages
             {
                 e.Column.Header = displayName.DisplayName;                
             }
+            else
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
@@ -192,7 +196,8 @@ namespace Promart.Pages
                 ResponsibleName = s.ResponsibleName,
                 ResponsiblePhone = s.ResponsiblePhone,
                 Registry = s.Registry,
-                RegistryDate = s.RegistryDate?.ToShortDateString()
+                RegistryDate = s.RegistryDate?.ToShortDateString(),
+                Student = s,
             });
         }
     }

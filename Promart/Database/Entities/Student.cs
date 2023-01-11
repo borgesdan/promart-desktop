@@ -71,6 +71,9 @@ namespace Promart.Database.Entities
         [StringLength(3000)]
         public string? Observations { get; set; }
 
+        [Required]
+        public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
+
         public virtual ICollection<Workshop>? Workshops { get; set; }
         public virtual ICollection<FamilyRelationship>? Relationships { get; set; }
 

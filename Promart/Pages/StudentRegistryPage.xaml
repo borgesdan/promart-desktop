@@ -67,6 +67,7 @@
                         Content="Lupa"
                         Background="{StaticResource Color2}"
                         Foreground="White"
+                        Click="Search_Click"
                         >
                     </Button>
 
