@@ -62,7 +62,12 @@ namespace Promart.Windows
                 return;            
 
             using var context = App.AppDbContext;
-            var students = context.Students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text)).Include(s => s.Workshops).AsQueryable();
+            var students = context.Students.Where(s => 
+                s.FullName != null 
+                && s.FullName.Contains(FullName.Text))
+                    .Include(s => s.Workshops)
+                    .Include(s => s.Relationships)
+                    .AsQueryable();
 
             var result = await students.ToListAsync();
             

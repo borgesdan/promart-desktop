@@ -6,11 +6,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Promart.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "FamilyRelationships",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: true),
+                    Relationship = table.Column<byte>(type: "tinyint", nullable: false),
+                    Occupation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Schooling = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Income = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    RegistryStatus = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FamilyRelationships", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Students",
                 columns: table => new
@@ -18,7 +37,7 @@ namespace Promart.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Gender = table.Column<byte>(type: "tinyint", nullable: false),
                     CPF = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
                     RG = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
@@ -29,22 +48,23 @@ namespace Promart.Migrations
                     IsGovernmentBeneficiary = table.Column<bool>(type: "bit", nullable: true),
                     Dwelling = table.Column<byte>(type: "tinyint", nullable: false),
                     MonthlyIncome = table.Column<byte>(type: "tinyint", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    District = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Number = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Complement = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    State = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    CEP = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    ReferencePoint = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AddressStreet = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AddressDistrict = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    AddressNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    AddressComplement = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    AddressCity = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    AddressState = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    AddressCEP = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    AddressReferencePoint = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     SchoolName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SchoolYear = table.Column<byte>(type: "tinyint", nullable: false),
                     SchoolShift = table.Column<byte>(type: "tinyint", nullable: false),
-                    Status = table.Column<byte>(type: "tinyint", nullable: false),
+                    ProjectStatus = table.Column<byte>(type: "tinyint", nullable: false),
                     ProjectShift = table.Column<byte>(type: "tinyint", nullable: false),
                     Registry = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     RegistryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Observations = table.Column<string>(type: "nvarchar(3000)", maxLength: 3000, nullable: true)
+                    Observations = table.Column<string>(type: "nvarchar(3000)", maxLength: 3000, nullable: true),
+                    RegistryStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,7 +78,8 @@ namespace Promart.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    RegistryStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,27 +87,27 @@ namespace Promart.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FamilyRelationships",
+                name: "FamilyRelationshipStudent",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: true),
-                    Relationship = table.Column<byte>(type: "tinyint", nullable: false),
-                    Occupation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Schooling = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Income = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    StudentId = table.Column<int>(type: "int", nullable: true)
+                    RelationshipsId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FamilyRelationships", x => x.Id);
+                    table.PrimaryKey("PK_FamilyRelationshipStudent", x => new { x.RelationshipsId, x.StudentId });
                     table.ForeignKey(
-                        name: "FK_FamilyRelationships_Students_StudentId",
+                        name: "FK_FamilyRelationshipStudent_FamilyRelationships_RelationshipsId",
+                        column: x => x.RelationshipsId,
+                        principalTable: "FamilyRelationships",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FamilyRelationshipStudent_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,8 +135,8 @@ namespace Promart.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FamilyRelationships_StudentId",
-                table: "FamilyRelationships",
+                name: "IX_FamilyRelationshipStudent_StudentId",
+                table: "FamilyRelationshipStudent",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -128,10 +149,13 @@ namespace Promart.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FamilyRelationships");
+                name: "FamilyRelationshipStudent");
 
             migrationBuilder.DropTable(
                 name: "StudentWorkshop");
+
+            migrationBuilder.DropTable(
+                name: "FamilyRelationships");
 
             migrationBuilder.DropTable(
                 name: "Students");

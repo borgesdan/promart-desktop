@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Promart.Core;
 
@@ -29,7 +30,7 @@ namespace Promart.Database.Entities
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
-        public Student? Student { get; set; }
+        public ICollection<Student>? Student { get; set; }
 
         public string GetFullString()
         {
