@@ -42,7 +42,7 @@
                 <StackPanel>
                     <Button 
                         x:Name="Clear"
-                        Content="Limpar"
+                        Content="LIMPAR"
                         Width="200"
                         Height="30"
                         HorizontalAlignment="Right"
@@ -50,6 +50,7 @@
                         Click="Clear_Click"
                         Background="{StaticResource Color2}"
                         Foreground="White"
+                        FontWeight="Bold"
                         FontSize="{StaticResource DefaultSize}">                        
                     </Button>
                     <Grid x:Name="FiltersGrid">
@@ -447,12 +448,13 @@
 
             <Button 
                 x:Name="Search"
-                Content="Pesquisar"
+                Content="PESQUISAR"
                 Height="30"
                 Margin="100 10"
                 Background="{StaticResource Color2}"
                 Foreground="White"
                 FontSize="{StaticResource DefaultSize}"
+                FontWeight="Bold"
                 Click="Search_Click">                
             </Button>
             

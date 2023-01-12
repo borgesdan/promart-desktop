@@ -67,7 +67,6 @@
                     <CheckBox
                         x:Name="School"                    
                         Content="Dados Escolares"
-                        IsChecked="True"
                         Width="320"
                         Height="30"
                         VerticalContentAlignment="Center" />
@@ -79,7 +78,6 @@
                     <CheckBox
                         x:Name="Project"                    
                         Content="Dados de Projeto"
-                        IsChecked="True"
                         Width="320"
                         Height="30"
                         VerticalContentAlignment="Center" />
