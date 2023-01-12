@@ -5,8 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Promart.Controls"
              mc:Ignorable="d" MinWidth="600" Height="60">
-    <Grid Background="White">
-        
+
+    <Control.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Control.Resources>
+    
+    <Grid Background="White">        
         <GroupBox>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -14,16 +23,26 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Label
-                    x:Name="FullName"
-                    VerticalAlignment="Center"
-                    />
-                <Label
-                    x:Name="RegistryDate"
+                <GroupBox
+                    Header="Nome"
+                    FontSize="{StaticResource MinSize}"
+                    VerticalContentAlignment="Top">
+                    <Label
+                        x:Name="FullName"                                                
+                        FontSize="{StaticResource DefaultSize}"
+                        />
+                </GroupBox>
+                <GroupBox
+                    Header="Matrícula"
                     Grid.Column="1"
-                    VerticalAlignment="Center"
-                    />
-                <CheckBox x:Name="CheckAction" Visibility="Collapsed" />
+                    FontSize="{StaticResource MinSize}"
+                     VerticalContentAlignment="Top">
+                    <Label
+                        x:Name="RegistryDate"                        
+                        FontSize="{StaticResource DefaultSize}"
+                        />
+                </GroupBox>                
+                <CheckBox x:Name="CheckAction" Visibility="Collapsed" />                
                 <ComboBox
                     x:Name="Action"
                     Grid.Column="2"
