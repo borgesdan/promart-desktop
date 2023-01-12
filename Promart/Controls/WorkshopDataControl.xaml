@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Promart.Controls.WorkshopDataControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Promart.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="600" MinWidth="600"  MaxWidth="1200"             
+             Margin="10" BorderThickness="1" BorderBrush="Gray"
+             Loaded="UserControl_Loaded">
+
+    <Control.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Control.Resources>
+
+    <Grid 
+        x:Name="MainGrid"
+        Background="White">
+        <StackPanel Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <GroupBox
+                    Header="Nome da Oficina"                                   
+                    BorderThickness="0"
+                    FontSize="{StaticResource NormalSize}">
+                    <StackPanel>
+                        <TextBox
+                            x:Name="FullName"        
+                            FontWeight="Bold"
+                            FontSize="{StaticResource NormalSize}"
+                            MaxLength="{StaticResource FullNameMaxLength}"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
+                    Header="Situação"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="0"
+                    Grid.Column="1"
+                    FontSize="{StaticResource NormalSize}">
+                    <ComboBox
+                        x:Name="RegistryStatus" 
+                        BorderThickness="0"
+                        SelectedIndex="0">
+                        <ComboBoxItem Content="Ativa" />
+                        <ComboBoxItem Content="Inativa" />
+                    </ComboBox>
+                </GroupBox>
+            </Grid>                      
+            <GroupBox
+                Header="Descrição"
+                BorderThickness="0"
+                FontSize="{StaticResource NormalSize}">
+                <StackPanel>
+                    <TextBox
+                        x:Name="Description"
+                        MaxLength="480"                        
+                        Height="50"/>
+                </StackPanel>
+            </GroupBox>
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

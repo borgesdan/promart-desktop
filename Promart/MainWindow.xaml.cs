@@ -71,5 +71,11 @@ namespace Promart
             var tabItem = CreateNewTab("Filtro de Aluno", new StudentFilterPage());
             MainTab.Items.Add(tabItem);
         }
+
+        private void WorkshopList_Click(object sender, RoutedEventArgs e)
+        {
+            var tabItem = CreateNewTab("Lista de Oficinas", new WorkshopListPage());
+            MainTab.Items.Add(tabItem);
+        }
     }
 }
