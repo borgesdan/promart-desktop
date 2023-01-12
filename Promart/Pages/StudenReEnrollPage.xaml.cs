@@ -54,8 +54,9 @@ namespace Promart.Pages
         }
 
         private async void Apply_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             using var context = App.AppDbContext;
+            bool hasModification = false;
 
             foreach (var child in ResultPanel.Children)
             {
@@ -67,15 +68,27 @@ namespace Promart.Pages
                     student.RegistryDate = DateTime.Now;
 
                     context.Update(student);
+
+                    hasModification = true;
                 }
-            }   
-            
-            await context.SaveChangesAsync();
+            }
 
-            MessageBox.Show("Alunos rematriculados com sucesso.", "Rematricula aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (hasModification)
+            {
+                await context.SaveChangesAsync();
 
-            ResultPanel.Children.Clear();
-            Apply.IsEnabled = true;
+                MessageBox.Show("Alunos rematriculados com sucesso.", "Rematricula aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                ResultPanel.Children.Clear();
+                Apply.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Nenhum dado foi alterado.", "Rematricula não aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+                ResultPanel.Children.Clear();
+                Apply.IsEnabled = false;
+            }
+
         }
     }
 }
