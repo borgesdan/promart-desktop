@@ -20,7 +20,7 @@ namespace Promart.Controls
         private Brush[] _brushes = new Brush[]
         {
             Brushes.AliceBlue,
-            Brushes.LightGray,
+            Brushes.LightPink,
         };
 
 
@@ -38,14 +38,12 @@ namespace Promart.Controls
         {
             Id = _workshop.Id,
             Name = FullName.Text.Trim(),
-            Description = Description.Text.Trim(),
             RegistryStatus = (RegistryStatus)RegistryStatus.SelectedIndex,
         };
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             FullName.Text = _workshop.Name;
-            Description.Text = _workshop.Description;
             RegistryStatus.SelectedIndex = _workshop.RegistryStatus != Database.RegistryStatus.Deleted 
                 ? (int)_workshop.RegistryStatus : (int)Database.RegistryStatus.Inactive;
         }

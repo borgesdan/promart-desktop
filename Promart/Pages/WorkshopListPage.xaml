@@ -19,8 +19,12 @@
 
 
     <Grid Background="White">
-        <StackPanel x:Name="MainPanel">
+        <StackPanel>
             
-        </StackPanel>
+            <ScrollViewer>
+                <StackPanel x:Name="MainPanel">
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>        
     </Grid>
 </Page>

@@ -56,6 +56,7 @@
                             BorderThickness="0"
                             Margin="2 0 2 5"
                             Background="White"
+                            Click="StudentRegister_Click"
                             FontSize="{StaticResource NormalSize }"
                             />
                         <Button
@@ -65,6 +66,17 @@
                             BorderThickness="0"
                             Margin="2 0 2 5"
                             Background="White"
+                            Click="StudentFilter_Click"
+                            FontSize="{StaticResource NormalSize }"
+                            />
+                        <Button
+                            x:Name="StudentReEnroll"
+                            Content="Rematricular"
+                            Height="30"
+                            BorderThickness="0"
+                            Margin="2 0 2 5"
+                            Background="White"
+                            Click="StudentReEnroll_Click"
                             FontSize="{StaticResource NormalSize }"
                             />
                     </StackPanel>

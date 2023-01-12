@@ -27,10 +27,7 @@ namespace Promart
     {
         public MainWindow()
         {   
-            InitializeComponent();
-
-            StudentRegister.Click += (sender, e) => StudentRegister_Click(sender, e);
-            StudentFilter.Click += (sender, e) => StudentFilter_Click(sender, e);
+            InitializeComponent();            
         }        
 
         private static TabItem CreateNewTab(string header, Page contentPage)
@@ -60,7 +57,7 @@ namespace Promart
             return tabItem;
         }        
 
-        private async Task StudentRegister_Click(object sender, RoutedEventArgs e)
+        private async void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
             var tabItem = CreateNewTab("Novo Aluno", new StudentRegistryPage());
             MainTab.Items.Add(tabItem);
@@ -75,6 +72,12 @@ namespace Promart
         private void WorkshopList_Click(object sender, RoutedEventArgs e)
         {
             var tabItem = CreateNewTab("Lista de Oficinas", new WorkshopListPage());
+            MainTab.Items.Add(tabItem);
+        }
+
+        private void StudentReEnroll_Click(object sender, RoutedEventArgs e)
+        {
+            var tabItem = CreateNewTab("Rematricular", new StudenReEnrollPage());
             MainTab.Items.Add(tabItem);
         }
     }

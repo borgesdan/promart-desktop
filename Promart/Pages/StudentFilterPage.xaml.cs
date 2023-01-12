@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using Promart.Core;
 using Promart.Database;
 using Promart.Filters;
@@ -29,6 +30,9 @@ namespace Promart.Pages
             if (isLoaded)
                 return;
 
+            Age.ApplyOnlyNumbers();
+            ProjectYear.ApplyOnlyNumbers();
+
             Gender.AddEnum<GenderType>();
             FamilyRelationship.AddEnum<StudentRelationshipType>();
             Dwelling.AddEnum<DwellingType>();
@@ -37,6 +41,8 @@ namespace Promart.Pages
             SchoolYear.AddEnum<SchoolYearType>();
             ProjectStatus.AddEnum<ProjectStatusType>();
             ProjectShift.AddEnum<SchoolShiftType>();
+
+            ProjectYear.Text = DateTime.Now.Year.ToString();
         }
 
         private void DataGridResult_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -67,6 +73,8 @@ namespace Promart.Pages
 
         private async void Search_Click(object sender, RoutedEventArgs e)
         {
+            MainGrid.TrimAllTextBox();
+
             using var context = App.AppDbContext;
             var students = context.Students.AsQueryable();
 
@@ -188,6 +196,12 @@ namespace Promart.Pages
             {
                 var value = ProjectShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
                 students = students.Where(s => s.ProjectShift == value);
+            }
+
+            if(CheckProjectYear.IsChecked == true)
+            {
+                students = students.Where(s => s.RegistryDate != null
+                    && s.RegistryDate.Value.Year == int.Parse(ProjectYear.Text));
             }
 
             var result = await students.ToListAsync();
