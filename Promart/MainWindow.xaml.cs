@@ -27,8 +27,13 @@ namespace Promart
     {
         public MainWindow()
         {   
-            InitializeComponent();            
-        }        
+            InitializeComponent();    
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            StudentReEnroll.Content = $"Rematrícula {DateTime.Now.Year + 1}";
+        }
 
         private static TabItem CreateNewTab(string header, Page contentPage)
         {
@@ -57,7 +62,7 @@ namespace Promart
             return tabItem;
         }        
 
-        private async void StudentRegister_Click(object sender, RoutedEventArgs e)
+        private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
             var tabItem = CreateNewTab("Novo Aluno", new StudentRegistryPage());
             MainTab.Items.Add(tabItem);
@@ -79,6 +84,6 @@ namespace Promart
         {
             var tabItem = CreateNewTab("Rematricular", new StudenReEnrollPage());
             MainTab.Items.Add(tabItem);
-        }
+        }        
     }
 }

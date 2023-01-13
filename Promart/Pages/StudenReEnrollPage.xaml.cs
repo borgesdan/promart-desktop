@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Controls;
 using Promart.Core;
+using Promart.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +24,41 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudenReEnrollPage : Page
     {
+        public static int nextYear = DateTime.Now.Year + 1;
+
         public StudenReEnrollPage()
         {
             InitializeComponent();
         }
 
-        private async void Search_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ResultPanel.Children.Clear();            
+            nextYear = DateTime.Now.Year + 1;
+            Observation.Text = $"Nesta página você pode rematricular os alunos deste ano {nextYear - 1} para o ano de {nextYear}.\n" +
+                "\n1) Digite o nome do aluno e/ou clique no botão PESQUISAR e uma lista de alunos aparecerá. " +
+                "\n2) No lado esquerdo, em AÇÂO, selecione REMATRICULAR. Repita o processo para todos os alunos desejados. " +
+                $"\n3) Ao fim, clique em APLICAR. Os alunos serão rematriculados para o ano de {nextYear}";
+        }
 
-            using var context = App.AppDbContext;            
+        private async Task<List<Student>> GetStudents()
+        {
+            using var context = App.AppDbContext;
 
             var students = context.Students.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(FullName.Text))
-                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));                            
-            
+                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));
+
             students = students.Where(s => s.ProjectRegistryDate != null && s.ProjectRegistryDate.Value.Year.ToString() == DateTime.Now.Year.ToString());
 
-            var result = await students.ToListAsync();
+            return await students.ToListAsync();
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
+        {
+            ResultPanel.Children.Clear();
+
+            var result = await GetStudents();
 
             if(result.Count > 0)
             {
@@ -56,7 +73,7 @@ namespace Promart.Pages
         }
 
         private async void Apply_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             using var context = App.AppDbContext;
             bool hasModification = false;
 
@@ -67,7 +84,9 @@ namespace Promart.Pages
                 if (control.IsSelectedReEnroll())
                 {
                     var student = control.GetStudent();
-                    student.ProjectRegistryDate = DateTime.Now;
+
+                    var now = DateTime.Now;
+                    student.ProjectRegistryDate = new DateTime(now.Year + 1, 1, 1);
                     student.ProjectStatus = Database.ProjectStatusType.Matriculado;
 
                     context.Update(student);
@@ -78,20 +97,32 @@ namespace Promart.Pages
 
             if (hasModification)
             {
-                await context.SaveChangesAsync();
+                var messageBoxResult = MessageBox.Show(
+                $"Deseja realmente rematricular os alunos selecionados para o ano de {nextYear}?",
+                $"Rematricula {nextYear}",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
 
-                MessageBox.Show("Alunos rematriculados com sucesso.", "Rematricula aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    await context.SaveChangesAsync();
 
-                ResultPanel.Children.Clear();
-                Apply.IsEnabled = false;
+                    MessageBox.Show(
+                        $"Alunos rematriculados para o ano de {nextYear} com sucesso.",
+                        $"Rematricula {nextYear} aplicada",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+
+                    ResultPanel.Children.Clear();
+                    Apply.IsEnabled = false;                    
+
+                    return;
+                }                
             }
-            else
-            {
-                MessageBox.Show("Nenhum dado foi alterado.", "Rematricula não aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
-                ResultPanel.Children.Clear();
-                Apply.IsEnabled = false;
-            }
 
-        }
+            MessageBox.Show("Nenhum dado foi alterado.", "Rematricula não aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+            ResultPanel.Children.Clear();
+            Apply.IsEnabled = false;
+        }       
     }
 }

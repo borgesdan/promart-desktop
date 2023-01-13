@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Promart.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StudenReEnrollPage">
+      Title="StudenReEnrollPage"
+      Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -18,53 +19,50 @@
     </Page.Resources>
 
     <Grid Background="White">
-        <Expander 
-                Header="Selecionar"                 
-                Style="{StaticResource FormExpander}">
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <GroupBox
-                        Header="Pesquisa por Nome"
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="12">
-                        <TextBox
-                            x:Name="FullName"
-                            IsEnabled="{Binding ElementName=CheckProjectYear, Path=IsChecked, TargetNullValue=False}"
-                            MaxLength="4"
-                            Style="{StaticResource FormTextBox}"/>
-                    </GroupBox>
-                </Grid>
-                <Button 
-                    x:Name="Search"
-                    Content="PESQUISAR"
-                    Height="30"
-                    Margin="100 10"
-                    Background="{StaticResource Color2}"
-                    Foreground="White"
-                    FontSize="{StaticResource DefaultSize}"
-                    FontWeight="Bold"
-                    Click="Search_Click">
-                </Button>
-                <Expander 
+        <StackPanel>
+            <GroupBox
+                Header="Observação"
+                Margin="5 10 0 30"
+                FontSize="{StaticResource SmallSize}"
+                Background="{StaticResource Color4}">
+                <TextBlock
+                    x:Name="Observation"
+                    FontSize="{StaticResource NormalSize}"
+                    Margin="10 20"
+                    FontStyle="Italic"
+                    TextWrapping="Wrap"                    
+                    >                    
+                </TextBlock>
+            </GroupBox>
+            <GroupBox
+                Header="Barra de Pesquisa"
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.ColumnSpan="12">
+                <StackPanel>
+                    <TextBox
+                        x:Name="FullName"
+                        Margin="5 10"
+                        MaxLength="4"
+                        Style="{StaticResource FormTextBox}"/>
+                    <Button  
+                        x:Name="Search"
+                        Content="PESQUISAR"
+                        Height="30"
+                        Margin="100 10"
+                        Background="{StaticResource Color2}"
+                        Foreground="White"
+                        FontSize="{StaticResource DefaultSize}"
+                        FontWeight="Bold"
+                        Click="Search_Click">
+                    </Button>                    
+                </StackPanel>                
+            </GroupBox>            
+            <Expander 
                     Header="Resultado"                 
                     Style="{StaticResource FormExpander}">
-                    <StackPanel>
-                        <Button 
+                <StackPanel>
+                    <Button 
                             x:Name="Apply"
                             Content="APLICAR"
                             Height="30"
@@ -77,15 +75,15 @@
                             FontSize="{StaticResource DefaultSize}"
                             FontWeight="Bold"
                             Click="Apply_Click"/>
-                        <ScrollViewer 
+                    <ScrollViewer 
                             MaxHeight="1000"
                             Margin="0 0 0 100">
-                            <StackPanel
+                        <StackPanel
                                 x:Name="ResultPanel"/>
-                        </ScrollViewer>                        
-                    </StackPanel>                    
-                </Expander>                
-            </StackPanel>
-        </Expander>
+                    </ScrollViewer>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+        
     </Grid>
 </Page>

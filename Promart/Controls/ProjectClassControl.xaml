@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="Promart.Controls.StudentReEnrollControl"
+﻿<UserControl x:Class="Promart.Controls.ProjectClassControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Promart.Controls"
-             mc:Ignorable="d" MinWidth="600" Height="60">
-
+             mc:Ignorable="d" 
+             MinWidth="600" Height="60">
     <Control.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,17 +14,17 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Control.Resources>
-    
-    <Grid Background="White">        
+
+    <Grid Background="White">
         <GroupBox>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <GroupBox
-                    Header="Nome"
+                    Header="Ano"
                     FontSize="{StaticResource MinSize}"
                     VerticalContentAlignment="Top">
                     <Label
@@ -33,7 +33,7 @@
                         />
                 </GroupBox>
                 <GroupBox
-                    Header="Matrícula"
+                    Header="Alunos"
                     Grid.Column="1"
                     FontSize="{StaticResource MinSize}"
                      VerticalContentAlignment="Top">
@@ -41,9 +41,9 @@
                         x:Name="RegistryDate"                        
                         FontSize="{StaticResource DefaultSize}"
                         />
-                </GroupBox>
+                </GroupBox>                
                 <GroupBox
-                    Header="Ação"
+                    Header="Turma atual"
                     Grid.Column="2"
                     FontSize="{StaticResource MinSize}"
                      VerticalContentAlignment="Top">
@@ -54,8 +54,6 @@
                             Grid.Column="2"
                             SelectedIndex="0"
                             VerticalAlignment="Center"
-                            FontSize="{StaticResource DefaultSize}"
-                            SelectionChanged="Action_SelectionChanged"
                             >
                             <ComboBoxItem                 
                                 Content="-"
@@ -67,7 +65,8 @@
                                 />
                         </ComboBox>
                     </StackPanel>
-                </GroupBox>                          
+                </GroupBox>
+                
             </Grid>
             <GroupBox.Style>
                 <Style TargetType="GroupBox">
@@ -78,6 +77,6 @@
                     </Style.Triggers>
                 </Style>
             </GroupBox.Style>
-        </GroupBox>        
+        </GroupBox>
     </Grid>
 </UserControl>
