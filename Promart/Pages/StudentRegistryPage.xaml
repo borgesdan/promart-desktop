@@ -492,13 +492,14 @@
             </Expander>
             <Button
                 x:Name="Register"
-                Content="MATRICULAR"                
+                Content="CADASTRAR"                
                 Height="50"
                 Margin="50 10" 
                 Background="{StaticResource Color2}"
                 FontSize="{StaticResource DefaultSize2}"                
                 FontWeight="Bold"   
                 BorderThickness="0"
+                Click="Register_Click"
             />
         </StackPanel>
     </Grid>

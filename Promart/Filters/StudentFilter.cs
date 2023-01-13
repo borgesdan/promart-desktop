@@ -36,8 +36,8 @@ namespace Promart.Filters
             Status = student.ProjectStatus.Description();
             ResponsibleName = student.ResponsibleName;
             ResponsiblePhone = student.ResponsiblePhone;
-            Registry = student.Registry;
-            RegistryDate = student.RegistryDate?.ToShortDateString();
+            Registry = student.ProjectRegistry;
+            RegistryDate = student.ProjectRegistryDate?.ToShortDateString();
             Student = student;
         }
     }

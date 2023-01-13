@@ -200,8 +200,8 @@ namespace Promart.Pages
 
             if(CheckProjectYear.IsChecked == true)
             {
-                students = students.Where(s => s.RegistryDate != null
-                    && s.RegistryDate.Value.Year == int.Parse(ProjectYear.Text));
+                students = students.Where(s => s.ProjectRegistryDate != null
+                    && s.ProjectRegistryDate.Value.Year == int.Parse(ProjectYear.Text));
             }
 
             var result = await students.ToListAsync();

@@ -26,31 +26,33 @@ namespace Promart.Pages
         public StudenReEnrollPage()
         {
             InitializeComponent();
-
-            ProjectYear.ApplyOnlyNumbers();
         }
 
         private async void Search_Click(object sender, RoutedEventArgs e)
         {
-            ResultPanel.Children.Clear();
-            Apply.IsEnabled = true;
+            ResultPanel.Children.Clear();            
 
             using var context = App.AppDbContext;            
 
             var students = context.Students.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(FullName.Text))
-                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));     
+                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));                            
             
-            if(!string.IsNullOrWhiteSpace(ProjectYear.Text))
-                students = students.Where(s => s.RegistryDate != null && s.RegistryDate.Value.Year.ToString() == ProjectYear.Text);
+            students = students.Where(s => s.ProjectRegistryDate != null && s.ProjectRegistryDate.Value.Year.ToString() == DateTime.Now.Year.ToString());
 
             var result = await students.ToListAsync();
 
             if(result.Count > 0)
+            {
                 result.ForEach(s => ResultPanel.Children.Add(new StudentReEnrollControl(s)));
+                Apply.IsEnabled = true;
+            }
             else
+            {
                 Apply.IsEnabled = false;
+                MessageBox.Show("Não foi encontrado nenhum resultado para essa busca.", "Rematricula não aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+            }                
         }
 
         private async void Apply_Click(object sender, RoutedEventArgs e)
@@ -65,7 +67,8 @@ namespace Promart.Pages
                 if (control.IsSelectedReEnroll())
                 {
                     var student = control.GetStudent();
-                    student.RegistryDate = DateTime.Now;
+                    student.ProjectRegistryDate = DateTime.Now;
+                    student.ProjectStatus = Database.ProjectStatusType.Matriculado;
 
                     context.Update(student);
 

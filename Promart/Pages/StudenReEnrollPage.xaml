@@ -38,23 +38,12 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox
-                        Header="Nome"
+                        Header="Pesquisa por Nome"
                         Grid.Column="0"
                         Grid.Row="0"
-                        Grid.ColumnSpan="8">
+                        Grid.ColumnSpan="12">
                         <TextBox
-                                x:Name="FullName"
-                                IsEnabled="{Binding ElementName=CheckProjectYear, Path=IsChecked, TargetNullValue=False}"
-                                MaxLength="4"
-                                Style="{StaticResource FormTextBox}"/>
-                    </GroupBox>                    
-                    <GroupBox
-                        Header="Ano da Matrícula"
-                        Grid.Column="8"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="4">
-                        <TextBox
-                            x:Name="ProjectYear"
+                            x:Name="FullName"
                             IsEnabled="{Binding ElementName=CheckProjectYear, Path=IsChecked, TargetNullValue=False}"
                             MaxLength="4"
                             Style="{StaticResource FormTextBox}"/>
@@ -88,8 +77,12 @@
                             FontSize="{StaticResource DefaultSize}"
                             FontWeight="Bold"
                             Click="Apply_Click"/>
-                        <StackPanel
-                            x:Name="ResultPanel" />
+                        <ScrollViewer 
+                            MaxHeight="1000"
+                            Margin="0 0 0 100">
+                            <StackPanel
+                                x:Name="ResultPanel"/>
+                        </ScrollViewer>                        
                     </StackPanel>                    
                 </Expander>                
             </StackPanel>

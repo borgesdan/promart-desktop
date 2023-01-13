@@ -34,8 +34,7 @@ namespace Promart.Pages
         public StudentRegistryPage()
         {
             InitializeComponent();
-
-            Register.Click += async (sender, e) => await Register_Click(sender, e);
+            
             BirthDate.SelectedDateChanged += BirthDate_SelectedDateChanged;
 
             FullName.ApplyOnlyLetterOrWhiteSpace();
@@ -126,7 +125,7 @@ namespace Promart.Pages
             return true;
         }
 
-        private async Task Register_Click(object sender, RoutedEventArgs e)
+        private async void Register_Click(object sender, RoutedEventArgs e)
         {
             if (!Validate())
                 return;
@@ -158,11 +157,11 @@ namespace Promart.Pages
                 SchoolShift = SchoolShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido,
                 ProjectStatus = ProjectStatus.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido,
                 ProjectShift = ProjectShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido,
-                RegistryDate = DateTime.Now,
+                ProjectRegistryDate = DateTime.Now,
                 Observations = Observations.Text,
             };
 
-            student.Registry = RegistryGenerator.NewRegistry(student.FullName);
+            student.ProjectRegistry = RegistryGenerator.NewRegistry(student.FullName);
 
             var workshops = new List<Workshop>();
 
@@ -204,7 +203,7 @@ namespace Promart.Pages
                 await context.SaveChangesAsync();
 
                 MessageBox.Show(
-                $"Aluno matrículado com sucesso. Matrícula: {student.Registry}",
+                $"Aluno matrículado com sucesso. Matrícula: {student.ProjectRegistry}",
                 "Aluno matriculado",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information

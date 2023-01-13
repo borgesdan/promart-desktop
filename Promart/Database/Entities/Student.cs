@@ -64,8 +64,8 @@ namespace Promart.Database.Entities
         public ProjectStatusType ProjectStatus { get; set; }
         public SchoolShiftType ProjectShift { get; set; }
         [StringLength(20)]
-        public string? Registry { get; set; }
-        public DateTime? RegistryDate { get; set; }
+        public string? ProjectRegistry { get; set; }
+        public DateTime? ProjectRegistryDate { get; set; }
 
         [StringLength(3000)]
         public string? Observations { get; set; }

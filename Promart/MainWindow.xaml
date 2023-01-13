@@ -87,6 +87,19 @@
                     Background="{StaticResource Color2}">
                     <Expander.Header>
                         <Label
+                            Content="ALUNOS"
+                            Foreground="White"
+                            FontWeight="DemiBold"
+                            FontSize="{StaticResource NormalSize }"
+                            />
+                    </Expander.Header>
+                </Expander>
+                <Expander 
+                    IsExpanded="True"
+                    Margin="5"
+                    Background="{StaticResource Color2}">
+                    <Expander.Header>
+                        <Label
                             Content="OFICINAS"
                             Foreground="White"
                             FontWeight="DemiBold"

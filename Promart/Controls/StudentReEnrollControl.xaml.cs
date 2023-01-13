@@ -30,7 +30,7 @@ namespace Promart.Controls
             _student = student;
 
             FullName.Content = _student.FullName;
-            RegistryDate.Content = _student.RegistryDate?.ToShortDateString();
+            RegistryDate.Content = _student.ProjectRegistryDate?.ToShortDateString();
         }
 
         public bool IsSelectedReEnroll() => Action.SelectedIndex == 1;
