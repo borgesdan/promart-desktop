@@ -72,13 +72,32 @@
                             FontSize="{StaticResource NormalSize }"
                             />
                         <Button
-                            x:Name="StudentReEnroll"
-                            Content="Rematricular"
+                            x:Name="StudentList"
+                            Content="Lista de Alunos"
                             Height="30"
                             BorderThickness="0"
                             Margin="2 0 2 5"
                             Background="White"
-                            Click="StudentReEnroll_Click"
+                            Click="StudentList_Click"
+                            FontSize="{StaticResource NormalSize }"
+                            />
+                        <Button
+                            x:Name="StudentSearch"
+                            Content="Busca"
+                            Height="30"
+                            BorderThickness="0"
+                            Margin="2 0 2 5"
+                            Background="White"
+                            FontSize="{StaticResource NormalSize }"
+                            />
+                        <Button
+                            x:Name="StudentReEnroll"
+                            Content="Rematricular"
+                            Height="30"
+                            BorderThickness="0"
+                            Margin="2 20 2 5"
+                            Background="White"
+                            FontWeight="Bold"
                             FontSize="{StaticResource NormalSize }"
                             />
                     </StackPanel>

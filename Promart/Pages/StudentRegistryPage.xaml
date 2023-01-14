@@ -19,8 +19,52 @@
 
     <Grid Background="White" x:Name="MainGrid">
         <StackPanel>
+            <Expander 
+                Header="Cadastro"              
+                x:Name="RegistryExpander"
+                Visibility="Collapsed"
+                Style="{StaticResource FormExpander}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox
+                        Header="Matrícula"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="3"
+                        Style="{StaticResource DefaultGroupBox}">
+                        <TextBox
+                            x:Name="RegistryNumber"         
+                            IsReadOnly="True"
+                            Style="{StaticResource FormTextBox}"/>
+                    </GroupBox>
+                    <GroupBox
+                        Header="Data de Cadastro"
+                        Grid.Column="9"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="3"
+                        Style="{StaticResource DefaultGroupBox}">
+                        <DatePicker
+                            x:Name="RegistryDate"
+                            IsEnabled="False"                            
+                            Style="{StaticResource DefaultDatePicker}"
+                            />
+                    </GroupBox>
+                </Grid>
+            </Expander>
             <Expander Header="Dados Pessoais" 
-                      x:Name="PersonalDataSession"
                 Style="{StaticResource FormExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -80,8 +124,8 @@
                         <DatePicker
                             x:Name="BirthDate"
                             Style="{StaticResource DefaultDatePicker}"
+                            SelectedDateChanged="BirthDate_SelectedDateChanged"
                             />
-
                     </GroupBox>
 
                     <GroupBox
@@ -267,7 +311,8 @@
                                 HorizontalAlignment="Right"
                                 Click="AddRelationship_Click"                                
                                 Background="{StaticResource Color2}"
-                                Foreground="White"/>
+                                Foreground="White"
+                                FontWeight="Bold"/>
                         </StackPanel>                        
                     </GroupBox>
                 </Grid>

@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Promart.Pages;
 using Promart.Controls;
+using Promart.Database.Entities;
 
 namespace Promart
 {
@@ -25,9 +26,12 @@ namespace Promart
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Instance { get; private set; }        
+
         public MainWindow()
         {   
-            InitializeComponent();    
+            InitializeComponent();
+            Instance = this;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,8 +68,7 @@ namespace Promart
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
-            var tabItem = CreateNewTab("Novo Aluno", new StudentRegistryPage());
-            MainTab.Items.Add(tabItem);
+            OpenNewStudentRegisterTab();
         }
 
         private void StudentFilter_Click(object sender, RoutedEventArgs e)
@@ -84,6 +87,21 @@ namespace Promart
         {
             var tabItem = CreateNewTab("Rematricular", new StudenReEnrollPage());
             MainTab.Items.Add(tabItem);
-        }        
+        }
+
+        private void StudentList_Click(object sender, RoutedEventArgs e)
+        {
+            var tabItem = CreateNewTab("Lista de Alunos", new StudentListPage());
+            MainTab.Items.Add(tabItem);
+        }
+
+        public void OpenNewStudentRegisterTab(Student? student = null)
+        {
+            var studentPage = student != null ? new StudentRegistryPage(student) : new StudentRegistryPage();
+            var header = student != null ? student.FullName : "Novo Aluno";
+
+            var tabItem = CreateNewTab(header, studentPage);
+            MainTab.Items.Add(tabItem);
+        }
     }
 }

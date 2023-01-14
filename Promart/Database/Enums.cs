@@ -7,11 +7,11 @@ namespace Promart.Database
     public enum GenderType : byte
     {
         [Description("Masculino")]
-        Masculino = 0,
+        Masculino,
         [Description("Feminino")]
-        Feminino = 1,
+        Feminino,
         [Description("Não informado")]
-        Indefinido = 99
+        Indefinido
     }
 
     /// <summary>
@@ -20,49 +20,49 @@ namespace Promart.Database
     public enum StudentRelationshipType : byte
     {
         [Description("Pais")]
-        Pais = 0,
+        Pais,
         [Description("Avós")]
-        Avos = 1,
+        Avos,
         [Description("Somente a mãe")]
-        Somente_Mae = 2,
+        Somente_Mae,
         [Description("Somente o pai")]
-        Somente_Pai = 3,
+        Somente_Pai,
         [Description("Mãe e padrasto")]
-        Mae_Padrasto = 4,
+        Mae_Padrasto,
         [Description("Pai e madrasta")]
-        Pai_Madrasta = 5,
+        Pai_Madrasta,
         [Description("Tios")]
-        Tios = 6,
+        Tios,
         [Description("Outro")]
-        Outro = 7,
+        Outro,
         [Description("Não informado")]
-        Indefinido = 99,
+        Indefinido,
     }
 
     public enum FamilyRelationshipType : byte
     {
         [Description("Pai")]
-        Pai = 0,
+        Pai,
         [Description("Mãe")]
-        Mae = 1,
+        Mae,
         [Description("Filho")]
-        Filho = 2,
+        Filho,
         [Description("Irmão")]
-        Irmao = 3,
+        Irmao,
         [Description("Avô")]
-        Avo = 4,
+        Avo,
         [Description("Bisavô")]
-        Bisavo = 5,
+        Bisavo,
         [Description("Tio")]
-        Tio = 6,
+        Tio,
         [Description("Neto")]
-        Neto = 7,
+        Neto,
         [Description("Primo")]
-        Primo = 8,
+        Primo,
         [Description("Outro")]
-        Outro = 9,
+        Outro,
         [Description("Não informado")]
-        Indefinido = 99
+        Indefinido
     }
 
     /// <summary>
@@ -71,11 +71,11 @@ namespace Promart.Database
     public enum SchoolShiftType : byte
     {
         [Description("Matutino")]
-        Matutino = 0,
+        Matutino,
         [Description("Vespertino")]
-        Vespertino = 1,
+        Vespertino,
         [Description("Não informado")]
-        Indefinido = 99
+        Indefinido
     }
 
     /// <summary>
@@ -84,15 +84,15 @@ namespace Promart.Database
     public enum DwellingType : byte
     {
         [Description("Própria")]
-        Propria = 0,
+        Propria,
         [Description("Alugada")]
-        Alugada = 1,
+        Alugada,
         [Description("Cedida")]
-        Cedida = 2,
+        Cedida,
         [Description("Outro")]
-        Outro = 3,
+        Outro,
         [Description("Não informado")]
-        Indefinido = 99,
+        Indefinido,
     }
 
     /// <summary>
@@ -101,15 +101,15 @@ namespace Promart.Database
     public enum MonthlyIncomeType : byte
     {
         [Description("Menor que 1/2 salário")]
-        Menor_Meio_Salario_Minimo = 0,
+        Menor_Meio_Salario_Minimo,
         [Description("1/2 salário")]
-        Meio_Salario_Minimo = 1,
+        Meio_Salario_Minimo,
         [Description("1 salário")]
-        Salario_Minimo = 2,
-        [Description("2 ou mais salários")]        
-        Dois_Salarios_Ou_Mais = 4,
+        Salario_Minimo,
+        [Description("2 ou mais salários")]
+        Dois_Salarios_Ou_Mais,
         [Description("Não informado")]
-        Indefinido = 99
+        Indefinido
     }
 
     /// <summary>
@@ -118,52 +118,52 @@ namespace Promart.Database
     public enum ProjectStatusType : byte
     {
         [Description("Inscrito")]
-        Inscrito = 0,
+        Inscrito,
         [Description("Aprovado")]
-        Aprovado = 1,
+        Aprovado,
         [Description("Em espera")]
-        Espera = 2,
+        Espera,
         [Description("Matriculado")]
-        Matriculado = 3,
+        Matriculado,
         [Description("Não aprovado")]
-        Desaprovado = 4,
+        Desaprovado,
         [Description("Desistente")]
-        Desistente = 5,
+        Desistente,
         [Description("Ex aluno")]
-        ExAluno = 6,
+        ExAluno,
         [Description("Não informado")]
-        Indefinido = 99
+        Indefinido
     }
 
     public enum SchoolYearType : byte
-    {        
+    {
         [Description("1º ano fundamental")]
-        Fundamental1 = 0,
+        Fundamental1,
         [Description("2º ano fundamental")]
-        Fundamental2 = 1,
+        Fundamental2,
         [Description("3º ano fundamental")]
-        Fundamental3 = 2,
+        Fundamental3,
         [Description("4º ano fundamental")]
-        Fundamental4 = 3,
+        Fundamental4,
         [Description("5º ano fundamental")]
-        Fundamental5 = 4,
+        Fundamental5,
         [Description("6º ano fundamental")]
-        Fundamental6 = 5,
+        Fundamental6,
         [Description("7º ano fundamental")]
-        Fundamental7 = 6,
+        Fundamental7,
         [Description("8º ano fundamental")]
-        Fundamental8 = 7,
+        Fundamental8,
         [Description("9º ano fundamental")]
-        Fundamental9 = 8,
+        Fundamental9,
         [Description("1º ano médio")]
-        Medio1 = 9,
+        Medio1,
         [Description("2º ano médio")]
-        Medio2 = 10,
+        Medio2,
         [Description("3º ano médio")]
-        Medio3 = 11,
+        Medio3,
         [Description("Outro ano ou ciclo")]
-        Outro = 12,
+        Outro,
         [Description("Não informado")]
-        Indefinido = 99
+        Indefinido
     }
 }

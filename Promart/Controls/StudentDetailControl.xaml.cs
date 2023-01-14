@@ -1,4 +1,5 @@
-﻿using Promart.Database.Entities;
+﻿using Promart.Core;
+using Promart.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +18,25 @@ using System.Windows.Shapes;
 namespace Promart.Controls
 {
     /// <summary>
-    /// Interaction logic for StudentReEnrollControl.xaml
+    /// Interaction logic for StudentDetailControl.xaml
     /// </summary>
-    public partial class StudentReEnrollControl : UserControl
+    public partial class StudentDetailControl : UserControl
     {
-        private readonly Student _student;
+        private readonly Student? _student;
 
-        public StudentReEnrollControl(Student student)
+        public StudentDetailControl(Student student)
         {
             InitializeComponent();
 
             _student = student;
 
             FullName.Content = _student.FullName;
+            Age.Content = 0;
             Registry.Content = _student.ProjectRegistry;
+            RegistryDate.Content = _student.ProjectRegistryDate?.ToShortDateString();
+            Status.Content = _student.ProjectStatus.Description();
         }
 
-        public bool IsSelectedReEnroll() => Action.SelectedIndex == 1;
-        public Student GetStudent() => _student;
-
-        private void Action_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CheckAction.IsChecked = Action.SelectedIndex == 1;
-        }
+        public Student? GetStudent() => _student;
     }
 }

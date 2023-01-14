@@ -43,7 +43,7 @@
                     <TextBox
                         x:Name="FullName"
                         Margin="5 10"
-                        MaxLength="4"
+                        MaxLength="{StaticResource FullNameMaxLength}"
                         Style="{StaticResource FormTextBox}"/>
                     <Button  
                         x:Name="Search"

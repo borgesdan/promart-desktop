@@ -31,29 +31,49 @@ namespace Promart.Pages
     {
         bool isLoaded = false;
 
+        readonly Student? _student;
+
         public StudentRegistryPage()
         {
-            InitializeComponent();
-            
-            BirthDate.SelectedDateChanged += BirthDate_SelectedDateChanged;
+            InitializeComponent();         
+        }
+        
+        public StudentRegistryPage(Student student)
+        {
+            InitializeComponent();        
+            _student = student;
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (isLoaded)
+                return;
 
             FullName.ApplyOnlyLetterOrWhiteSpace();
             Responsible.ApplyOnlyLetterOrWhiteSpace();
             CPF.ApplyOnlyNumbers();
             Phone.ApplyOnlyNumbers();
-        }
+
+            Gender.AddEnum<GenderType>();
+            FamilyRelationship.AddEnum<StudentRelationshipType>();
+            Dwelling.AddEnum<DwellingType>();
+            MonthlyIncome.AddEnum<MonthlyIncomeType>();
+            SchoolShift.AddEnum<SchoolShiftType>();
+            SchoolYear.AddEnum<SchoolYearType>();
+            ProjectStatus.AddEnum<ProjectStatusType>();
+            ProjectShift.AddEnum<SchoolShiftType>();
+
+            await GetllWorkshopsAsync();
+
+            if (_student != null)
+                ApplyStudentData();
+
+            isLoaded = true;
+        }        
 
         private void BirthDate_SelectedDateChanged(object? sender, SelectionChangedEventArgs e)
         {
-            var now = DateTime.Now;
-            var selected = BirthDate.SelectedDate;
-
-            if (selected == null)
-                return;
-
-            var diff = now - selected;
-
-            Age.Content = $"{(int)(diff.Value.TotalDays / 365)} anos";
+            Age.Content = BirthDate.SelectedDate?.GetAge();
         }
 
         private void AddRelationship_Click(object sender, RoutedEventArgs e)
@@ -65,9 +85,140 @@ namespace Promart.Pages
                 return;
 
             var result = relationshipWindow.GetResult();
-            var control = new StudentRelationshipControl(result);
 
-            RelationshipPanel.Children.Add(control);
+            RelationshipPanel.Children.Add(new StudentRelationshipControl(result));
+        }        
+
+        private async void Register_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Validate())
+                return;
+
+            this.IsEnabled = false;
+
+            var student = new Student
+            {
+                FullName = FullName.Text,
+                BirthDate = BirthDate.SelectedDate,
+                Gender = (GenderType)Gender.SelectedIndex,
+                CPF = CPF.Text,
+                RG = RG.Text,
+                Certidao = Certidao.Text,
+                ResponsibleName = Responsible.Text,
+                ResponsiblePhone = Phone.Text,
+                Relationship = (StudentRelationshipType)FamilyRelationship.SelectedIndex,
+                IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0,
+                Dwelling = (DwellingType)Dwelling.SelectedIndex,
+                MonthlyIncome = (MonthlyIncomeType)MonthlyIncome.SelectedIndex,
+                AddressStreet = Address.Text,
+                AddressDistrict = AddressDistrict.Text,
+                AddressNumber = AddressNumber.Text,
+                AddressComplement = AddressComplement.Text,
+                AddressCity = "Ipiaú",
+                AddressState = "BA",
+                AddressCEP = "45570000",
+                AddressReferencePoint = AddressReference.Text,
+                SchoolName = SchoolName.Text,
+                SchoolYear = (SchoolYearType)SchoolYear.SelectedIndex,
+                SchoolShift = (SchoolShiftType)SchoolShift.SelectedIndex,
+                ProjectStatus = (ProjectStatusType)ProjectStatus.SelectedIndex,
+                ProjectShift = (SchoolShiftType)ProjectShift.SelectedIndex,
+                ProjectRegistryDate = DateTime.Now,
+                Observations = Observations.Text,
+            };
+
+            student.ProjectRegistry = RegistryGenerator.NewRegistry(student.FullName);
+
+            var workshops = new List<Workshop>();
+
+            foreach (var item in Workshops.Items)
+            {
+                var checkbox = (CheckBox)item;
+
+                if (checkbox.IsChecked == true)
+                {
+                    var content = (Workshop)checkbox.Content;
+                    workshops.Add(content);
+                }
+            }
+
+            student.Workshops = workshops;
+
+            var relationships = new List<FamilyRelationship>();
+
+            foreach (var child in RelationshipPanel.Children)
+            {
+                if (child is StudentRelationshipControl relationshipControl)
+                {
+                    var relationship = relationshipControl.GetRelationship();
+
+                    if (relationship != null && relationshipControl.IsFormularyValid)
+                        relationships.Add(relationship);
+                }
+            }
+
+            student.Relationships = relationships;
+
+            var result = await SaveStudentAsync(student);
+            IsEnabled = !result;
+        }
+        
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            var dataWindow = new StudentRegistryCopyDataWindow();
+            var dialogResult = dataWindow.ShowDialog();
+
+            if (dialogResult != true)
+                return;
+
+            var result = dataWindow.GetResult();            
+
+            if (result == null)
+                return;
+
+            var student = result.Student;
+            var fields = result.SelectedFields;
+
+            if (fields == null || student == null)
+                return;
+
+            if (fields.FamilyData)
+            {
+                Responsible.Text = student.ResponsibleName;
+                Phone.Text = student.ResponsiblePhone;
+                FamilyRelationship.SelectedIndex = (int)student.Relationship;
+                Dwelling.SelectedIndex = (int)student.Dwelling;
+                MonthlyIncome.SelectedIndex = (int)student.MonthlyIncome;
+                BeneficiaryBox.SelectedIndex = student.IsGovernmentBeneficiary != null && student.IsGovernmentBeneficiary == true ? 1 : 0;
+            }
+
+            if (fields.FamilyComposition)
+                SetStudentRelationships(student);
+
+            if (fields.AddressData)
+            {
+                Address.Text = student.AddressStreet;
+                AddressComplement.Text = student.AddressComplement;
+                AddressDistrict.Text = student.AddressDistrict;
+                AddressNumber.Text = student.AddressNumber;
+                AddressReference.Text = student.AddressReferencePoint;
+            }
+
+            if (fields.SchoolData)
+            {
+                SchoolName.Text = student.SchoolName;
+                SchoolShift.SelectedIndex = (int)student.SchoolShift;
+                SchoolYear.SelectedIndex = (int)student.SchoolYear;
+            }
+            
+            if (fields.ProjectData)
+            {
+                ProjectStatus.SelectedIndex = (int)student.ProjectStatus;
+                ProjectShift.SelectedItem = (int)student.ProjectShift;
+                Observations.Text = student.Observations;
+                
+                SetStudentWorkshops(student);
+            }            
         }
 
         private bool Validate()
@@ -125,76 +276,72 @@ namespace Promart.Pages
             return true;
         }
 
-        private async void Register_Click(object sender, RoutedEventArgs e)
+        private void ApplyStudentData()
         {
-            if (!Validate())
+            if (_student == null)
                 return;
 
-            var student = new Student
+            RegistryExpander.Visibility = Visibility.Visible;
+            Register.Visibility = Visibility.Collapsed;
+
+            RegistryNumber.Text = _student.ProjectRegistry;
+            RegistryDate.SelectedDate = _student.ProjectRegistryDate;
+
+            FullName.Text = _student.FullName;
+            BirthDate.SelectedDate = _student.BirthDate;
+            Gender.SelectedIndex = (int)_student.Gender;
+            RG.Text = _student.RG;
+            CPF.Text = _student.CPF;
+            Certidao.Text = _student.Certidao;
+
+            Responsible.Text = _student.ResponsibleName;
+            FamilyRelationship.SelectedIndex = (int)_student.Relationship;
+            Dwelling.SelectedIndex = (int)_student.Dwelling;
+            MonthlyIncome.SelectedIndex = (int)_student.MonthlyIncome;
+
+            BeneficiaryBox.SelectedIndex = _student.IsGovernmentBeneficiary != null
+                && _student.IsGovernmentBeneficiary == true
+                ? 1 : 0;
+            Phone.Text = _student.ResponsiblePhone;
+
+            Address.Text = _student.AddressStreet;
+            AddressDistrict.Text = _student.AddressDistrict;
+            AddressNumber.Text = _student.AddressNumber;
+            AddressComplement.Text = _student.AddressComplement;
+            AddressReference.Text = _student.AddressReferencePoint;
+
+            SchoolName.Text = _student.SchoolName;
+            SchoolShift.SelectedIndex = (int)_student.SchoolShift;
+            SchoolYear.SelectedIndex = (int)_student.SchoolYear;
+
+            ProjectStatus.SelectedIndex = (int)_student.ProjectStatus;
+            ProjectShift.SelectedIndex = (int)_student.ProjectShift;
+            Observations.Text = _student.Observations;
+
+            SetStudentRelationships(_student);
+            SetStudentWorkshops(_student);
+        }
+
+        private void SetStudentRelationships(Student student)
+        {
+            student.Relationships?.ToList().ForEach(r =>
+                RelationshipPanel.Children.Add(new StudentRelationshipControl(r)));
+        }
+
+        private void SetStudentWorkshops(Student student)
+        {
+            foreach (var workshop in Workshops.Items)
             {
-                FullName = FullName.Text,
-                BirthDate = BirthDate.SelectedDate,
-                Gender = Gender.GetEnum<GenderType>() ?? GenderType.Indefinido,
-                CPF = CPF.Text,
-                RG = RG.Text,
-                Certidao = Certidao.Text,
-                ResponsibleName = Responsible.Text,
-                ResponsiblePhone = Phone.Text,
-                Relationship = FamilyRelationship.GetEnum<StudentRelationshipType>() ?? StudentRelationshipType.Indefinido,
-                IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0,
-                Dwelling = Dwelling.GetEnum<DwellingType>() ?? DwellingType.Indefinido,
-                MonthlyIncome = MonthlyIncome.GetEnum<MonthlyIncomeType>() ?? MonthlyIncomeType.Indefinido,
-                AddressStreet = Address.Text,
-                AddressDistrict = AddressDistrict.Text,
-                AddressNumber = AddressNumber.Text,
-                AddressComplement = AddressComplement.Text,
-                AddressCity = "Ipiaú",
-                AddressState = "BA",
-                AddressCEP = "45570000",
-                AddressReferencePoint = AddressReference.Text,
-                SchoolName = SchoolName.Text,
-                SchoolYear = SchoolYear.GetEnum<SchoolYearType>() ?? SchoolYearType.Indefinido,
-                SchoolShift = SchoolShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido,
-                ProjectStatus = ProjectStatus.GetEnum<ProjectStatusType>() ?? ProjectStatusType.Indefinido,
-                ProjectShift = ProjectShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido,
-                ProjectRegistryDate = DateTime.Now,
-                Observations = Observations.Text,
-            };
+                var checkBox = (CheckBox)workshop;
+                var content = (Workshop)checkBox.Content;
 
-            student.ProjectRegistry = RegistryGenerator.NewRegistry(student.FullName);
-
-            var workshops = new List<Workshop>();
-
-            foreach (var item in Workshops.Items)
-            {
-                var checkbox = (CheckBox)item;
-
-                if (checkbox.IsChecked == true)
-                {
-                    var content = (Workshop)checkbox.Content;
-                    workshops.Add(content);
-                }
+                if (student.Workshops != null && student.Workshops.Any(w => w.Id == content.Id))
+                    checkBox.IsChecked = true;
             }
+        }        
 
-            student.Workshops = workshops;
-
-            var relationships = new List<FamilyRelationship>();
-
-            foreach (var child in RelationshipPanel.Children)
-            {
-                if (child is StudentRelationshipControl relationshipControl)
-                {
-                    var relationship = relationshipControl.GetRelationship();
-
-                    if (relationship != null && relationshipControl.IsFormularyValid)
-                        relationships.Add(relationship);
-                }
-            }
-
-            student.Relationships = relationships;
-
-            this.IsEnabled = false;
-
+        private static async Task<bool> SaveStudentAsync(Student student)
+        {
             try
             {
                 using var context = App.AppDbContext;
@@ -208,6 +355,8 @@ namespace Promart.Pages
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
                 );
+
+                return true;
             }
             catch(Exception ex ) 
             {
@@ -221,103 +370,20 @@ namespace Promart.Pages
                 MessageBoxImage.Error
                 );
 
-                this.IsEnabled = true;
+                return false;
             }
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async Task GetllWorkshopsAsync()
         {
-            if (isLoaded)
-                return;
-
-            Gender.AddEnum<GenderType>();
-            FamilyRelationship.AddEnum<StudentRelationshipType>();
-            Dwelling.AddEnum<DwellingType>();
-            MonthlyIncome.AddEnum<MonthlyIncomeType>();
-            SchoolShift.AddEnum<SchoolShiftType>();
-            SchoolYear.AddEnum<SchoolYearType>();
-            ProjectStatus.AddEnum<ProjectStatusType>();
-            ProjectShift.AddEnum<SchoolShiftType>();
-
             using var context = App.AppDbContext;
-
             var workshops = await context.Workshops.ToListAsync();
+
             workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
             {
                 Content = w,
                 VerticalContentAlignment = VerticalAlignment.Center
             }));
-
-            isLoaded = true;
-        }
-
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-            StudentRegistryCopyDataWindow dataWindow = new StudentRegistryCopyDataWindow();
-            var dialogResult = dataWindow.ShowDialog();
-
-            if (dialogResult != true)
-                return;
-
-            var result = dataWindow.GetResult();            
-
-            if (result == null)
-                return;
-
-            var student = result.Student;
-            var fields = result.SelectedFields;
-
-            if (fields.FamilyData)
-            {
-                Responsible.Text = student.ResponsibleName;
-                Phone.Text = student.ResponsiblePhone;
-                FamilyRelationship.SelectedIndex = (int)student.Relationship != 99 ? (int)student.Relationship : FamilyRelationship.Items.Count - 1;
-                Dwelling.SelectedIndex = (int)student.Dwelling != 99 ? (int)student.Dwelling : Dwelling.Items.Count - 1;
-                MonthlyIncome.SelectedIndex = (int)student.MonthlyIncome != 99 ? (int)student.MonthlyIncome : MonthlyIncome.Items.Count - 1;
-                BeneficiaryBox.SelectedIndex = student.IsGovernmentBeneficiary != null ? 0 : 1;
-            }
-
-            if (fields.FamilyComposition)
-            {
-                foreach(var relationship in student.Relationships)
-                {                    
-                    var control = new StudentRelationshipControl(relationship);
-
-                    RelationshipPanel.Children.Add(control);
-                }
-            }
-            
-            if (fields.AddressData)
-            {
-                Address.Text = student.AddressStreet;
-                AddressComplement.Text = student.AddressComplement;
-                AddressDistrict.Text = student.AddressDistrict;
-                AddressNumber.Text = student.AddressNumber;
-                AddressReference.Text = student.AddressReferencePoint;
-            }
-
-            if (fields.SchoolData)
-            {
-                SchoolName.Text = student.SchoolName;
-                SchoolShift.SelectedIndex = (int)student.SchoolShift != 99 ? (int)student.SchoolShift : SchoolShift.Items.Count - 1;
-                SchoolYear.SelectedIndex = (int)student.SchoolYear != 99 ? (int)student.SchoolYear : SchoolYear.Items.Count - 1;
-            }
-            
-            if (fields.ProjectData)
-            {                
-                ProjectStatus.SelectedIndex = (int)student.ProjectStatus != 99 ? (int)student.ProjectStatus : ProjectStatus.Items.Count - 1;
-                ProjectShift.SelectedItem = (int)student.ProjectShift != 99 ? (int)student.ProjectShift : ProjectShift.Items.Count - 1;
-                Observations.Text = student.Observations;
-                
-                foreach(var workshop in Workshops.Items)
-                {
-                    var checkBox = (CheckBox)workshop;
-                    var content = (Workshop)checkBox.Content;
-
-                    if (student.Workshops.Any(w => w.Id == content.Id))
-                        checkBox.IsChecked = true;                    
-                }
-            }            
         }
     }
 }
