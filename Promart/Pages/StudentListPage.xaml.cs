@@ -55,7 +55,6 @@ namespace Promart.Pages
                     var control = new StudentDetailControl(s);
                     
                     control.MouseLeftButtonDown += (s, e) => {
-                        //MainWindow.Instance.OpenNewStudentRegisterTab(control.GetStudent());
                         MainWindow.Instance.NavigateToStudentRegisterPage(control.GetStudent());
                     };
 

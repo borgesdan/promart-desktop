@@ -162,7 +162,25 @@ namespace Promart.Pages
             var result = await SaveStudentAsync(student);
             IsEnabled = !result;
         }
-        
+
+        private async void Update_Click(object sender, RoutedEventArgs e)
+        {
+            if (_student == null || !Validate())
+                return;
+
+            using var context = App.AppDbContext;
+            
+            context.Update(_student);
+            await context.SaveChangesAsync();
+
+            MessageBox.Show(
+                $"Cadastro atualizado com sucesso",
+                "Cadastro atualizado",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+                );
+        }
+
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             var dataWindow = new StudentRegistryCopyDataWindow();
@@ -282,10 +300,12 @@ namespace Promart.Pages
                 return;
 
             RegistryExpander.Visibility = Visibility.Visible;
+            
             Register.Visibility = Visibility.Collapsed;
+            Update.Visibility = Visibility.Visible;
 
             RegistryNumber.Text = _student.ProjectRegistry;
-            RegistryDate.SelectedDate = _student.ProjectRegistryDate;
+            RegistryDate.Text = _student.ProjectRegistryDate?.ToShortDateString();
 
             FullName.Text = _student.FullName;
             BirthDate.SelectedDate = _student.BirthDate;
@@ -384,6 +404,6 @@ namespace Promart.Pages
                 Content = w,
                 VerticalContentAlignment = VerticalAlignment.Center
             }));
-        }
+        }        
     }
 }

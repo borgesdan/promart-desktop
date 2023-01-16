@@ -83,6 +83,9 @@
     <Style BasedOn="{StaticResource {x:Type GroupBox}}"
                    TargetType="GroupBox"
                    x:Key="DefaultGroupBox">
+        <Setter Property="FontSize" Value="{StaticResource NormalSize}">
+            
+        </Setter>
     </Style>
     
 

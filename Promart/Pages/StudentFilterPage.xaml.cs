@@ -31,7 +31,6 @@ namespace Promart.Pages
                 return;
 
             Age.ApplyOnlyNumbers();
-            ProjectYear.ApplyOnlyNumbers();
 
             Gender.AddEnum<GenderType>();
             FamilyRelationship.AddEnum<StudentRelationshipType>();
@@ -41,8 +40,6 @@ namespace Promart.Pages
             SchoolYear.AddEnum<SchoolYearType>();
             ProjectStatus.AddEnum<ProjectStatusType>();
             ProjectShift.AddEnum<SchoolShiftType>();
-
-            ProjectYear.Text = DateTime.Now.Year.ToString();
         }
 
         private void DataGridResult_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -196,13 +193,7 @@ namespace Promart.Pages
             {
                 var value = ProjectShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
                 students = students.Where(s => s.ProjectShift == value);
-            }
-
-            if(CheckProjectYear.IsChecked == true)
-            {
-                students = students.Where(s => s.ProjectRegistryDate != null
-                    && s.ProjectRegistryDate.Value.Year == int.Parse(ProjectYear.Text));
-            }
+            }            
 
             var result = await students.ToListAsync();
 

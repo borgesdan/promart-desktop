@@ -444,33 +444,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </GroupBox.Style>
-                        </GroupBox>
-                        <GroupBox
-                            Grid.Column="8"
-                            Grid.Row="8"
-                            Grid.ColumnSpan="4">
-                            <TextBox
-                                x:Name="ProjectYear"
-                                IsEnabled="{Binding ElementName=CheckProjectYear, Path=IsChecked, TargetNullValue=False}"
-                                MaxLength="4"
-                                Style="{StaticResource FormTextBox}"/>
-                            <GroupBox.Header>
-                                <CheckBox 
-                                    x:Name="CheckProjectYear"
-                                    VerticalContentAlignment="Center">
-                                    Ano do Projeto
-                                </CheckBox>
-                            </GroupBox.Header>
-                            <GroupBox.Style>
-                                <Style TargetType="GroupBox">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=CheckProjectYear, Path=IsChecked}" Value="True">
-                                            <Setter Property="Background" Value="LightGreen" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </GroupBox.Style>
-                        </GroupBox>
+                        </GroupBox>                        
                     </Grid>
                 </StackPanel>
             </Expander>
