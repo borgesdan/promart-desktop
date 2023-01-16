@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using Promart.Pages;
 using Promart.Controls;
 using Promart.Database.Entities;
+using System.Reflection.PortableExecutable;
 
 namespace Promart
 {
@@ -43,6 +44,7 @@ namespace Promart
         {
             contentPage.MinWidth = 800;
             contentPage.MaxWidth = 1280;
+            contentPage.Title = header;
 
             var frame = new Frame
             {
@@ -64,11 +66,28 @@ namespace Promart
             };
 
             return tabItem;
-        }        
+        }  
+        
+        private void NavigateTo(string header, Page contentPage)
+        {
+            contentPage.MinWidth = 800;
+            contentPage.MaxWidth = 1280;
+            contentPage.Title = header;
+
+            var tabItem = (TabItem)MainTab.SelectedItem;
+            tabItem.Header = new HeaderControl(header);
+
+            var scrollViewer = (ScrollViewer)MainTab.SelectedContent;
+            var frame = (Frame)scrollViewer.Content;
+
+            frame.NavigationUIVisibility = NavigationUIVisibility.Visible;
+            frame.Navigate(contentPage);
+        }
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
-            OpenNewStudentRegisterTab();
+            var tabItem = CreateNewTab("Novo Aluno", new StudentRegistryPage());
+            MainTab.Items.Add(tabItem);
         }
 
         private void StudentFilter_Click(object sender, RoutedEventArgs e)
@@ -93,15 +112,14 @@ namespace Promart
         {
             var tabItem = CreateNewTab("Lista de Alunos", new StudentListPage());
             MainTab.Items.Add(tabItem);
-        }
+        }        
 
-        public void OpenNewStudentRegisterTab(Student? student = null)
+        public void NavigateToStudentRegisterPage(Student? student = null)
         {
             var studentPage = student != null ? new StudentRegistryPage(student) : new StudentRegistryPage();
             var header = student != null ? student.FullName : "Novo Aluno";
 
-            var tabItem = CreateNewTab(header, studentPage);
-            MainTab.Items.Add(tabItem);
+            NavigateTo(header, studentPage);
         }
     }
 }
