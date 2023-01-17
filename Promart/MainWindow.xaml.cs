@@ -68,7 +68,7 @@ namespace Promart
             return tabItem;
         }  
         
-        private void NavigateTo(string header, Page contentPage)
+        private void NavigateTo(string header, Page contentPage, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
         {
             contentPage.MinWidth = 800;
             contentPage.MaxWidth = 1280;
@@ -80,7 +80,7 @@ namespace Promart
             var scrollViewer = (ScrollViewer)MainTab.SelectedContent;
             var frame = (Frame)scrollViewer.Content;
 
-            frame.NavigationUIVisibility = NavigationUIVisibility.Visible;
+            frame.NavigationUIVisibility = navigationUIVisibility;
             frame.Navigate(contentPage);
         }
 
@@ -114,12 +114,12 @@ namespace Promart
             MainTab.Items.Add(tabItem);
         }        
 
-        public void NavigateToStudentRegisterPage(Student? student = null)
+        public void NavigateToStudentRegisterPage(Student? student = null, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
         {
             var studentPage = student != null ? new StudentRegistryPage(student) : new StudentRegistryPage();
             var header = student != null ? student.FullName : "Novo Aluno";
 
-            NavigateTo(header, studentPage);
+            NavigateTo(header, studentPage, navigationUIVisibility);
         }
     }
 }

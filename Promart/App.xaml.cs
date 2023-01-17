@@ -9,6 +9,8 @@ namespace Promart
     public partial class App : Application
     {
         private static readonly AppDbContextFactory _factory = new AppDbContextFactory();
-        public static AppDbContext AppDbContext => _factory.CreateDbContext(null);
+        private static readonly AppDbContext _appDbContext = _factory.CreateDbContext(null);
+
+        public static AppDbContext AppDbContext => _appDbContext;
     }
 }

@@ -42,7 +42,7 @@ namespace Promart.Pages
 
         private async Task<List<Student>> GetStudents()
         {
-            using var context = App.AppDbContext;
+            var context = App.AppDbContext;
 
             var students = context.Students.AsQueryable();
 
@@ -74,7 +74,7 @@ namespace Promart.Pages
 
         private async void Apply_Click(object sender, RoutedEventArgs e)
         {
-            using var context = App.AppDbContext;
+            var context = App.AppDbContext;
             bool hasModification = false;
 
             foreach (var child in ResultPanel.Children)

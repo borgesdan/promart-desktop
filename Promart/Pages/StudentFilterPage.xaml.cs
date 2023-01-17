@@ -72,7 +72,7 @@ namespace Promart.Pages
         {
             MainGrid.TrimAllTextBox();
 
-            using var context = App.AppDbContext;
+            var context = App.AppDbContext;
             var students = context.Students.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(SearchBar.Text))

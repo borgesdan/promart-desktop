@@ -4,17 +4,10 @@ using Promart.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Promart.Pages
 {
@@ -30,9 +23,9 @@ namespace Promart.Pages
 
         private async Task<List<Student>> GetStudents()
         {
-            using var context = App.AppDbContext;
+            var context = App.AppDbContext;
 
-            var students = context.Students.AsQueryable();
+            var students = context.Students.AsNoTracking().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(FullName.Text))
                 students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));
@@ -45,6 +38,7 @@ namespace Promart.Pages
                 {
                     Id = s.Id,
                     FullName = s.FullName,
+                    BirthDate = s.BirthDate,
                     ProjectRegistry = s.ProjectRegistry,
                     ProjectRegistryDate = s.ProjectRegistryDate,
                     ProjectStatus = s.ProjectStatus
@@ -79,7 +73,7 @@ namespace Promart.Pages
             if (controlStudent == null)
                 return;
 
-            using var context = App.AppDbContext;
+            var context = App.AppDbContext;
             var student = context.Students
                 .Where(s => s.Id == controlStudent.Id)
                 .Include(s => s.Workshops)

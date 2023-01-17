@@ -61,7 +61,7 @@ namespace Promart.Windows
             if (string.IsNullOrWhiteSpace(FullName.Text))
                 return;            
 
-            using var context = App.AppDbContext;
+            var context = App.AppDbContext;
             var students = context.Students.Where(s => 
                 s.FullName != null 
                 && s.FullName.Contains(FullName.Text))

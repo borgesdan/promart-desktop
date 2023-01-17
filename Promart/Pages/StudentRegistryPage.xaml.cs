@@ -133,20 +133,18 @@ namespace Promart.Pages
 
             var result = await SaveStudentAsync(student);
             IsEnabled = !result;
+
+            if (result)
+            {
+                IsEnabled = false;
+                MainWindow.Instance.NavigateToStudentRegisterPage(student, NavigationUIVisibility.Hidden);
+            }
         }
 
         private async void Update_Click(object sender, RoutedEventArgs e)
         {
             if (_student == null || !Validate())
-                return;
-
-            using var context = App.AppDbContext;
-
-            _student = context.Students
-                .Include(s => s.Workshops)
-                .Include(s => s.FamilyRelationships)
-                .Where(s => s.Id == _student.Id)
-                .First();
+                return;           
 
             _student.FullName = FullName.Text;
             _student.BirthDate = BirthDate.SelectedDate;
@@ -179,27 +177,7 @@ namespace Promart.Pages
             SetStudentWorkshops(_student);
             SetStudentRelationships(_student);
 
-            //using var context = App.AppDbContext;
-
-            //SetStudentWorkshops(s);
-            //s.Workshops.Clear();
-
-            //context.Entry(s).State = EntityState.Modified;
-
-            //var workshops = new List<Workshop>();
-
-            //foreach (var item in Workshops.Items)
-            //{
-            //    var checkbox = (CheckBox)item;
-
-            //    if (checkbox.IsChecked == true)
-            //    {
-            //        var content = (Workshop)checkbox.Content;
-            //        workshops.Add(content);
-            //    }
-            //}
-
-            //context.Update(_student);
+            var context = App.AppDbContext;
             await context.SaveChangesAsync();
 
             MessageBox.Show(
@@ -430,7 +408,7 @@ namespace Promart.Pages
         {
             try
             {
-                using var context = App.AppDbContext;
+                var context = App.AppDbContext;
 
                 context.Update(student);
                 await context.SaveChangesAsync();
@@ -462,7 +440,7 @@ namespace Promart.Pages
 
         private async Task GetllWorkshopsAsync()
         {
-            using var context = App.AppDbContext;
+            var context = App.AppDbContext;
             var workshops = await context.Workshops.ToListAsync();
 
             workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
