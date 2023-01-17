@@ -31,16 +31,16 @@ namespace Promart.Pages
     {
         bool isLoaded = false;
 
-        readonly Student? _student;
+        Student? _student;
 
         public StudentRegistryPage()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
-        
+
         public StudentRegistryPage(Student student)
         {
-            InitializeComponent();        
+            InitializeComponent();
             _student = student;
         }
 
@@ -69,7 +69,7 @@ namespace Promart.Pages
                 ApplyStudentData();
 
             isLoaded = true;
-        }        
+        }
 
         private void BirthDate_SelectedDateChanged(object? sender, SelectionChangedEventArgs e)
         {
@@ -87,7 +87,7 @@ namespace Promart.Pages
             var result = relationshipWindow.GetResult();
 
             RelationshipPanel.Children.Add(new StudentRelationshipControl(result));
-        }        
+        }
 
         private async void Register_Click(object sender, RoutedEventArgs e)
         {
@@ -123,41 +123,13 @@ namespace Promart.Pages
                 SchoolShift = (SchoolShiftType)SchoolShift.SelectedIndex,
                 ProjectStatus = (ProjectStatusType)ProjectStatus.SelectedIndex,
                 ProjectShift = (SchoolShiftType)ProjectShift.SelectedIndex,
+                ProjectRegistry = RegistryGenerator.NewRegistry(FullName.Text),
                 ProjectRegistryDate = DateTime.Now,
                 Observations = Observations.Text,
             };
 
-            student.ProjectRegistry = RegistryGenerator.NewRegistry(student.FullName);
-
-            var workshops = new List<Workshop>();
-
-            foreach (var item in Workshops.Items)
-            {
-                var checkbox = (CheckBox)item;
-
-                if (checkbox.IsChecked == true)
-                {
-                    var content = (Workshop)checkbox.Content;
-                    workshops.Add(content);
-                }
-            }
-
-            student.Workshops = workshops;
-
-            var relationships = new List<FamilyRelationship>();
-
-            foreach (var child in RelationshipPanel.Children)
-            {
-                if (child is StudentRelationshipControl relationshipControl)
-                {
-                    var relationship = relationshipControl.GetRelationship();
-
-                    if (relationship != null && relationshipControl.IsFormularyValid)
-                        relationships.Add(relationship);
-                }
-            }
-
-            student.Relationships = relationships;
+            SetStudentWorkshops(student);
+            SetStudentRelationships(student);
 
             var result = await SaveStudentAsync(student);
             IsEnabled = !result;
@@ -169,8 +141,65 @@ namespace Promart.Pages
                 return;
 
             using var context = App.AppDbContext;
-            
-            context.Update(_student);
+
+            _student = context.Students
+                .Include(s => s.Workshops)
+                .Include(s => s.FamilyRelationships)
+                .Where(s => s.Id == _student.Id)
+                .First();
+
+            _student.FullName = FullName.Text;
+            _student.BirthDate = BirthDate.SelectedDate;
+            _student.Gender = (GenderType)Gender.SelectedIndex;
+            _student.CPF = CPF.Text;
+            _student.RG = RG.Text;
+            _student.Certidao = Certidao.Text;
+            _student.ResponsibleName = Responsible.Text;
+            _student.ResponsiblePhone = Phone.Text;
+            _student.Relationship = (StudentRelationshipType)FamilyRelationship.SelectedIndex;
+            _student.IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0;
+            _student.Dwelling = (DwellingType)Dwelling.SelectedIndex;
+            _student.MonthlyIncome = (MonthlyIncomeType)MonthlyIncome.SelectedIndex;
+            _student.AddressStreet = Address.Text;
+            _student.AddressDistrict = AddressDistrict.Text;
+            _student.AddressNumber = AddressNumber.Text;
+            _student.AddressComplement = AddressComplement.Text;
+            _student.AddressCity = "Ipiaú";
+            _student.AddressState = "BA";
+            _student.AddressCEP = "45570000";
+            _student.AddressReferencePoint = AddressReference.Text;
+            _student.SchoolName = SchoolName.Text;
+            _student.SchoolYear = (SchoolYearType)SchoolYear.SelectedIndex;
+            _student.SchoolShift = (SchoolShiftType)SchoolShift.SelectedIndex;
+            _student.ProjectStatus = (ProjectStatusType)ProjectStatus.SelectedIndex;
+            _student.ProjectShift = (SchoolShiftType)ProjectShift.SelectedIndex;
+            _student.ProjectRegistryDate = DateTime.Now;
+            _student.Observations = Observations.Text;
+
+            SetStudentWorkshops(_student);
+            SetStudentRelationships(_student);
+
+            //using var context = App.AppDbContext;
+
+            //SetStudentWorkshops(s);
+            //s.Workshops.Clear();
+
+            //context.Entry(s).State = EntityState.Modified;
+
+            //var workshops = new List<Workshop>();
+
+            //foreach (var item in Workshops.Items)
+            //{
+            //    var checkbox = (CheckBox)item;
+
+            //    if (checkbox.IsChecked == true)
+            //    {
+            //        var content = (Workshop)checkbox.Content;
+            //        workshops.Add(content);
+            //    }
+            //}
+
+            //context.Update(_student);
             await context.SaveChangesAsync();
 
             MessageBox.Show(
@@ -189,7 +218,7 @@ namespace Promart.Pages
             if (dialogResult != true)
                 return;
 
-            var result = dataWindow.GetResult();            
+            var result = dataWindow.GetResult();
 
             if (result == null)
                 return;
@@ -211,7 +240,7 @@ namespace Promart.Pages
             }
 
             if (fields.FamilyComposition)
-                SetStudentRelationships(student);
+                SetRelationships(student);
 
             if (fields.AddressData)
             {
@@ -228,15 +257,15 @@ namespace Promart.Pages
                 SchoolShift.SelectedIndex = (int)student.SchoolShift;
                 SchoolYear.SelectedIndex = (int)student.SchoolYear;
             }
-            
+
             if (fields.ProjectData)
             {
                 ProjectStatus.SelectedIndex = (int)student.ProjectStatus;
                 ProjectShift.SelectedItem = (int)student.ProjectShift;
                 Observations.Text = student.Observations;
-                
-                SetStudentWorkshops(student);
-            }            
+
+                SetWorkshops(student);
+            }
         }
 
         private bool Validate()
@@ -300,7 +329,7 @@ namespace Promart.Pages
                 return;
 
             RegistryExpander.Visibility = Visibility.Visible;
-            
+
             Register.Visibility = Visibility.Collapsed;
             Update.Visibility = Visibility.Visible;
 
@@ -338,17 +367,17 @@ namespace Promart.Pages
             ProjectShift.SelectedIndex = (int)_student.ProjectShift;
             Observations.Text = _student.Observations;
 
-            SetStudentRelationships(_student);
-            SetStudentWorkshops(_student);
+            SetRelationships(_student);
+            SetWorkshops(_student);
         }
 
-        private void SetStudentRelationships(Student student)
+        private void SetRelationships(Student student)
         {
-            student.Relationships?.ToList().ForEach(r =>
+            student.FamilyRelationships?.ToList().ForEach(r =>
                 RelationshipPanel.Children.Add(new StudentRelationshipControl(r)));
         }
 
-        private void SetStudentWorkshops(Student student)
+        private void SetWorkshops(Student student)
         {
             foreach (var workshop in Workshops.Items)
             {
@@ -358,7 +387,44 @@ namespace Promart.Pages
                 if (student.Workshops != null && student.Workshops.Any(w => w.Id == content.Id))
                     checkBox.IsChecked = true;
             }
-        }        
+        }
+
+        private void SetStudentWorkshops(Student student)
+        {
+            var workshops = new List<Workshop>();
+
+            foreach (var item in Workshops.Items)
+            {
+                var checkbox = (CheckBox)item;
+
+                if (checkbox.IsChecked == true)
+                {
+                    var content = (Workshop)checkbox.Content;                    
+                    workshops.Add(content);
+                }
+            }
+
+            student.Workshops.Clear();
+            student.Workshops = workshops;
+        }
+
+        private void SetStudentRelationships(Student student)
+        {
+            var relationships = new List<FamilyRelationship>();
+
+            foreach (var child in RelationshipPanel.Children)
+            {
+                if (child is StudentRelationshipControl relationshipControl)
+                {
+                    var relationship = relationshipControl.GetRelationship();
+
+                    if (relationship != null && relationshipControl.IsFormularyValid)
+                        relationships.Add(relationship);
+                }
+            }
+
+            student.FamilyRelationships = relationships;
+        }
 
         private static async Task<bool> SaveStudentAsync(Student student)
         {
@@ -378,7 +444,7 @@ namespace Promart.Pages
 
                 return true;
             }
-            catch(Exception ex ) 
+            catch (Exception ex)
             {
                 MessageBox.Show(
                 "Ocorreu um erro ao matricular o aluno. Veja possíveis causas:\n\n" +
@@ -404,6 +470,6 @@ namespace Promart.Pages
                 Content = w,
                 VerticalContentAlignment = VerticalAlignment.Center
             }));
-        }        
+        }
     }
 }

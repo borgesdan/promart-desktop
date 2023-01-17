@@ -39,9 +39,19 @@ namespace Promart.Pages
 
             string registryAge = string.IsNullOrWhiteSpace(RegistryAge.Text) ? DateTime.Now.Year.ToString() : RegistryAge.Text;
 
-            students = students.Where(s => s.ProjectRegistryDate != null && s.ProjectRegistryDate.Value.Year.ToString() == registryAge);
+            var result = await students
+                .Where(s => s.ProjectRegistryDate != null && s.ProjectRegistryDate.Value.Year.ToString() == registryAge)
+                .Select(s => new Student
+                {
+                    Id = s.Id,
+                    FullName = s.FullName,
+                    ProjectRegistry = s.ProjectRegistry,
+                    ProjectRegistryDate = s.ProjectRegistryDate,
+                    ProjectStatus = s.ProjectStatus
+                })
+                .ToListAsync();
 
-            return await students.ToListAsync();
+            return result;
         }
 
         private async void Search_Click(object sender, RoutedEventArgs e)
@@ -53,15 +63,33 @@ namespace Promart.Pages
             if (result.Count > 0)
                 result.ForEach(s => {
                     var control = new StudentDetailControl(s);
-                    
-                    control.MouseLeftButtonDown += (s, e) => {
-                        MainWindow.Instance.NavigateToStudentRegisterPage(control.GetStudent());
-                    };
+
+                    control.MouseLeftButtonDown += Control_MouseLeftButtonDown;
 
                     ResultPanel.Children.Add(control);
                 });
             else
                 MessageBox.Show("Não foi encontrado nenhum resultado para essa busca.", "Rematricula não aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Control_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var controlStudent = ((StudentDetailControl)sender).GetStudent();
+
+            if (controlStudent == null)
+                return;
+
+            using var context = App.AppDbContext;
+            var student = context.Students
+                .Where(s => s.Id == controlStudent.Id)
+                .Include(s => s.Workshops)
+                .Include(s => s.FamilyRelationships)                
+                .SingleOrDefault();
+
+            if(student == null) 
+                return;
+
+            MainWindow.Instance.NavigateToStudentRegisterPage(student);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

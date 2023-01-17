@@ -30,7 +30,7 @@ namespace Promart.Database.Entities
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
-        public ICollection<Student>? Student { get; set; }
+        public virtual ICollection<Student>? Student { get; set; } = new HashSet<Student>();
 
         public string GetFullString()
         {

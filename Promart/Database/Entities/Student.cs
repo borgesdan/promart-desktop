@@ -73,8 +73,8 @@ namespace Promart.Database.Entities
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
-        public virtual ICollection<Workshop>? Workshops { get; set; }
-        public virtual ICollection<FamilyRelationship>? Relationships { get; set; }
+        public virtual ICollection<Workshop> Workshops { get; set; } = new HashSet<Workshop>();
+        public virtual ICollection<FamilyRelationship> FamilyRelationships { get; set; } = new HashSet<FamilyRelationship>();    
 
         public Student()
         {
@@ -84,9 +84,6 @@ namespace Promart.Database.Entities
             MonthlyIncome = MonthlyIncomeType.Indefinido;
             SchoolYear = SchoolYearType.Indefinido;
             SchoolShift = SchoolShiftType.Indefinido;
-
-            Workshops = new HashSet<Workshop>();
-            Relationships = new HashSet<FamilyRelationship>();
         }
     }
 }

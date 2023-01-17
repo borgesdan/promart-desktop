@@ -66,7 +66,7 @@ namespace Promart.Windows
                 s.FullName != null 
                 && s.FullName.Contains(FullName.Text))
                     .Include(s => s.Workshops)
-                    .Include(s => s.Relationships)
+                    .Include(s => s.FamilyRelationships)
                     .AsQueryable();
 
             var result = await students.ToListAsync();

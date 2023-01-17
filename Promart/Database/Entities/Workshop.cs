@@ -16,11 +16,11 @@ namespace Promart.Database.Entities
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Student> Students { get; set; } = new HashSet<Student>();
 
         public Workshop()
         {
-            Students = new HashSet<Student>();
+            Students = new List<Student>();
         }
 
         public override string ToString()
