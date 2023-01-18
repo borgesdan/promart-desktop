@@ -31,6 +31,16 @@
                    TargetType="Button"
                    x:Key="DefaultButton">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
+        <Setter Property="ContentTemplate" >
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid>
+                        <Ellipse Width="64" Height="32" Fill="{StaticResource Color2}" />
+                        <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </DataTemplate>                
+            </Setter.Value>
+        </Setter>
     </Style>
     <Style BasedOn="{StaticResource {x:Type Button}}"
                    TargetType="Button"

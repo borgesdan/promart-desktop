@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Controls;
+using Promart.Core;
 using Promart.Database.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,21 +20,25 @@ namespace Promart.Pages
         public StudentListPage()
         {
             InitializeComponent();
+
+            RegistryAge.Text = DateTime.Now.Year.ToString();
         }
 
-        private async Task<List<Student>> GetStudents()
+        private async Task<List<Student>> GetStudentsAsync()
         {
             var context = App.AppDbContext;
 
-            var students = context.Students.AsNoTracking().AsQueryable();
+            var students = context.Students
+                                    .AsNoTracking()
+                                    .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(FullName.Text))
-                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));
+                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));            
+            
+            if(!string.IsNullOrWhiteSpace(RegistryAge.Text))
+                students = students.Where(s => s.ProjectRegistryDate != null && s.ProjectRegistryDate.Value.Year.ToString() == RegistryAge.Text);
 
-            string registryAge = string.IsNullOrWhiteSpace(RegistryAge.Text) ? DateTime.Now.Year.ToString() : RegistryAge.Text;
-
-            var result = await students
-                .Where(s => s.ProjectRegistryDate != null && s.ProjectRegistryDate.Value.Year.ToString() == registryAge)
+            var result = await students                
                 .Select(s => new Student
                 {
                     Id = s.Id,
@@ -48,22 +53,35 @@ namespace Promart.Pages
             return result;
         }
 
-        private async void Search_Click(object sender, RoutedEventArgs e)
+        private async Task SearchAsync(bool showNotFoundMessage = true)
         {
+            MainGrid.TrimAllTextBox();
             ResultPanel.Children.Clear();
 
-            var result = await GetStudents();
+            var result = await GetStudentsAsync();            
 
             if (result.Count > 0)
+            {
                 result.ForEach(s => {
                     var control = new StudentDetailControl(s);
-
                     control.MouseLeftButtonDown += Control_MouseLeftButtonDown;
-
                     ResultPanel.Children.Add(control);
                 });
+            }                
             else
-                MessageBox.Show("Não foi encontrado nenhum resultado para essa busca.", "Rematricula não aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
+            {
+                if(showNotFoundMessage)
+                    MessageBox.Show(
+                        "Não foi encontrado nenhum resultado para essa busca.",
+                        "Nada foi encontrado",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+            }                            
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
+        {
+            await SearchAsync();
         }
 
         private void Control_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -77,7 +95,8 @@ namespace Promart.Pages
             var student = context.Students
                 .Where(s => s.Id == controlStudent.Id)
                 .Include(s => s.Workshops)
-                .Include(s => s.FamilyRelationships)                
+                .Include(s => s.FamilyRelationships)
+                .AsNoTracking()
                 .SingleOrDefault();
 
             if(student == null) 
@@ -86,9 +105,9 @@ namespace Promart.Pages
             MainWindow.Instance.NavigateToStudentRegisterPage(student);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            RegistryAge.Text = DateTime.Now.Year.ToString();
+            await SearchAsync(false);
         }
     }
 }

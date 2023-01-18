@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Promart.Core;
+using Promart.Database.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Promart.Pages.WorkshopListPage;
 
 namespace Promart.Controls
 {
@@ -20,9 +23,18 @@ namespace Promart.Controls
     /// </summary>
     public partial class WorkshopDetailControl : UserControl
     {
-        public WorkshopDetailControl()
+        private Workshop _workshop;
+
+        public WorkshopDetailControl(WorkshopDetailData workshop)
         {
             InitializeComponent();
+
+            _workshop = workshop.Workshop;
+
+            FullName.Content = _workshop.Name;
+            Status.Content = _workshop.RegistryStatus.Description();
+            StudentCount.Content = workshop.StudentCount;
+            RegisteredStudentsCount.Content = workshop.RegisteredStudentsCount;
         }
     }
 }

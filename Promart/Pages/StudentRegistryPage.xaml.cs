@@ -131,61 +131,98 @@ namespace Promart.Pages
             SetStudentWorkshops(student);
             SetStudentRelationships(student);
 
-            var result = await SaveStudentAsync(student);
-            IsEnabled = !result;
-
-            if (result)
+            try
             {
+                var context = App.AppDbContext;
+
+                context.Update(student);
+                await context.SaveChangesAsync();
+
+                MessageBox.Show(
+                $"Aluno matrículado com sucesso. Matrícula: {student.ProjectRegistry}",
+                "Aluno matriculado",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+                );
+
                 IsEnabled = false;
                 MainWindow.Instance.NavigateToStudentRegisterPage(student, NavigationUIVisibility.Hidden);
+            }
+            catch (Exception ex)
+            {
+                Error.ShowMessageBox("Ocorreu um erro ao matricular o aluno.", ex);
             }
         }
 
         private async void Update_Click(object sender, RoutedEventArgs e)
         {
             if (_student == null || !Validate())
-                return;           
+                return;
+            try
+            {
+                var context = App.AppDbContext;
+                _student = context.Students.Where(s => s.Id == _student.Id).Single();
 
-            _student.FullName = FullName.Text;
-            _student.BirthDate = BirthDate.SelectedDate;
-            _student.Gender = (GenderType)Gender.SelectedIndex;
-            _student.CPF = CPF.Text;
-            _student.RG = RG.Text;
-            _student.Certidao = Certidao.Text;
-            _student.ResponsibleName = Responsible.Text;
-            _student.ResponsiblePhone = Phone.Text;
-            _student.Relationship = (StudentRelationshipType)FamilyRelationship.SelectedIndex;
-            _student.IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0;
-            _student.Dwelling = (DwellingType)Dwelling.SelectedIndex;
-            _student.MonthlyIncome = (MonthlyIncomeType)MonthlyIncome.SelectedIndex;
-            _student.AddressStreet = Address.Text;
-            _student.AddressDistrict = AddressDistrict.Text;
-            _student.AddressNumber = AddressNumber.Text;
-            _student.AddressComplement = AddressComplement.Text;
-            _student.AddressCity = "Ipiaú";
-            _student.AddressState = "BA";
-            _student.AddressCEP = "45570000";
-            _student.AddressReferencePoint = AddressReference.Text;
-            _student.SchoolName = SchoolName.Text;
-            _student.SchoolYear = (SchoolYearType)SchoolYear.SelectedIndex;
-            _student.SchoolShift = (SchoolShiftType)SchoolShift.SelectedIndex;
-            _student.ProjectStatus = (ProjectStatusType)ProjectStatus.SelectedIndex;
-            _student.ProjectShift = (SchoolShiftType)ProjectShift.SelectedIndex;
-            _student.ProjectRegistryDate = DateTime.Now;
-            _student.Observations = Observations.Text;
+                _student.FullName = FullName.Text;
+                _student.BirthDate = BirthDate.SelectedDate;
+                _student.Gender = (GenderType)Gender.SelectedIndex;
+                _student.CPF = CPF.Text;
+                _student.RG = RG.Text;
+                _student.Certidao = Certidao.Text;
+                _student.ResponsibleName = Responsible.Text;
+                _student.ResponsiblePhone = Phone.Text;
+                _student.Relationship = (StudentRelationshipType)FamilyRelationship.SelectedIndex;
+                _student.IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0;
+                _student.Dwelling = (DwellingType)Dwelling.SelectedIndex;
+                _student.MonthlyIncome = (MonthlyIncomeType)MonthlyIncome.SelectedIndex;
+                _student.AddressStreet = Address.Text;
+                _student.AddressDistrict = AddressDistrict.Text;
+                _student.AddressNumber = AddressNumber.Text;
+                _student.AddressComplement = AddressComplement.Text;
+                _student.AddressCity = "Ipiaú";
+                _student.AddressState = "BA";
+                _student.AddressCEP = "45570000";
+                _student.AddressReferencePoint = AddressReference.Text;
+                _student.SchoolName = SchoolName.Text;
+                _student.SchoolYear = (SchoolYearType)SchoolYear.SelectedIndex;
+                _student.SchoolShift = (SchoolShiftType)SchoolShift.SelectedIndex;
 
-            SetStudentWorkshops(_student);
-            SetStudentRelationships(_student);
+                if (_student.ProjectStatus != ProjectStatusType.Matriculado
+                    && (ProjectStatusType)ProjectStatus.SelectedIndex == ProjectStatusType.Matriculado)
+                {
+                    _student.ProjectRegistryDate = DateTime.Now;
+                    RegistryDate.Text = _student.ProjectRegistryDate?.ToShortDateString();
+                }
 
-            var context = App.AppDbContext;
-            await context.SaveChangesAsync();
+                _student.ProjectStatus = (ProjectStatusType)ProjectStatus.SelectedIndex;
+                _student.ProjectShift = (SchoolShiftType)ProjectShift.SelectedIndex;
+                _student.Observations = Observations.Text;
 
-            MessageBox.Show(
-                $"Cadastro atualizado com sucesso",
-                "Cadastro atualizado",
+                SetStudentWorkshops(_student);
+                SetStudentRelationships(_student);
+
+                await context.SaveChangesAsync();
+
+                MessageBox.Show(
+                    $"Cadastro atualizado com sucesso",
+                    "Cadastro atualizado",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                    );
+
+                RegistryNumber.Focus();
+            }
+            catch(Exception ex )
+            {
+                MessageBox.Show(
+                "Ocorreu um erro ao atualizar o cadastro do aluno. " +
+                "O banco de dados pode estar desconectado ou não foi possível acessar o banco de dados.\n\n\n" +
+                $"Erro completo:{ex.Message}",
+                "Ocorreu um erro ao matricular o aluno",
                 MessageBoxButton.OK,
-                MessageBoxImage.Information
+                MessageBoxImage.Error
                 );
+            }            
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -402,52 +439,25 @@ namespace Promart.Pages
             }
 
             student.FamilyRelationships = relationships;
-        }
+        }        
 
-        private static async Task<bool> SaveStudentAsync(Student student)
+        private async Task GetllWorkshopsAsync()
         {
             try
             {
                 var context = App.AppDbContext;
+                var workshops = await context.Workshops.ToListAsync();
 
-                context.Update(student);
-                await context.SaveChangesAsync();
-
-                MessageBox.Show(
-                $"Aluno matrículado com sucesso. Matrícula: {student.ProjectRegistry}",
-                "Aluno matriculado",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-                );
-
-                return true;
+                workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
+                {
+                    Content = w,
+                    VerticalContentAlignment = VerticalAlignment.Center
+                }));
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                "Ocorreu um erro ao matricular o aluno. Veja possíveis causas:\n\n" +
-                "1) O formulário contém dados inválidos.\n" +
-                "2) O banco de dados está desconectado ou não foi possível acessar o banco de dados.\n\n\n" +
-                $"Erro completo:{ex.Message}",
-                "Ocorreu um erro ao matricular o aluno",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-                );
-
-                return false;
+                Error.ShowMessageBox("Não foi possível carregar as oficinas do projeto.", ex);
             }
-        }
-
-        private async Task GetllWorkshopsAsync()
-        {
-            var context = App.AppDbContext;
-            var workshops = await context.Workshops.ToListAsync();
-
-            workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
-            {
-                Content = w,
-                VerticalContentAlignment = VerticalAlignment.Center
-            }));
-        }
+        }        
     }
 }

@@ -17,7 +17,9 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid 
+        x:Name="MainGrid"
+        Background="White">
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>

@@ -7,7 +7,7 @@ INSERT into [PromartDesktop].dbo.Students
 		AddressStreet, AddressDistrict, AddressNumber, AddressCity, AddressState,
 		AddressCEP, AddressReferencePoint,
 		ProjectStatus, ProjectShift, Observations,
-		Registry, RegistryDate, RegistryStatus
+		ProjectRegistry, ProjectRegistryDate, RegistryStatus
 	)
 	SELECT 
 		NomeCompleto,

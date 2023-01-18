@@ -93,6 +93,15 @@ namespace Promart.Pages
 
                     hasModification = true;
                 }
+                else
+                {
+                    var student = control.GetStudent();
+
+                    if(student.ProjectStatus == Database.ProjectStatusType.Matriculado)
+                        student.ProjectStatus = Database.ProjectStatusType.ExAluno;
+
+                    context.Update(student);
+                }
             }
 
             if (hasModification)
