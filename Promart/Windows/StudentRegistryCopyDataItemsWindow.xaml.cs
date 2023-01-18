@@ -30,6 +30,11 @@ namespace Promart.Windows
 
         private void SelectData_Click(object sender, RoutedEventArgs e)
         {
+            var result = MessageBox.Show("Deseja realmente utilizar os dados desse aluno? Isso irá sobrescrever os campos escolhidos.", "Aviso", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
             _selectedItems.FamilyComposition = FamilyComposition.IsChecked == true;
             _selectedItems.FamilyData = FamilyData.IsChecked == true;
             _selectedItems.AddressData = Address.IsChecked == true;

@@ -6,6 +6,16 @@
              xmlns:local="clr-namespace:Promart.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="300" MinWidth="250">
+
+    <Control.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Control.Resources>
+
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -19,11 +29,8 @@
             Margin="1"
             Background="IndianRed"
             Content="X"
-            FontWeight="Bold"
-            FontSize="14"
-            VerticalContentAlignment="Center"
-            Click="Remove_Click"
-            BorderThickness="0"
+            Click="Remove_Click"  
+            Style="{StaticResource HeaderButton}"
             />
     </Grid>
 </UserControl>

@@ -15,6 +15,8 @@
     <SolidColorBrush x:Key="Color4">#cefdff</SolidColorBrush>
     <SolidColorBrush x:Key="Color5">#ccffcb</SolidColorBrush>
     <SolidColorBrush x:Key="Color6">White</SolidColorBrush>
+    <SolidColorBrush x:Key="Color7">IndianRed</SolidColorBrush>
+    <SolidColorBrush x:Key="Color8">Red</SolidColorBrush>
 
     <SolidColorBrush x:Key="ErrorBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="ErrorTextColor">White</SolidColorBrush>
@@ -31,6 +33,44 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FontWeight" Value="Black" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+    <Style BasedOn="{StaticResource DefaultButton}" TargetType="Button" x:Key="WindowButton">
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="40" />
+    </Style>
+    <Style BasedOn="{StaticResource {x:Type Button}}"
+                   TargetType="Button"
+                   x:Key="RemoveButton">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="FontWeight" Value="Black" />
+        <Setter Property="FontSize" Value="{StaticResource MinSize}" />
+        <Setter Property="Background" Value="{StaticResource Color8}" />
+        <Setter Property="Foreground" Value="{StaticResource Color6}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+    <Style BasedOn="{StaticResource {x:Type Button}}"
+                   TargetType="Button"
+                   x:Key="HeaderButton">
+        <Setter Property="FontSize" Value="{StaticResource NormalSize}" />
+        <Setter Property="Foreground" Value="{StaticResource Color6}" />
+        <Setter Property="Background" Value="{StaticResource Color7}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontWeight" Value="Bold" />        
         <Style.Resources>
             <Style TargetType="Border">
                 <Setter Property="CornerRadius" Value="10"/>

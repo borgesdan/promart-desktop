@@ -86,15 +86,10 @@
             <Button
                 x:Name="SelectData"                
                 Content="SELECIONAR"
-                Height="35"
-                Width="200"
                 Margin="10"
-                HorizontalAlignment="Right"
-                FontWeight="Bold"
+                HorizontalAlignment="Right"                
                 Click="SelectData_Click"
-                FontSize="{StaticResource NormalSize}"
-                Background="{StaticResource Color2}"
-                Foreground="White" />
+                Style="{StaticResource WindowButton}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -67,16 +67,13 @@
             </GroupBox>            
             <Button
                 x:Name="Remove"
-                Content="Excluir"
-                Width="80"
+                Content="REMOVER"
+                Width="100"
                 Height="20"
                 Margin="5 10"
                 HorizontalAlignment="Right"
-                Background="Red"
-                Foreground="White"
-                FontSize="{StaticResource MinSize}"
-                FontWeight="Bold"
-                Click="Remove_Click">                
+                Click="Remove_Click"
+                Style="{StaticResource RemoveButton}">                
             </Button>
         </StackPanel>
     </Grid>

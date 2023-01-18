@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Promart.Windows"
         mc:Ignorable="d"
-        Title="Copiar Dados" Height="500" Width="800"
+        Title="Copiar Dados" Height="540" Width="800"
         WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -32,16 +32,11 @@
             </GroupBox>
             <Button
                 x:Name="Search"
-                Content="BUSCAR"
-                Height="35"
-                Width="200"
+                Content="PESQUISAR"
                 Margin="10"
                 HorizontalAlignment="Right"
                 Click="Search_Click" 
-                FontWeight="Bold"
-                FontSize="{StaticResource NormalSize}"
-                Background="{StaticResource Color2}"
-                Foreground="White"/>
+                Style="{StaticResource WindowButton}"/>
             <GroupBox 
                 Header="Resultado">
                 <DataGrid 
@@ -59,15 +54,10 @@
                 x:Name="SelectStudent"
                 IsEnabled="False"
                 Content="SELECIONAR"
-                Height="35"
-                Width="200"
+                HorizontalAlignment="Right"                
+                Click="SelectStudent_Click"
                 Margin="10"
-                HorizontalAlignment="Right"
-                FontWeight="Bold"
-                FontSize="{StaticResource NormalSize}"
-                Background="{StaticResource Color2}"
-                Foreground="White"
-                Click="SelectStudent_Click" />
+                Style="{StaticResource WindowButton}"/>
         </StackPanel>
     </Grid>
 </Window>

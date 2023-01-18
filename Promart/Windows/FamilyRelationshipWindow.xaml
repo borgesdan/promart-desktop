@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Promart.Windows"
         mc:Ignorable="d"
-        Title="Composição Familiar" Height="460" Width="480"
+        Title="Composição Familiar"
+        Height="500" Width="480"
         WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded" >    
 
     <Window.Resources>
         <ResourceDictionary>
@@ -16,11 +17,12 @@
                 <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </Window.Resources>    
 
     <Grid     
         x:Name="MainGrid"
-        Margin="20 20">
+        Margin="20 20"
+        Background="White">
         <StackPanel>
             <GroupBox
                 Header="Nome Completo" 
@@ -75,11 +77,12 @@
             </GroupBox>            
             <Button
                 x:Name="Accept"
-                Content="Adicionar"                
-                Height="30"   
+                Content="ADICIONAR" 
                 Click="Accept_Click"
-                Margin="50 20"
-                VerticalAlignment="Bottom">
+                Margin="0 20 10 0"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Style="{StaticResource WindowButton}">
             </Button>
         </StackPanel>
     </Grid>

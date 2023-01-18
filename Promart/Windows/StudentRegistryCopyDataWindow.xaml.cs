@@ -59,19 +59,29 @@ namespace Promart.Windows
             DataGridResult.ItemsSource = null;
 
             if (string.IsNullOrWhiteSpace(FullName.Text))
-                return;            
+            {
+                MessageBox.Show("É necessário digitar um nome para a pesquisa.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information); 
+                return;
+            }
 
-            var context = App.AppDbContext;
-            var students = context.Students.Where(s => 
-                s.FullName != null 
-                && s.FullName.Contains(FullName.Text))
-                    .Include(s => s.Workshops)
-                    .Include(s => s.FamilyRelationships)
-                    .AsQueryable();
+            try
+            {
+                var context = App.AppDbContext;
+                var students = context.Students.Where(s =>
+                    s.FullName != null
+                    && s.FullName.Contains(FullName.Text))
+                        .Include(s => s.Workshops)
+                        .Include(s => s.FamilyRelationships)
+                        .AsQueryable();
 
-            var result = await students.ToListAsync();
-            
-            DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
+                var result = await students.ToListAsync();
+
+                DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
+            }
+            catch(Exception ex)
+            {
+                Error.ShowMessageBox("Ocorreu um erro ao realizar a pesquisa", ex);
+            }
         }
 
         private void DataGridResult_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
