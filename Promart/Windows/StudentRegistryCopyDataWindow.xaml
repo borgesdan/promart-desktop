@@ -28,7 +28,7 @@
                 <TextBox
                     x:Name="FullName"
                     MaxLength="{StaticResource FullNameMaxLength}"                            
-                    Style="{StaticResource FormTextBox}"/>
+                    Style="{StaticResource DefaultTextBox}"/>
             </GroupBox>
             <Button
                 x:Name="Search"

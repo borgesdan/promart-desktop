@@ -22,7 +22,7 @@
         Background="White">
         <StackPanel>
             <Expander Header="Busca" 
-                Style="{StaticResource FormExpander}">
+                Style="{StaticResource DefaultExpander}">
                 <GroupBox
                         Header="Barra de Pesquisa"                                                
                         Style="{StaticResource DefaultGroupBox}">
@@ -30,7 +30,7 @@
                         <TextBox
                             x:Name="SearchBar"
                             MaxLength="{StaticResource FullNameMaxLength}"                            
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                         <StackPanel Orientation="Horizontal">
                             <RadioButton x:Name="RadioName" Content="Nome" GroupName="Search" IsChecked="True" VerticalContentAlignment="Center" Margin="10 0" />
                             <RadioButton x:Name="RadioCpf" Content="CPF" GroupName="Search" VerticalContentAlignment="Center" Margin="20 0" />
@@ -40,7 +40,7 @@
             </Expander>
             <Expander 
                 Header="Filtros"                 
-                Style="{StaticResource FormExpander}">
+                Style="{StaticResource DefaultExpander}">
                 <StackPanel>
                     <Button 
                         x:Name="Clear"
@@ -90,7 +90,7 @@
                                 x:Name="Gender"
                                 SelectedIndex="0"                            
                                 IsEnabled="{Binding ElementName=CheckGender, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormComboBox}">
+                                >
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox x:Name="CheckGender"
@@ -118,7 +118,7 @@
                                     Width="100"
                                     MaxLength="2"
                                     IsEnabled="{Binding ElementName=CheckAge, Path=IsChecked, TargetNullValue=False}"
-                                    Style="{StaticResource FormTextBox}"/>
+                                    Style="{StaticResource DefaultTextBox}"/>
                                 <ComboBox
                                     x:Name="AgeSelector"
                                     SelectedIndex="0"
@@ -156,7 +156,7 @@
                                 Name="FamilyRelationship"
                                 SelectedIndex="0"
                                 IsEnabled="{Binding ElementName=CheckFamilyRelationship, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormComboBox}">
+                                >
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -183,7 +183,7 @@
                                 Name="Dwelling"
                                 SelectedIndex="0"
                                 IsEnabled="{Binding ElementName=CheckDwelling, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormComboBox}">
+                                >
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -210,7 +210,7 @@
                                 Name="MonthlyIncome"
                                 SelectedIndex="0"
                                 IsEnabled="{Binding ElementName=CheckMonthlyIncome, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormComboBox}">
+                                >
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -237,7 +237,7 @@
                                 x:Name="BeneficiaryBox"
                                 SelectedIndex="0"
                                 IsEnabled="{Binding ElementName=CheckBeneficiaryBox, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormComboBox}">
+                                >
                                 <ComboBoxItem Content="Sim" />
                                 <ComboBoxItem Content="Não" />
                             </ComboBox>
@@ -266,7 +266,7 @@
                                 x:Name="Address"
                                 IsEnabled="{Binding ElementName=CheckAddress, Path=IsChecked, TargetNullValue=False}"
                                 MaxLength="{StaticResource FullNameMaxLength}"
-                                Style="{StaticResource FormTextBox}"/>
+                                Style="{StaticResource DefaultTextBox}"/>
                             <GroupBox.Header>
                                 <CheckBox 
                                 x:Name="CheckAddress"
@@ -292,7 +292,7 @@
                                 x:Name="AddressDistrict"
                                 IsEnabled="{Binding ElementName=CheckAddressDistrict, Path=IsChecked, TargetNullValue=False}"
                                 MaxLength="{StaticResource FullNameMediumLength}"
-                                Style="{StaticResource FormTextBox}"/>
+                                Style="{StaticResource DefaultTextBox}"/>
                             <GroupBox.Header>
                                 <CheckBox 
                                 x:Name="CheckAddressDistrict"
@@ -318,7 +318,7 @@
                                 x:Name="SchoolName"
                                 IsEnabled="{Binding ElementName=CheckSchoolName, Path=IsChecked, TargetNullValue=False}"
                                 MaxLength="{StaticResource FullNameMaxLength}"
-                                Style="{StaticResource FormTextBox}"/>
+                                Style="{StaticResource DefaultTextBox}"/>
                             <GroupBox.Header>
                                 <CheckBox 
                                 x:Name="CheckSchoolName"
@@ -344,7 +344,7 @@
                                 Name="SchoolShift"
                                 SelectedIndex="0"
                                 IsEnabled="{Binding ElementName=CheckSchoolShift, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormComboBox}">
+                                >
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -371,7 +371,7 @@
                                 Name="SchoolYear"
                                 SelectedIndex="0"       
                                 IsEnabled="{Binding ElementName=CheckSchoolYear, Path=IsChecked, TargetNullValue=False}"
-                                Style="{StaticResource FormComboBox}">
+                                >
                             </ComboBox>
                             <GroupBox.Header>
                                 <CheckBox 
@@ -462,7 +462,7 @@
             </Button>
             
             <Expander Header="Resultado"                       
-                Style="{StaticResource FormExpander}">
+                Style="{StaticResource DefaultExpander}">
                 <DataGrid 
                     x:Name="DataGridResult"
                     Height="400"

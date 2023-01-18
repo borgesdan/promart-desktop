@@ -29,7 +29,7 @@
                     <TextBox
                         x:Name="FullName"
                         MaxLength="{StaticResource FullNameMaxLength}"
-                        Style="{StaticResource FormTextBox}"/>                    
+                        Style="{StaticResource DefaultTextBox}"/>                    
                 </StackPanel>
             </GroupBox>
             <GroupBox
@@ -38,7 +38,7 @@
                 <ComboBox
                     x:Name="Relationship" 
                     SelectedIndex="0"
-                    Style="{StaticResource FormComboBox}"/>
+                    />
             </GroupBox>
             <GroupBox
                 Header="Idade"                
@@ -48,14 +48,14 @@
                     Width="150"
                     HorizontalAlignment="Left"
                     MaxLength="{StaticResource AgeLength}"
-                    Style="{StaticResource FormTextBox}"/>
+                    Style="{StaticResource DefaultTextBox}"/>
             </GroupBox>            
             <GroupBox
                 Header="Ocupação" 
                 Style="{StaticResource DefaultGroupBox}">
                 <TextBox
                     x:Name="Ocupation"
-                    Style="{StaticResource FormTextBox}"/>
+                    Style="{StaticResource DefaultTextBox}"/>
             </GroupBox>
             <GroupBox
                 Header="Escolaridade" 
@@ -63,7 +63,7 @@
                 <TextBox
                     x:Name="Schooling"
                     MaxLength="{StaticResource FullNameMediumLength}"
-                    Style="{StaticResource FormTextBox}"/>
+                    Style="{StaticResource DefaultTextBox}"/>
             </GroupBox>
             <GroupBox
                 Header="Renda" 
@@ -71,7 +71,7 @@
                 <TextBox
                     x:Name="Income"
                     MaxLength="{StaticResource FullNameMediumLength}"
-                    Style="{StaticResource FormTextBox}"/>
+                    Style="{StaticResource DefaultTextBox}"/>
             </GroupBox>            
             <Button
                 x:Name="Accept"

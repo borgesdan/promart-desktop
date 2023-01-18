@@ -32,7 +32,7 @@
                         x:Name="FullName"
                         Margin="5 10"
                         MaxLength="{StaticResource FullNameMaxLength}"
-                        Style="{StaticResource FormTextBox}"/>
+                        Style="{StaticResource DefaultTextBox}"/>
                 </GroupBox>
                 <GroupBox
                     Header="Ano da Matrícula"
@@ -41,7 +41,7 @@
                         x:Name="RegistryAge"
                         Margin="5 10"
                         MaxLength="4"
-                        Style="{StaticResource FormTextBox}"/>
+                        Style="{StaticResource DefaultTextBox}"/>
                 </GroupBox>
             </Grid>
             <Button  
@@ -57,7 +57,7 @@
             </Button>            
             <Expander 
                 Header="Resultado"                 
-                Style="{StaticResource FormExpander}">
+                Style="{StaticResource DefaultExpander}">
                 <StackPanel>                    
                     <ScrollViewer 
                         MaxHeight="1000"

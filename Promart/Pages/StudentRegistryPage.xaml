@@ -13,9 +13,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Dictionaries/Data.xaml"/>
                 <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>            
+        </ResourceDictionary>        
     </Page.Resources>
+
+    
 
     <Grid Background="White" x:Name="MainGrid">
         <StackPanel>
@@ -23,7 +25,7 @@
                 Header="Cadastro"              
                 x:Name="RegistryExpander"
                 Visibility="Collapsed"
-                Style="{StaticResource FormExpander}">
+                Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -48,7 +50,7 @@
                         <TextBox
                             x:Name="RegistryNumber"         
                             IsReadOnly="True"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                     <GroupBox
                         Header="Data de Cadastro"
@@ -59,13 +61,13 @@
                         <TextBox
                             x:Name="RegistryDate"
                             IsReadOnly="True"                       
-                            Style="{StaticResource FormTextBox}"
+                            Style="{StaticResource DefaultTextBox}"
                             />
                     </GroupBox>
                 </Grid>
             </Expander>
             <Expander Header="Dados Pessoais" 
-                Style="{StaticResource FormExpander}">
+                Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -100,19 +102,24 @@
                         <TextBox
                             x:Name="FullName"
                             MaxLength="{StaticResource FullNameMaxLength}"                            
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
 
                     <Button
                         x:Name="Search"                        
                         Grid.Column="12"
-                        Grid.Row="0"            
-                        Margin="0, 15, 10, 2"   
-                        Content="Lupa"
-                        Background="{StaticResource Color2}"
-                        Foreground="White"
+                        Grid.Row="0"  
+                        Height="40"
+                        Width="60"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 5"
+                        Style="{StaticResource DefaultButton}"
+                        ToolTip="Procurar e preencher com dados de outro aluno"
                         Click="Search_Click"
                         >
+                        <Button.Content>
+                            <Image Source="/Content/search-16.png" Margin="5" />
+                        </Button.Content>
                     </Button>
 
                     <GroupBox
@@ -148,8 +155,8 @@
                         Style="{StaticResource DefaultGroupBox}">
                         <ComboBox
                             x:Name="Gender"
-                            SelectedIndex="0"                            
-                            Style="{StaticResource FormComboBox}">
+                            SelectedIndex="0"
+                            Style="{StaticResource DefaultComboBox}">
                         </ComboBox>
                     </GroupBox>
 
@@ -162,7 +169,7 @@
                         <TextBox
                             x:Name="RG"
                             MaxLength="{StaticResource RGLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
 
                     <GroupBox
@@ -175,7 +182,7 @@
                                 x:Name="CPF"
                                 Grid.Row="4"
                                 MaxLength="{StaticResource CPFLength}"
-                                Style="{StaticResource FormTextBox}"/>
+                                Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
 
                     <GroupBox
@@ -187,12 +194,12 @@
                         <TextBox
                             x:Name="Certidao"
                             MaxLength="{StaticResource CertidaoLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                 </Grid>
             </Expander>
             <Expander Header="Dados da Família"                      
-                      Style="{StaticResource FormExpander}">
+                      Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -228,7 +235,7 @@
                         <TextBox
                             x:Name="Responsible"                            
                             MaxLength="{StaticResource FullNameMaxLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
 
                     <GroupBox
@@ -239,7 +246,8 @@
                         <ComboBox
                             Name="FamilyRelationship"
                             SelectedIndex="0"
-                            Style="{StaticResource FormComboBox}">
+                            Style="{StaticResource DefaultComboBox}"
+                            >
                         </ComboBox>
                     </GroupBox>
 
@@ -251,7 +259,8 @@
                         <ComboBox
                             Name="Dwelling"
                             SelectedIndex="0"
-                            Style="{StaticResource FormComboBox}">
+                            Style="{StaticResource DefaultComboBox}"
+                            >
                         </ComboBox>
                     </GroupBox>
 
@@ -263,7 +272,8 @@
                         <ComboBox
                             Name="MonthlyIncome"
                             SelectedIndex="0"
-                            Style="{StaticResource FormComboBox}">
+                            Style="{StaticResource DefaultComboBox}"
+                            >
                         </ComboBox>
                     </GroupBox>
 
@@ -275,7 +285,8 @@
                         <ComboBox           
                             x:Name="BeneficiaryBox"
                             SelectedIndex="0"
-                            Style="{StaticResource FormComboBox}">
+                            Style="{StaticResource DefaultComboBox}"
+                            >
                             <ComboBoxItem Content="Sim" />
                             <ComboBoxItem Content="Não" />                            
                         </ComboBox>
@@ -290,14 +301,15 @@
                         <TextBox  
                             x:Name="Phone"
                             MaxLength="{StaticResource PhoneLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
 
                     <GroupBox
                         Header="Composição Familiar"
                         Grid.Column="0"
                         Grid.Row="6"
-                        Grid.ColumnSpan="12"                        
+                        Grid.ColumnSpan="12"  
+                        Style="{StaticResource DefaultGroupBox}"
                         >
                         <StackPanel>
                             <WrapPanel
@@ -305,20 +317,19 @@
                             </WrapPanel>
                             <Button
                                 x:Name="AddRelationship"
-                                Content="Adicionar"
+                                Content="ADICIONAR"
                                 Height="35"
                                 Width="200"
                                 HorizontalAlignment="Right"
-                                Click="AddRelationship_Click"                                
-                                Background="{StaticResource Color2}"
-                                Foreground="White"
-                                FontWeight="Bold"/>
+                                Click="AddRelationship_Click" 
+                                Style="{StaticResource DefaultButton}"
+                                ToolTip="Adicionar um membro da família"/>
                         </StackPanel>                        
                     </GroupBox>
                 </Grid>
             </Expander>
             <Expander Header="Endereço"
-                      Style="{StaticResource FormExpander}">
+                      Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -349,7 +360,7 @@
                         <TextBox
                             x:Name="Address"
                             MaxLength="{StaticResource FullNameMaxLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                     <GroupBox
                         Header="Bairro"
@@ -360,7 +371,7 @@
                         <TextBox
                             x:Name="AddressDistrict"
                             MaxLength="{StaticResource FullNameMediumLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                     <GroupBox
                         Header="Número"
@@ -371,7 +382,7 @@
                         <TextBox
                             x:Name="AddressNumber"
                             MaxLength="6"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                     <GroupBox
                         Header="Complemento"
@@ -382,7 +393,7 @@
                         <TextBox
                             x:Name="AddressComplement"
                             MaxLength="{StaticResource FullNameMediumLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                     <GroupBox
                         Header="Ponto de Referência"
@@ -393,12 +404,12 @@
                         <TextBox
                             x:Name="AddressReference"
                             MaxLength="{StaticResource FullNameMaxLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                 </Grid>
             </Expander>
             <Expander Header="Dados Escolares"
-                      Style="{StaticResource FormExpander}">
+                      Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -428,7 +439,7 @@
                         <TextBox
                             x:Name="SchoolName"
                             MaxLength="{StaticResource FullNameMaxLength}"
-                            Style="{StaticResource FormTextBox}"/>
+                            Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                     <GroupBox
                         Header="Turno"
@@ -439,7 +450,8 @@
                         <ComboBox    
                             Name="SchoolShift"
                             SelectedIndex="0"
-                            Style="{StaticResource FormComboBox}">
+                            Style="{StaticResource DefaultComboBox}"
+                            >
                         </ComboBox>
                     </GroupBox>
                     <GroupBox
@@ -450,14 +462,15 @@
                         Style="{StaticResource DefaultGroupBox}">
                         <ComboBox           
                             Name="SchoolYear"
-                            SelectedIndex="0"                            
-                            Style="{StaticResource FormComboBox}">
+                            SelectedIndex="0"      
+                            Style="{StaticResource DefaultComboBox}"
+                            >
                         </ComboBox>
                     </GroupBox>                    
                 </Grid>
             </Expander>
             <Expander Header="Dados do Projeto"
-                      Style="{StaticResource FormExpander}">
+                      Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -488,7 +501,9 @@
                         Header="Situação"
                         Grid.Column="0"
                         Grid.Row="0"
-                        Grid.ColumnSpan="4">
+                        Grid.ColumnSpan="4"
+                        Style="{StaticResource DefaultGroupBox}"
+                        >
                         <ComboBox
                             Name="ProjectStatus"
                             SelectedIndex="0"
@@ -499,7 +514,9 @@
                         Header="Turno"
                         Grid.Column="4"
                         Grid.Row="0"
-                        Grid.ColumnSpan="4">
+                        Grid.ColumnSpan="4"
+                        Style="{StaticResource DefaultGroupBox}"
+                        >
                         <ComboBox
                             Name="ProjectShift"
                             SelectedIndex="0"
@@ -510,7 +527,9 @@
                         Header="Oficinas"
                         Grid.Column="0"
                         Grid.Row="2"
-                        Grid.ColumnSpan="5">
+                        Grid.ColumnSpan="5"
+                        Style="{StaticResource DefaultGroupBox}"
+                        >
                         <ListBox
                             x:Name="Workshops"
                             SelectedIndex="0"
@@ -522,7 +541,9 @@
                         Header="Observações"
                         Grid.Column="5"
                         Grid.Row="2"
-                        Grid.ColumnSpan="8">
+                        Grid.ColumnSpan="8"
+                        Style="{StaticResource DefaultGroupBox}"
+                        >
                         <TextBox 
                             x:Name="Observations"
                             AcceptsReturn="True"
@@ -530,21 +551,18 @@
                             TextWrapping="Wrap"
                             VerticalContentAlignment="Top"
                             MaxLength="{StaticResource ObservationsLength}"
-                            Style="{StaticResource FormTextBox}">
+                            Style="{StaticResource DefaultTextBox}">
                         </TextBox>
                     </GroupBox>
                 </Grid>
             </Expander>
             <Button
                 x:Name="Register"
-                Content="CADASTRAR"                
+                Content="CADASTRAR" 
                 Height="50"
-                Margin="50 10" 
-                Background="{StaticResource Color2}"
-                FontSize="{StaticResource DefaultSize2}"                
-                FontWeight="Bold"   
-                BorderThickness="0"
-                Click="Register_Click"
+                Margin="160 10"                
+                Click="Register_Click"   
+                Style="{StaticResource DefaultButton}"
             />
             <Button
                 x:Name="Update"
@@ -557,6 +575,7 @@
                 FontWeight="Bold"   
                 BorderThickness="0"
                 Click="Update_Click"
+                ToolTip="Cadastrar os dados do aluno"
             />
         </StackPanel>
     </Grid>

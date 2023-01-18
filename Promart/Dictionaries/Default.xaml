@@ -14,69 +14,36 @@
     <SolidColorBrush x:Key="Color3">#bbd5ed</SolidColorBrush>
     <SolidColorBrush x:Key="Color4">#cefdff</SolidColorBrush>
     <SolidColorBrush x:Key="Color5">#ccffcb</SolidColorBrush>
+    <SolidColorBrush x:Key="Color6">White</SolidColorBrush>
 
     <SolidColorBrush x:Key="ErrorBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="ErrorTextColor">White</SolidColorBrush>
 
     <SolidColorBrush x:Key="WarningBackground">Orange</SolidColorBrush>
-    <SolidColorBrush x:Key="WarningTextColor">White</SolidColorBrush>   
+    <SolidColorBrush x:Key="WarningTextColor">White</SolidColorBrush>
 
-
-    <Style BasedOn="{StaticResource {x:Type Label}}"
-                   TargetType="Label"
-                   x:Key="DefaultLabel">
-        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
-    </Style>
     <Style BasedOn="{StaticResource {x:Type Button}}"
                    TargetType="Button"
                    x:Key="DefaultButton">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
-        <Setter Property="ContentTemplate" >
-            <Setter.Value>
-                <DataTemplate>
-                    <Grid>
-                        <Ellipse Width="64" Height="32" Fill="{StaticResource Color2}" />
-                        <ContentControl Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Grid>
-                </DataTemplate>                
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Foreground" Value="{StaticResource Color1}" />
+        <Setter Property="Background" Value="{StaticResource Color2}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontWeight" Value="Black" />
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+        </Style.Resources>
     </Style>
-    <Style BasedOn="{StaticResource {x:Type Button}}"
-                   TargetType="Button"
-                   x:Key="ToolbarButton">
-        <Setter Property="FontSize" Value="{StaticResource MinSize}" />
-        <Setter Property="Width" Value="35" />
-        <Setter Property="Height" Value="35" />
-    </Style>
-    <Style BasedOn="{StaticResource {x:Type TextBox}}"
-                   TargetType="TextBox"
-                   x:Key="DefaultTextBox">
-        <Setter Property="FontSize" Value="20" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
-    <Style BasedOn="{StaticResource {x:Type ComboBox}}"
-                   TargetType="ComboBox"
-                   x:Key="DefaultComboBox">
-        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
-    <Style BasedOn="{StaticResource {x:Type DatePicker}}"
-                   TargetType="DatePicker"
-                   x:Key="DefaultDatePicker">
-        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
-    <Style BasedOn="{StaticResource {x:Type ListBox}}"
-                   TargetType="ListBox"
-                   x:Key="DefaultListBox">
-        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
-    </Style>
+
     <Style BasedOn="{StaticResource {x:Type Expander}}"
                    TargetType="Expander"
                    x:Key="DefaultExpander">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize2}" />
         <Setter Property="IsExpanded" Value="True" />
+        <Setter Property="Margin" Value="0, 20, 0, 0" />
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -90,67 +57,47 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style BasedOn="{StaticResource {x:Type DatePicker}}"
+                   TargetType="DatePicker"
+                   x:Key="DefaultDatePicker">
+        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style BasedOn="{StaticResource {x:Type Label}}"
+                   TargetType="Label"
+                   x:Key="DefaultLabel">
+        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>    
+
+    <Style BasedOn="{StaticResource {x:Type TextBox}}"
+                   TargetType="TextBox"
+                   x:Key="DefaultTextBox">
+        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{StaticResource Color3}" />
+    </Style>
+    
+    <Style BasedOn="{StaticResource {x:Type ComboBox}}"
+                   TargetType="ComboBox"
+                   x:Key="DefaultComboBox">
+        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    
+    <Style BasedOn="{StaticResource {x:Type ListBox}}"
+                   TargetType="ListBox"
+                   x:Key="DefaultListBox">
+        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Color3}" />
+    </Style>    
+    
     <Style BasedOn="{StaticResource {x:Type GroupBox}}"
                    TargetType="GroupBox"
                    x:Key="DefaultGroupBox">
-        <Setter Property="FontSize" Value="{StaticResource NormalSize}">
-            
-        </Setter>
-    </Style>
+        <Setter Property="FontSize" Value="{StaticResource DefaultSize2}" />
+    </Style>    
     
-
-    <!-- END DEFAULT-->
-
-    <Style BasedOn="{StaticResource {x:Type Button}}"
-                   TargetType="Button"
-                   x:Key="SearchButton">
-        <Setter Property="Background" Value="{StaticResource Color3}"/>
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Cursor" Value="Hand" />
-    </Style>
-
-    <Style BasedOn="{StaticResource DefaultLabel}"
-                   TargetType="Label"
-                   x:Key="FormLabel">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
-    </Style>
-
-    <Style BasedOn="{StaticResource {x:Type TextBlock}}"
-                   TargetType="TextBlock"
-                   x:Key="FormErrorTextBlock">
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="Foreground" Value="{StaticResource ErrorTextColor}" />
-        <Setter Property="Background" Value="{StaticResource ErrorBackground}" />
-        <Setter Property="FontSize" Value="{StaticResource ErrorSize}" />
-    </Style>
-
-    <Style BasedOn="{StaticResource {x:Type TextBlock}}"
-                   TargetType="TextBlock"
-                   x:Key="FormWarningTextBlock">
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="Foreground" Value="{StaticResource WarningTextColor}" />
-        <Setter Property="Background" Value="{StaticResource WarningBackground}" />
-        <Setter Property="FontSize" Value="{StaticResource ErrorSize}" />
-    </Style>
-
-    <Style BasedOn="{StaticResource DefaultExpander}"
-                   TargetType="Expander"
-                   x:Key="FormExpander">
-        <Setter Property="Margin" Value="0, 20, 0, 0" />
-    </Style>
-    <Style BasedOn="{StaticResource DefaultTextBox}"
-                   TargetType="TextBox"
-                   x:Key="FormTextBox">
-        <Setter Property="BorderBrush" Value="{StaticResource Color3}" />
-    </Style>
-    <Style BasedOn="{StaticResource DefaultComboBox}"
-                   TargetType="ComboBox"
-                   x:Key="FormComboBox">
-    </Style>
-    <Style BasedOn="{StaticResource DefaultListBox}"
-                   TargetType="ListBox"
-                   x:Key="FormListBox">
-        <Setter Property="BorderBrush" Value="{StaticResource Color3}" />
-    </Style>
 </ResourceDictionary>

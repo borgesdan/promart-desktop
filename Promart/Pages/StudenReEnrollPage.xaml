@@ -44,7 +44,7 @@
                         x:Name="FullName"
                         Margin="5 10"
                         MaxLength="{StaticResource FullNameMaxLength}"
-                        Style="{StaticResource FormTextBox}"/>
+                        Style="{StaticResource DefaultTextBox}"/>
                     <Button  
                         x:Name="Search"
                         Content="PESQUISAR"
@@ -60,7 +60,7 @@
             </GroupBox>            
             <Expander 
                     Header="Resultado"                 
-                    Style="{StaticResource FormExpander}">
+                    Style="{StaticResource DefaultExpander}">
                 <StackPanel>
                     <Button 
                             x:Name="Apply"
