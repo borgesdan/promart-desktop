@@ -53,8 +53,8 @@
     <Style BasedOn="{StaticResource BaseButton}"
                    TargetType="Button"
                    x:Key="RemoveButton">
-        <Setter Property="Width" Value="100" />
-        <Setter Property="Height" Value="20" />
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
         <Setter Property="FontSize" Value="{StaticResource MinSize}" />
         <Setter Property="Background" Value="{StaticResource Color8}" />
         <Setter Property="Foreground" Value="{StaticResource Color6}" />

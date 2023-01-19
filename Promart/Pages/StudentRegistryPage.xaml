@@ -312,9 +312,9 @@
                         Style="{StaticResource DefaultGroupBox}"
                         >
                         <StackPanel>
-                            <WrapPanel
+                            <StackPanel
                                 x:Name="RelationshipPanel">
-                            </WrapPanel>
+                            </StackPanel>
                             <Button
                                 x:Name="AddRelationship"
                                 Content="ADICIONAR"

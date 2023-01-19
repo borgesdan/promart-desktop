@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Promart.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="220" d:DesignWidth="240" MinWidth="240" MinHeight="340"
-             BorderThickness="2" BorderBrush="Black" Margin="5" Padding="5"
-             Loaded="UserControl_Loaded">
+             mc:Ignorable="d"
+             MinWidth="600" Margin="5" Padding="5"
+             Loaded="UserControl_Loaded">   
+    
     
     <Control.Resources>
         <ResourceDictionary>
@@ -19,62 +19,72 @@
     </Control.Resources>
 
     <Grid x:Name="MainGrid" Background="White">
-        <StackPanel>
-            <GroupBox
-                Header="Nome Completo"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />            
+            <ColumnDefinition Width="32" />            
+        </Grid.ColumnDefinitions>
+
+        <GroupBox
+                Header="Nome"
                 FontSize="{StaticResource NormalSize}">
-                <StackPanel>
-                    <TextBox
+            <StackPanel>
+                <TextBox
                         x:Name="FullName"
                         MaxLength="{StaticResource FullNameMaxLength}"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
-                Header="Relacionamento"
-                FontSize="{StaticResource NormalSize}">
-                <ComboBox
-                    x:Name="Relationship" 
-                    SelectedIndex="0"/>
-            </GroupBox>
-            <GroupBox
-                Header="Idade"
-                FontSize="{StaticResource NormalSize}">
-                <TextBox
-                    x:Name="Age"  
-                    Width="150"
-                    HorizontalAlignment="Left"
-                    MaxLength="{StaticResource AgeLength}"/>
-            </GroupBox>
-            <GroupBox
-                Header="Ocupação"
-                FontSize="{StaticResource NormalSize}">
-                <TextBox
-                    x:Name="Occupation"/>
-            </GroupBox>
-            <GroupBox
-                Header="Escolaridade"
-                FontSize="{StaticResource NormalSize}">
-                <TextBox
-                    x:Name="Schooling"
-                    MaxLength="{StaticResource FullNameMediumLength}"/>
-            </GroupBox>
-            <GroupBox
-                Header="Renda"
-                FontSize="{StaticResource NormalSize}">
-                <TextBox
-                    x:Name="Income"
-                    MaxLength="{StaticResource FullNameMediumLength}"/>
-            </GroupBox>            
-            <Button
-                x:Name="Remove"
-                Content="REMOVER"
-                Width="100"
-                Height="20"
-                Margin="5 10"
-                HorizontalAlignment="Right"
-                Click="Remove_Click"
-                Style="{StaticResource RemoveButton}">                
-            </Button>
-        </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox
+            Header="Relacionamento"
+            Grid.Column="1"
+            FontSize="{StaticResource NormalSize}">
+            <ComboBox
+                x:Name="Relationship" 
+                SelectedIndex="0"/>
+        </GroupBox>
+        <GroupBox
+            Header="Idade"
+            Grid.Column="2"
+            FontSize="{StaticResource NormalSize}">
+            <TextBox
+                x:Name="Age"  
+                MaxLength="{StaticResource AgeLength}"/>
+        </GroupBox>
+        <GroupBox
+            Header="Ocupação"
+            Grid.Column="3"
+            FontSize="{StaticResource NormalSize}">
+            <TextBox
+                x:Name="Occupation"/>
+        </GroupBox>
+        <GroupBox
+            Header="Escolaridade"
+            Grid.Column="4"
+            FontSize="{StaticResource NormalSize}">
+            <TextBox
+                x:Name="Schooling"
+                MaxLength="{StaticResource FullNameMediumLength}"/>
+        </GroupBox>
+        <GroupBox
+            Header="Renda"
+            Grid.Column="5"
+            FontSize="{StaticResource NormalSize}">
+            <TextBox
+                x:Name="Income"
+                MaxLength="{StaticResource FullNameMediumLength}"/>
+        </GroupBox>
+        <Button
+            x:Name="Remove"
+            Content="R"            
+            Click="Remove_Click"
+            Grid.Column="6"
+            VerticalAlignment="Bottom"
+            Margin="0 5"
+            Style="{StaticResource RemoveButton}">
+        </Button>
     </Grid>
 </UserControl>
