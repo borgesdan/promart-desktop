@@ -1,26 +1,17 @@
-﻿using Promart.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using Promart.Controls;
+using Promart.Core;
 using Promart.Database;
+using Promart.Database.Context;
+using Promart.Database.Entities;
+using Promart.Pages.Print;
+using Promart.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
-using Promart.Windows;
-using Promart.Database.Entities;
-using Promart.Core.Html;
-using Promart.Controls;
-using System.Security.RightsManagement;
 
 namespace Promart.Pages
 {
@@ -29,19 +20,26 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentRegistryPage : Page
     {
+        AppDbContext context = AppDbContextFactory.Create();
+        readonly int studentId = 0;
         bool isLoaded = false;
-
         Student? _student;
+        bool updateMode = false;
 
         public StudentRegistryPage()
         {
             InitializeComponent();
+            RegistryExpander.Visibility = Visibility.Collapsed;
+            TopPanel.Visibility = Visibility.Collapsed;
+            Update.Visibility = Visibility.Collapsed;
         }
 
-        public StudentRegistryPage(Student student)
+        public StudentRegistryPage(int studentId)
         {
             InitializeComponent();
-            _student = student;
+
+            updateMode = true;
+            this.studentId = studentId;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -65,8 +63,15 @@ namespace Promart.Pages
 
             await GetllWorkshopsAsync();
 
-            if (_student != null)
+            if (updateMode)
+            {
+                _student = await context.Students.Where(s => s.Id == studentId)
+                    .Include(s => s.Workshops)
+                    .Include(s => s.FamilyRelationships)
+                    .FirstOrDefaultAsync();
+
                 ApplyStudentData();
+            }
 
             isLoaded = true;
         }
@@ -92,11 +97,9 @@ namespace Promart.Pages
         private async void Register_Click(object sender, RoutedEventArgs e)
         {
             if (!Validate())
-                return;
+                return;           
 
-            this.IsEnabled = false;
-
-            var student = new Student
+            _student = new Student
             {
                 FullName = FullName.Text,
                 BirthDate = BirthDate.SelectedDate,
@@ -128,25 +131,23 @@ namespace Promart.Pages
                 Observations = Observations.Text,
             };
 
-            SetStudentWorkshops(student);
-            SetStudentRelationships(student);
+            SetStudentWorkshops(_student);
+            SetStudentRelationships(_student);
 
             try
             {
-                var context = App.AppDbContext;
-
-                context.Update(student);
+                context.Update(_student);
                 await context.SaveChangesAsync();
 
+                updateMode = true;
+                ApplyStudentData();
+
                 MessageBox.Show(
-                $"Aluno matrículado com sucesso. Matrícula: {student.ProjectRegistry}",
+                $"Aluno matrículado com sucesso. Matrícula: {_student.ProjectRegistry}",
                 "Aluno matriculado",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
                 );
-
-                IsEnabled = false;
-                MainWindow.Instance.NavigateToStudentRegisterPage(student, NavigationUIVisibility.Hidden);
             }
             catch (Exception ex)
             {
@@ -158,11 +159,8 @@ namespace Promart.Pages
         {
             if (_student == null || !Validate())
                 return;
-            try
-            {
-                var context = App.AppDbContext;
-                _student = context.Students.Where(s => s.Id == _student.Id).Single();
-
+            try 
+            { 
                 _student.FullName = FullName.Text;
                 _student.BirthDate = BirthDate.SelectedDate;
                 _student.Gender = (GenderType)Gender.SelectedIndex;
@@ -200,7 +198,7 @@ namespace Promart.Pages
 
                 SetStudentWorkshops(_student);
                 SetStudentRelationships(_student);
-
+                
                 await context.SaveChangesAsync();
 
                 MessageBox.Show(
@@ -214,14 +212,7 @@ namespace Promart.Pages
             }
             catch(Exception ex )
             {
-                MessageBox.Show(
-                "Ocorreu um erro ao atualizar o cadastro do aluno. " +
-                "O banco de dados pode estar desconectado ou não foi possível acessar o banco de dados.\n\n\n" +
-                $"Erro completo:{ex.Message}",
-                "Ocorreu um erro ao matricular o aluno",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-                );
+                Error.ShowMessageBox("Ocorreu um erro ao atualizar o cadastro do aluno", ex);
             }            
         }
 
@@ -343,10 +334,12 @@ namespace Promart.Pages
             if (_student == null)
                 return;
 
-            RegistryExpander.Visibility = Visibility.Visible;
+            this.Title = _student.FullName;
 
-            Register.Visibility = Visibility.Collapsed;
+            RegistryExpander.Visibility = Visibility.Visible;
+            TopPanel.Visibility = Visibility.Visible;
             Update.Visibility = Visibility.Visible;
+            Register.Visibility = Visibility.Collapsed;            
 
             RegistryNumber.Text = _student.ProjectRegistry;
             RegistryDate.Text = _student.ProjectRegistryDate?.ToShortDateString();
@@ -406,26 +399,46 @@ namespace Promart.Pages
 
         private void SetStudentWorkshops(Student student)
         {
-            var workshops = new List<Workshop>();
+            //foreach (var item in Workshops.Items)
+            //{
+            //    var checkbox = (CheckBox)item;
 
-            foreach (var item in Workshops.Items)
+            //    if (checkbox.IsChecked == true)
+            //    {
+            //        var content = (Workshop)checkbox.Content;                                        
+
+            //        if (!student.Workshops.Contains(content))
+            //            student.Workshops.Add(content);                    
+            //    }
+            //    else if(checkbox.IsChecked == false)
+            //    {
+            //        var content = (Workshop)checkbox.Content;                    
+
+            //        if(student.Workshops.Contains(content))
+            //            student.Workshops.Remove(content);
+            //    }
+            //}
+
+            var list = new List<Workshop>();
+
+            foreach(var item in Workshops.Items)
             {
                 var checkbox = (CheckBox)item;
 
                 if (checkbox.IsChecked == true)
                 {
-                    var content = (Workshop)checkbox.Content;                    
-                    workshops.Add(content);
+                    var content = (Workshop)checkbox.Content;
+
+                    list.Add(content);
                 }
             }
 
-            student.Workshops.Clear();
-            student.Workshops = workshops;
+            student.Workshops = list;
         }
 
         private void SetStudentRelationships(Student student)
         {
-            var relationships = new List<FamilyRelationship>();
+            var list = new List<FamilyRelationship>();
 
             foreach (var child in RelationshipPanel.Children)
             {
@@ -434,18 +447,27 @@ namespace Promart.Pages
                     var relationship = relationshipControl.GetRelationship();
 
                     if (relationship != null && relationshipControl.IsFormularyValid)
-                        relationships.Add(relationship);
+                        list.Add(relationship);
                 }
             }
 
-            student.FamilyRelationships = relationships;
+            foreach(var f in student.FamilyRelationships)
+            {
+                if (!list.Contains(f))
+                    student.FamilyRelationships.Remove(f);
+            }
+
+            list.ForEach(l =>
+            {
+                if (!student.FamilyRelationships.Contains(l))
+                    student.FamilyRelationships.Add(l);
+            });
         }        
 
         private async Task GetllWorkshopsAsync()
         {
             try
             {
-                var context = App.AppDbContext;
                 var workshops = await context.Workshops.ToListAsync();
 
                 workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
@@ -458,6 +480,21 @@ namespace Promart.Pages
             {
                 Error.ShowMessageBox("Não foi possível carregar as oficinas do projeto.", ex);
             }
-        }        
+        }
+
+        private void Print_Click(object sender, RoutedEventArgs e)
+        {
+            if (_student == null)
+                return;
+
+            var printDialog = new PrintDialog();
+
+            bool? result = printDialog.ShowDialog();
+
+            if (result == true)
+            {
+                printDialog.PrintVisual(new StudentRegisterPrintPage(_student), "Cadastro do Aluno");
+            }
+        }
     }
 }

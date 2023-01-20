@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Promart.Database.Entities
 {
@@ -21,6 +22,15 @@ namespace Promart.Database.Entities
         public Workshop()
         {
             Students = new List<Student>();
+        }
+
+        public Workshop(Workshop workshop) : this()
+        {
+            Id = workshop.Id;
+            Name = workshop.Name;
+            Description = workshop.Description;
+            RegistryStatus = workshop.RegistryStatus;
+            //Students = workshop.Students.Select(s => new Student(s)).ToList();
         }
 
         public override string ToString()

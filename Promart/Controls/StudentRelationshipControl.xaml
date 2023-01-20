@@ -79,7 +79,7 @@
         </GroupBox>
         <Button
             x:Name="Remove"
-            Content="R"            
+            Content="X"            
             Click="Remove_Click"
             Grid.Column="6"
             VerticalAlignment="Bottom"

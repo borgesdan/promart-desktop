@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Promart.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="1550" d:DesignWidth="800"
+      d:DesignHeight="1800" d:DesignWidth="800"
       Title="StudentRegistryPage" Loaded="Page_Loaded">
 
     <Page.Resources>
@@ -21,10 +21,20 @@
 
     <Grid Background="White" x:Name="MainGrid">
         <StackPanel>
+            <StackPanel x:Name="TopPanel">
+                <Button
+                    x:Name="Print"
+                    Content="IMPRIMIR"
+                    Height="35"
+                    Width="200"
+                    HorizontalAlignment="Right"
+                    Click="Print_Click"
+                    Style="{StaticResource DefaultButton}"
+                    ToolTip="Imprimir página"/>
+            </StackPanel>
             <Expander 
                 Header="Cadastro"              
-                x:Name="RegistryExpander"
-                Visibility="Collapsed"
+                x:Name="RegistryExpander"                
                 Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -66,7 +76,7 @@
                     </GroupBox>
                 </Grid>
             </Expander>
-            <Expander Header="Dados Pessoais" 
+            <Expander Header="Dados Pessoais"                       
                 Style="{StaticResource DefaultExpander}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -566,16 +576,11 @@
             />
             <Button
                 x:Name="Update"
-                Content="Atualizar"                
+                Content="ATUALIZAR"                
                 Height="50"
-                Margin="50 10" 
-                Visibility="Collapsed"
-                Background="{StaticResource Color2}"
-                FontSize="{StaticResource DefaultSize2}"                
-                FontWeight="Bold"   
-                BorderThickness="0"
+                Margin="160 10"  
                 Click="Update_Click"
-                ToolTip="Cadastrar os dados do aluno"
+                Style="{StaticResource DefaultButton}"
             />
         </StackPanel>
     </Grid>

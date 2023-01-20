@@ -68,7 +68,7 @@ namespace Promart
             return tabItem;
         }  
         
-        private void NavigateTo(string header, Page contentPage, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        private void NavigateTo(string? header, Page contentPage, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
         {
             contentPage.MinWidth = 800;
             contentPage.MaxWidth = 1280;
@@ -112,12 +112,12 @@ namespace Promart
         {
             var tabItem = CreateNewTab("Lista de Alunos", new StudentListPage());
             MainTab.Items.Add(tabItem);
-        }        
+        }                
 
-        public void NavigateToStudentRegisterPage(Student? student = null, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        public void NavigateToStudentRegisterPage(int studentId, string? studentName, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
         {
-            var studentPage = student != null ? new StudentRegistryPage(student) : new StudentRegistryPage();
-            var header = student != null ? student.FullName : "Novo Aluno";
+            var studentPage = new StudentRegistryPage(studentId);
+            var header = studentName;
 
             NavigateTo(header, studentPage, navigationUIVisibility);
         }

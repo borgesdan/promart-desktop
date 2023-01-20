@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Controls;
 using Promart.Core;
+using Promart.Database.Context;
 using Promart.Database.Entities;
+using Promart.Database.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +28,7 @@ namespace Promart.Pages
 
         private async Task<List<Student>> GetStudentsAsync()
         {
-            var context = App.AppDbContext;
+            using var context = AppDbContextFactory.Create();
 
             var students = context.Students
                                     .AsNoTracking()
@@ -89,20 +91,9 @@ namespace Promart.Pages
             var controlStudent = ((StudentDetailControl)sender).GetStudent();
 
             if (controlStudent == null)
-                return;
+                return;            
 
-            var context = App.AppDbContext;
-            var student = context.Students
-                .Where(s => s.Id == controlStudent.Id)
-                .Include(s => s.Workshops)
-                .Include(s => s.FamilyRelationships)
-                .AsNoTracking()
-                .SingleOrDefault();
-
-            if(student == null) 
-                return;
-
-            MainWindow.Instance.NavigateToStudentRegisterPage(student);
+            MainWindow.Instance.NavigateToStudentRegisterPage(controlStudent.Id, controlStudent.FullName);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)

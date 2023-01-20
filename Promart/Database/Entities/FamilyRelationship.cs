@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 using Promart.Core;
 
@@ -30,7 +31,22 @@ namespace Promart.Database.Entities
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
-        public virtual ICollection<Student>? Student { get; set; } = new HashSet<Student>();
+        public virtual ICollection<Student> Student { get; set; } = new HashSet<Student>();
+
+        public FamilyRelationship() { }
+
+        public FamilyRelationship(FamilyRelationship relationship) : this()
+        {
+            Id = relationship.Id;
+            FullName = relationship.FullName;
+            Age = relationship.Age;
+            Relationship = relationship.Relationship;
+            Occupation = relationship.Occupation;
+            Schooling = relationship.Schooling;
+            Income = relationship.Income;
+            RegistryStatus = relationship.RegistryStatus;
+            //Student = relationship.Student.Select(s => new Student(s)).ToList();
+        }
 
         public string GetFullString()
         {

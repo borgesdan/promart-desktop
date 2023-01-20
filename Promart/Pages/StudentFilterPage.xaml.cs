@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Promart.Core;
 using Promart.Database;
+using Promart.Database.Context;
 using Promart.Filters;
 using System;
 using System.ComponentModel;
@@ -72,7 +73,7 @@ namespace Promart.Pages
         {
             MainGrid.TrimAllTextBox();
 
-            var context = App.AppDbContext;
+            using var context = AppDbContextFactory.Create();
             var students = context.Students.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(SearchBar.Text))

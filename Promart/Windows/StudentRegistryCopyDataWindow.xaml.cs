@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Core;
+using Promart.Database.Context;
 using Promart.Database.Entities;
 using Promart.Filters;
 using System;
@@ -66,7 +67,7 @@ namespace Promart.Windows
 
             try
             {
-                var context = App.AppDbContext;
+                using var context = AppDbContextFactory.Create();
                 var students = context.Students.Where(s =>
                     s.FullName != null
                     && s.FullName.Contains(FullName.Text))

@@ -91,8 +91,8 @@
                    TargetType="DatePicker"
                    x:Key="DefaultDatePicker">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
+        <Setter Property="VerticalContentAlignment" Value="Center" />        
+    </Style>    
 
     <Style BasedOn="{StaticResource {x:Type Label}}"
                    TargetType="Label"
@@ -108,7 +108,14 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderBrush" Value="{StaticResource Color3}" />
     </Style>
-    
+    <Style BasedOn="{StaticResource DefaultTextBox}"
+                   TargetType="TextBox"
+                   x:Key="PrintTextBox">
+        <Setter Property="FontSize" Value="{StaticResource NormalSize}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontWeight" Value="Normal" />
+    </Style>
+
     <Style BasedOn="{StaticResource {x:Type ComboBox}}"
                    TargetType="ComboBox"
                    x:Key="DefaultComboBox">
@@ -127,6 +134,12 @@
                    TargetType="GroupBox"
                    x:Key="DefaultGroupBox">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize2}" />
-    </Style>    
-    
+    </Style>
+    <Style BasedOn="{StaticResource DefaultGroupBox}"
+                   TargetType="GroupBox"
+                   x:Key="PrintGroupBox">
+        <Setter Property="FontSize" Value="{StaticResource SmallSize}" />
+        <Setter Property="FontWeight" Value="Bold" />        
+    </Style>
+
 </ResourceDictionary>

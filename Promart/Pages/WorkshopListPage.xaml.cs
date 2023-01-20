@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Controls;
+using Promart.Database.Context;
+using Promart.Database.Entities;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq.Expressions;
-using Promart.Database.Entities;
 
 namespace Promart.Pages
 {
@@ -20,7 +20,7 @@ namespace Promart.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var context = App.AppDbContext;
+            using var context = AppDbContextFactory.Create();
 
             var workshops = await context.Workshops
                 .Select(w => new WorkshopDetailData

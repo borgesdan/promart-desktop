@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Controls;
 using Promart.Core;
+using Promart.Database.Context;
 using Promart.Database.Entities;
 using System;
 using System.Collections.Generic;
@@ -31,18 +32,20 @@ namespace Promart.Pages
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             nextYear = DateTime.Now.Year + 1;
             Observation.Text = $"Nesta página você pode rematricular os alunos deste ano {nextYear - 1} para o ano de {nextYear}.\n" +
                 "\n1) Digite o nome do aluno e/ou clique no botão PESQUISAR e uma lista de alunos aparecerá. " +
                 "\n2) No lado esquerdo, em AÇÂO, selecione REMATRICULAR. Repita o processo para todos os alunos desejados. " +
                 $"\n3) Ao fim, clique em APLICAR. Os alunos serão rematriculados para o ano de {nextYear}";
+
+            await SearchAsync();
         }
 
         private async Task<List<Student>> GetStudents()
         {
-            var context = App.AppDbContext;
+            using var context = AppDbContextFactory.Create();
 
             var students = context.Students.AsQueryable();
 
@@ -54,13 +57,13 @@ namespace Promart.Pages
             return await students.ToListAsync();
         }
 
-        private async void Search_Click(object sender, RoutedEventArgs e)
+        private async Task SearchAsync()
         {
             ResultPanel.Children.Clear();
 
             var result = await GetStudents();
 
-            if(result.Count > 0)
+            if (result.Count > 0)
             {
                 result.ForEach(s => ResultPanel.Children.Add(new StudentReEnrollControl(s)));
                 Apply.IsEnabled = true;
@@ -68,13 +71,18 @@ namespace Promart.Pages
             else
             {
                 Apply.IsEnabled = false;
-                MessageBox.Show("Não foi encontrado nenhum resultado para essa busca.", "Rematricula não aplicada", MessageBoxButton.OK, MessageBoxImage.Information);
-            }                
+                MessageBox.Show("Não foi encontrado nenhum resultado para essa busca.", "Nada encontrado", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
+        {
+            await SearchAsync();       
         }
 
         private async void Apply_Click(object sender, RoutedEventArgs e)
         {
-            var context = App.AppDbContext;
+            using var context = AppDbContextFactory.Create();
             bool hasModification = false;
 
             foreach (var child in ResultPanel.Children)

@@ -1,0 +1,86 @@
+﻿<Page x:Class="Promart.Pages.Print.StudentRegisterPrintPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Promart.Pages.Print"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StudentRegisterPrintPage">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="../../Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="White" Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition  />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10">            
+            <Run FontWeight="Bold" FontSize="{StaticResource DefaultSize}">Comunitário Batista Sete de Setembro</Run>
+            <LineBreak />
+            <Run>C.N.P.J. 03.076.444/0001-07</Run>            
+            <LineBreak />
+            <Run>Órgão de Utilidade Pública Municipal Lei 1.691 de 14/10/1999</Run>
+            <LineBreak/>
+            <Run>Orgão de Utilidade Pública Estadual Lei 13.120 de 20/03/2014</Run>
+        </TextBlock>
+        <StackPanel Grid.Row="1">
+            <GroupBox
+                Header="Nome Completo"                        
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.ColumnSpan="11"
+                Style="{StaticResource PrintGroupBox}">
+                <TextBox
+                    x:Name="FullName"                    
+                    Style="{StaticResource PrintTextBox}"/>
+            </GroupBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <GroupBox
+                    Header="Data Nascimento"                            
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="BirthDate"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Sexo" 
+                    Grid.Column="1"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Gender"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="RG"                   
+                    Grid.Column="2"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="RG"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="CPF"
+                    Grid.Column="3"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="CPF"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
