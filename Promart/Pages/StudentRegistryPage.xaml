@@ -52,7 +52,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox
-                        Header="Matrícula"
+                        Header="Registro"
                         Grid.Column="0"
                         Grid.Row="0"
                         Grid.ColumnSpan="3"
@@ -537,13 +537,14 @@
                         Header="Oficinas"
                         Grid.Column="0"
                         Grid.Row="2"
-                        Grid.ColumnSpan="5"
+                        Grid.ColumnSpan="5"                        
                         Style="{StaticResource DefaultGroupBox}"
                         >
                         <ListBox
                             x:Name="Workshops"
                             SelectedIndex="0"
-                            Height="250"                            
+                            Height="250"   
+                            VerticalAlignment="Top"
                             Style="{StaticResource DefaultListBox}">
                         </ListBox>
                     </GroupBox>

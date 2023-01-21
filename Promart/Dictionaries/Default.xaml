@@ -116,6 +116,18 @@
         <Setter Property="FontWeight" Value="Normal" />
     </Style>
 
+    <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+                   TargetType="TextBlock"
+                   x:Key="DefaultTextBlock">
+        <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />        
+    </Style>
+    <Style BasedOn="{StaticResource DefaultTextBlock}"
+                   TargetType="TextBlock"
+                   x:Key="PrintTextBlock">
+        <Setter Property="FontSize" Value="{StaticResource NormalSize}" />        
+        <Setter Property="FontWeight" Value="Normal" />
+    </Style>
+
     <Style BasedOn="{StaticResource {x:Type ComboBox}}"
                    TargetType="ComboBox"
                    x:Key="DefaultComboBox">

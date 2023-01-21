@@ -399,26 +399,6 @@ namespace Promart.Pages
 
         private void SetStudentWorkshops(Student student)
         {
-            //foreach (var item in Workshops.Items)
-            //{
-            //    var checkbox = (CheckBox)item;
-
-            //    if (checkbox.IsChecked == true)
-            //    {
-            //        var content = (Workshop)checkbox.Content;                                        
-
-            //        if (!student.Workshops.Contains(content))
-            //            student.Workshops.Add(content);                    
-            //    }
-            //    else if(checkbox.IsChecked == false)
-            //    {
-            //        var content = (Workshop)checkbox.Content;                    
-
-            //        if(student.Workshops.Contains(content))
-            //            student.Workshops.Remove(content);
-            //    }
-            //}
-
             var list = new List<Workshop>();
 
             foreach(var item in Workshops.Items)

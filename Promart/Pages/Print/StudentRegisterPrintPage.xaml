@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Promart.Pages.Print"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1280" d:DesignWidth="800"
       Title="StudentRegisterPrintPage">
 
     <Page.Resources>
@@ -17,13 +17,13 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White" Margin="40">
+    <Grid x:Name="MainGrid" Background="White" Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition  />
         </Grid.RowDefinitions>
         <TextBlock Margin="10">            
-            <Run FontWeight="Bold" FontSize="{StaticResource DefaultSize}">Comunitário Batista Sete de Setembro</Run>
+            <Run FontWeight="Bold" FontSize="{StaticResource DefaultSize}">Centro Comunitário Batista Sete de Setembro</Run>
             <LineBreak />
             <Run>C.N.P.J. 03.076.444/0001-07</Run>            
             <LineBreak />
@@ -45,7 +45,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.3*" />
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
@@ -81,6 +81,214 @@
                         Style="{StaticResource PrintTextBox}"/>
                 </GroupBox>
             </Grid>
+            <GroupBox
+                Header="Certidão"                        
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.ColumnSpan="11"
+                Style="{StaticResource PrintGroupBox}">
+                <TextBox
+                    x:Name="Certidao"                    
+                    Style="{StaticResource PrintTextBox}"/>
+            </GroupBox>            
+            <GroupBox
+                Header="Nome do Responsável"  
+                Margin="0 10 0 0"
+                Style="{StaticResource PrintGroupBox}">
+                <TextBox
+                    x:Name="ResponsibleName"                    
+                    Style="{StaticResource PrintTextBox}"/>
+            </GroupBox>
+            <GroupBox
+                Header="Telefone"             
+                Width="200"
+                HorizontalAlignment="Left"
+                Style="{StaticResource PrintGroupBox}">
+                <TextBox
+                    x:Name="ResponsiblePhone"                    
+                    Style="{StaticResource PrintTextBox}"/>
+            </GroupBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox
+                    Header="Vínculo Familiar"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Relationship"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Tipo de Moradia" 
+                    Grid.Column="1"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Dwelling"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Renda Familiar"                   
+                    Grid.Column="2"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Income"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Bolsa Família?"
+                    Grid.Column="3"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="IsBeneficiay"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <GroupBox
+                    Header="Endereço"
+                    Grid.ColumnSpan="6"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Street"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Bairro" 
+                    Grid.Column="6"
+                    Grid.ColumnSpan="2"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="District"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Nº"
+                    Grid.Row="1"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Number"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Complemento" 
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Complement"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Ponto de Referência" 
+                    Grid.Column="3"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="5"                    
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="Reference"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <GroupBox
+                    Header="Escola"
+                    Grid.ColumnSpan="4"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox    
+                        x:Name="School"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Turno Escolar"                   
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox                        
+                        x:Name="SchoolShift"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Ano Escolar"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="SchoolYear"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <GroupBox
+                    Header="Projeto Situação"                            
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="ProjectStatus"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>
+                <GroupBox
+                    Header="Projeto Turno" 
+                    Grid.Column="1"
+                    Style="{StaticResource PrintGroupBox}">
+                    <TextBox
+                        x:Name="ProjectShift"
+                        Style="{StaticResource PrintTextBox}"/>
+                </GroupBox>                
+            </Grid>
+            <GroupBox
+                Header="Oficinas"                            
+                Style="{StaticResource PrintGroupBox}">
+                <TextBlock
+                    x:Name="Workshops"      
+                    TextWrapping="Wrap"
+                    Style="{StaticResource PrintTextBlock}"/>
+            </GroupBox>
+            <GroupBox
+                Header="Observações"                            
+                Style="{StaticResource PrintGroupBox}">
+                <TextBlock
+                    x:Name="Observations"
+                    TextWrapping="Wrap"
+                    Style="{StaticResource PrintTextBlock}"/>
+            </GroupBox>
+            <GroupBox
+                Header="Composição Familiar"                            
+                Style="{StaticResource PrintGroupBox}">
+            </GroupBox>
         </StackPanel>
     </Grid>
 </Page>
