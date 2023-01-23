@@ -1,14 +1,18 @@
 ﻿using Azure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using Promart.Core;
 using Promart.Database;
 using Promart.Database.Context;
 using Promart.Filters;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Promart.Pages
 {
@@ -199,6 +203,34 @@ namespace Promart.Pages
             var result = await students.ToListAsync();
 
             DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataGridResult.SelectAllCells();
+                DataGridResult.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+
+                ApplicationCommands.Copy.Execute(null, DataGridResult);
+                DataGridResult.UnselectAllCells();
+
+                string result = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+                result = result.Replace(',', ';');
+
+                var saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Arquivo CSV (*.csv)|*.csv";
+
+                if (saveFileDialog.ShowDialog() == true)
+                {                    
+                    File.WriteAllText(saveFileDialog.FileName, result, Encoding.UTF8);
+                    MessageBox.Show($"Os dados foram exportados com sucesso", "Dados exportados", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro ao tentar exportar os dados.\n\n Erro: {ex.Message}", "Erro ao Exportar", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

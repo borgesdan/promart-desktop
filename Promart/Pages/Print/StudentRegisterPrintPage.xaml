@@ -271,25 +271,27 @@
                 Header="Oficinas"                            
                 Style="{StaticResource PrintGroupBox}">
             <TextBlock
-                    x:Name="Workshops"      
-                    TextWrapping="Wrap"
-                    Style="{StaticResource PrintTextBlock}"/>
-        </GroupBox>
-        <GroupBox
-                Header="Observações"                            
-                Style="{StaticResource PrintGroupBox}">
-            <TextBlock
-                    x:Name="Observations"
-                    TextWrapping="Wrap"
-                    Style="{StaticResource PrintTextBlock}"/>
+                x:Name="Workshops"      
+                TextWrapping="Wrap"
+                Style="{StaticResource PrintTextBlock}"/>
         </GroupBox>
         <GroupBox
                 Header="Composição Familiar"                            
                 Style="{StaticResource PrintGroupBox}">
             <TextBlock
-                    x:Name="FamilyRelationship"
-                    TextWrapping="Wrap"
-                    Style="{StaticResource PrintTextBlock}"/>
+                x:Name="FamilyRelationship"
+                TextWrapping="Wrap"
+                MaxHeight="200"
+                Style="{StaticResource PrintTextBlock}"/>
         </GroupBox>
+        <GroupBox
+                Header="Observações"                            
+                Style="{StaticResource PrintGroupBox}">
+            <TextBlock
+                x:Name="Observations"
+                TextWrapping="Wrap"
+                MaxHeight="200"
+                Style="{StaticResource PrintTextBlock}"/>
+        </GroupBox>        
     </StackPanel>
 </Page>
