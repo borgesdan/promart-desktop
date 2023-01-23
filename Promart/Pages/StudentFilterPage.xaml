@@ -453,19 +453,24 @@
                 Click="Search_Click"
                 Style="{StaticResource DefaultButton}">
             </Button>
-            
+
+            <WrapPanel
+                x:Name="ColumnsList"     
+                Height="50"
+                VerticalAlignment="Stretch">
+            </WrapPanel>
             <Expander Header="Resultado"                       
-                Style="{StaticResource DefaultExpander}">
+                Style="{StaticResource DefaultExpander}">                
                 <DataGrid 
                     x:Name="DataGridResult"
                     Height="600"
-                    Margin="0 0 0 50"
+                    Margin="0 0 0 20"
                     IsReadOnly="True"
                     CanUserDeleteRows="True" CanUserReorderColumns="True"
                     CanUserResizeColumns="True" CanUserSortColumns="True"
                     AutoGeneratingColumn="DataGridResult_AutoGeneratingColumn">
                 </DataGrid>
-            </Expander>
+            </Expander>            
             
             <Button 
                 x:Name="Export"

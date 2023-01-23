@@ -1,7 +1,9 @@
 ﻿using Promart.Core;
+using Promart.Database;
 using Promart.Database.Entities;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Promart.Filters
 {
@@ -20,7 +22,25 @@ namespace Promart.Filters
         [DisplayName("Matrícula")]
         public string? Registry { get; set; }
         [DisplayName("Data Matrícula")]
-        public string? RegistryDate { get; set; }           
+        public string? RegistryDate { get; set; }
+        [DisplayName("Nome do Responsável")]
+        public string? ResponsibleName { get; set; }
+        [DisplayName("Endereço")]
+        public string? AddressStreet { get; set; }
+        [DisplayName("Bairro")]
+        public string? AddressDistrict { get; set; }
+        [DisplayName("Número")]
+        public string? AddressNumber { get; set; }
+        [DisplayName("Complemento")]
+        public string? AddressComplement { get; set; }
+        [DisplayName("Ponto de Referência")]
+        public string? AddressReferencePoint { get; set; }
+        [DisplayName("Nome da Escola")]
+        public string? SchoolName { get; set; }
+        [DisplayName("Ano escolar")]
+        public string? SchoolYear { get; set; }
+        [DisplayName("Turno Escolar")]
+        public string? SchoolShift { get; set; }
 
         public Student? Student { get; set; }
 
@@ -35,6 +55,14 @@ namespace Promart.Filters
             Status = student.ProjectStatus.Description();                        
             Registry = student.ProjectRegistry;
             RegistryDate = student.ProjectRegistryDate?.ToShortDateString();
+            ResponsibleName = student.ResponsibleName;
+            AddressComplement = student.AddressComplement;
+            AddressDistrict = student.AddressDistrict;
+            AddressNumber = student.AddressNumber;
+            AddressReferencePoint = student.AddressReferencePoint;
+            SchoolName = student.SchoolName;
+            SchoolYear = student.SchoolYear.Description();
+            SchoolShift = student.SchoolShift.Description();
             Student = student;
         }
     }

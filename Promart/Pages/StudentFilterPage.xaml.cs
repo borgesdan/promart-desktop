@@ -1,5 +1,4 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
 using Promart.Core;
 using Promart.Database;
@@ -10,9 +9,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Promart.Pages
 {
@@ -28,9 +29,9 @@ namespace Promart.Pages
             InitializeComponent();
 
             Loaded += StudentFilterPage_Loaded;
-        }        
+        }
 
-        private void StudentFilterPage_Loaded(object sender, RoutedEventArgs e)
+        private async void StudentFilterPage_Loaded(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
                 return;
@@ -45,16 +46,53 @@ namespace Promart.Pages
             SchoolYear.AddEnum<SchoolYearType>();
             ProjectStatus.AddEnum<ProjectStatusType>();
             ProjectShift.AddEnum<SchoolShiftType>();
+
+            await SearchAsync();
+
+            var columns = DataGridResult.Columns;
+            columns.ToList().ForEach(c =>
+            {
+                if (c.Visibility != Visibility.Visible)
+                    return;
+
+                var checkbox = new CheckBox
+                {
+                    Tag = c,
+                    Content = c.Header,
+                    MinWidth = 180,
+                    IsChecked = true,
+                };
+
+                checkbox.Click += ColumnsCheckbox_Click;
+                ColumnsList.Children.Add(checkbox);
+            });
+        }
+
+        private void ColumnsCheckbox_Click(object sender, RoutedEventArgs e)
+        {
+            var checkbox = (CheckBox)sender;
+            var column = DataGridResult.Columns.SingleOrDefault(c => c.Header == checkbox.Content);            
+
+            if (column!= null)
+                column.Visibility = checkbox.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void CheckColumnList(CheckBox checkBox)
+        {
+            var column = DataGridResult.Columns.SingleOrDefault(c => c.Header == checkBox.Content);
+
+            if (column != null)
+                column.Visibility = checkBox.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void DataGridResult_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var property = (PropertyDescriptor)e.PropertyDescriptor;
-            var displayName = property?.Attributes[typeof(DisplayNameAttribute)] as DisplayNameAttribute;
+            var displayName = property?.Attributes[typeof(DisplayNameAttribute)] as DisplayNameAttribute;            
 
             if (displayName != null && !string.IsNullOrEmpty(displayName.DisplayName))
             {
-                e.Column.Header = displayName.DisplayName;                
+                e.Column.Header = displayName.DisplayName;
             }
             else
             {
@@ -73,7 +111,7 @@ namespace Promart.Pages
             });
         }
 
-        private async void Search_Click(object sender, RoutedEventArgs e)
+        private async Task SearchAsync()
         {
             MainGrid.TrimAllTextBox();
 
@@ -198,11 +236,22 @@ namespace Promart.Pages
             {
                 var value = ProjectShift.GetEnum<SchoolShiftType>() ?? SchoolShiftType.Indefinido;
                 students = students.Where(s => s.ProjectShift == value);
-            }            
+            }
 
             var result = await students.ToListAsync();
 
             DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
+        {
+            await SearchAsync();
+
+            foreach(var col in ColumnsList.Children)
+            {
+                var checkbox = col as CheckBox;
+                CheckColumnList(checkbox);
+            }
         }
 
         private void Export_Click(object sender, RoutedEventArgs e)
@@ -222,7 +271,7 @@ namespace Promart.Pages
                 saveFileDialog.Filter = "Arquivo CSV (*.csv)|*.csv";
 
                 if (saveFileDialog.ShowDialog() == true)
-                {                    
+                {
                     File.WriteAllText(saveFileDialog.FileName, result, Encoding.UTF8);
                     MessageBox.Show($"Os dados foram exportados com sucesso", "Dados exportados", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
