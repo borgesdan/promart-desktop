@@ -22,8 +22,6 @@ namespace Promart.Pages.Print
     /// </summary>
     public partial class StudentRegisterPrintPage : Page
     {
-        public Grid GetMainControl() => MainGrid;
-
         public StudentRegisterPrintPage(Student student)
         {
             InitializeComponent();
@@ -58,6 +56,13 @@ namespace Promart.Pages.Print
             });
 
             Workshops.Text = builder.ToString();
+
+            builder.Clear();
+            student.FamilyRelationships.ToList().ForEach(r => { 
+                builder.Append(r.GetFullString()).Append(Environment.NewLine);
+            });
+
+            FamilyRelationship.Text = builder.ToString();
         }
     }
 }

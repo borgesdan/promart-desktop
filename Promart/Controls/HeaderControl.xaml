@@ -25,12 +25,13 @@
         <Label x:Name="Title" />
         <Button 
             x:Name="Remove" 
-            Grid.Column="1" 
-            Margin="1"
+            Grid.Column="1"             
             Background="IndianRed"
             Content="X"
             Click="Remove_Click"  
-            Style="{StaticResource HeaderButton}"
+            Width="20"
+            Height="20"
+            Style="{StaticResource RemoveButton}"
             />
     </Grid>
 </UserControl>

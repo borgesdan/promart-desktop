@@ -68,7 +68,7 @@ namespace Promart.Database.Entities
         public string? ProjectRegistry { get; set; }
         public DateTime? ProjectRegistryDate { get; set; }
 
-        [StringLength(3000)]
+        [StringLength(5000)]
         public string? Observations { get; set; }
 
         [Required]

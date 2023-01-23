@@ -58,14 +58,7 @@
         <Setter Property="FontSize" Value="{StaticResource MinSize}" />
         <Setter Property="Background" Value="{StaticResource Color8}" />
         <Setter Property="Foreground" Value="{StaticResource Color6}" />
-    </Style>
-    <Style BasedOn="{StaticResource BaseButton}"
-                   TargetType="Button"
-                   x:Key="HeaderButton">
-        <Setter Property="FontSize" Value="{StaticResource NormalSize}" />
-        <Setter Property="Foreground" Value="{StaticResource Color6}" />
-        <Setter Property="Background" Value="{StaticResource Color7}" />        
-    </Style>
+    </Style>    
 
     <Style BasedOn="{StaticResource {x:Type Expander}}"
                    TargetType="Expander"

@@ -12,6 +12,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace Promart.Pages
 {
@@ -431,17 +434,7 @@ namespace Promart.Pages
                 }
             }
 
-            foreach(var f in student.FamilyRelationships)
-            {
-                if (!list.Contains(f))
-                    student.FamilyRelationships.Remove(f);
-            }
-
-            list.ForEach(l =>
-            {
-                if (!student.FamilyRelationships.Contains(l))
-                    student.FamilyRelationships.Add(l);
-            });
+            student.FamilyRelationships = list;
         }        
 
         private async Task GetllWorkshopsAsync()
@@ -471,10 +464,12 @@ namespace Promart.Pages
 
             bool? result = printDialog.ShowDialog();
 
-            if (result == true)
-            {
-                printDialog.PrintVisual(new StudentRegisterPrintPage(_student), "Cadastro do Aluno");
-            }
+            if (result != true)
+                return;
+
+            var page = new StudentRegisterPrintPage(_student);
+
+            printDialog.PrintVisual(page, "Cadastro do Aluno");
         }
     }
 }
