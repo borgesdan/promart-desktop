@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Promart.Controls"
              mc:Ignorable="d"
              MinWidth="600" Margin="5" Padding="5"
-             Loaded="UserControl_Loaded">   
+             >   
     
     
     <Control.Resources>

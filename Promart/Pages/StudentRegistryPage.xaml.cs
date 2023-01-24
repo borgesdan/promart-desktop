@@ -273,7 +273,7 @@ namespace Promart.Pages
                 ProjectShift.SelectedItem = (int)student.ProjectShift;
                 Observations.Text = student.Observations;
 
-                SetWorkshops(student);
+                CheckWorkshopsCheckboxes(student);
             }
         }
 
@@ -379,26 +379,16 @@ namespace Promart.Pages
             Observations.Text = _student.Observations;
 
             SetRelationships(_student);
-            SetWorkshops(_student);
+            CheckWorkshopsCheckboxes(_student);
         }
 
         private void SetRelationships(Student student)
         {
+            RelationshipPanel.Children.Clear();
+
             student.FamilyRelationships?.ToList().ForEach(r =>
                 RelationshipPanel.Children.Add(new StudentRelationshipControl(r)));
-        }
-
-        private void SetWorkshops(Student student)
-        {
-            foreach (var workshop in Workshops.Items)
-            {
-                var checkBox = (CheckBox)workshop;
-                var content = (Workshop)checkBox.Content;
-
-                if (student.Workshops != null && student.Workshops.Any(w => w.Id == content.Id))
-                    checkBox.IsChecked = true;
-            }
-        }
+        }       
 
         private void SetStudentWorkshops(Student student)
         {
@@ -452,6 +442,18 @@ namespace Promart.Pages
             catch (Exception ex)
             {
                 Error.ShowMessageBox("Não foi possível carregar as oficinas do projeto.", ex);
+            }
+        }
+
+        private void CheckWorkshopsCheckboxes(Student student)
+        {
+            foreach (var workshop in Workshops.Items)
+            {
+                var checkBox = (CheckBox)workshop;
+                var content = (Workshop)checkBox.Content;
+
+                if (student.Workshops != null && student.Workshops.Any(w => w.Id == content.Id))
+                    checkBox.IsChecked = true;
             }
         }
 

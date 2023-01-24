@@ -11,58 +11,41 @@ namespace Promart.Controls
     /// </summary>
     public partial class StudentRelationshipControl : UserControl
     {
-        private FamilyRelationship? _relationship;
-
         public bool IsFormularyValid => !string.IsNullOrWhiteSpace(FullName.Text);        
 
         public StudentRelationshipControl(FamilyRelationship? relationship)
         {
             InitializeComponent();            
-
-            _relationship = relationship;
+            
             Relationship.AddEnum<FamilyRelationshipType>();
 
-            if (_relationship != null)
+            if (relationship != null)
             {
-                FullName.Text = _relationship.FullName;
-                Income.Text = _relationship.Income;
-                Occupation.Text = _relationship.Occupation;
-                Schooling.Text = _relationship.Schooling;
-                Relationship.SelectedIndex = (int)_relationship.Relationship;
-                Age.Text = _relationship.Age.ToString();
+                FullName.Text = relationship.FullName;
+                Income.Text = relationship.Income;
+                Occupation.Text = relationship.Occupation;
+                Schooling.Text = relationship.Schooling;
+                Relationship.SelectedIndex = (int)relationship.Relationship;
+                Age.Text = relationship.Age.ToString();
             }            
-        }
+        }        
 
-        private void FormularyChanged()
+        public FamilyRelationship? GetRelationship()
         {
-            if (_relationship == null)
-                return;
+            MainGrid.TrimAllTextBox();
 
-            _relationship.FullName = FullName.Text.Trim();
-            _relationship.Income = Income.Text.Trim();
-            _relationship.Occupation = Occupation.Text.Trim();
-            _relationship.Schooling = Schooling.Text.Trim();
-            _relationship.Relationship = Relationship.GetEnum<FamilyRelationshipType>() ?? FamilyRelationshipType.Indefinido;
+            return new FamilyRelationship
+            {
+                FullName = FullName.Text,
+                Income = Income.Text,
+                Occupation = Occupation.Text,
+                Schooling = Schooling.Text,
+                Relationship = Relationship.GetEnum<FamilyRelationshipType>() ?? FamilyRelationshipType.Indefinido,
+                Age = int.TryParse(Age.Text, out int age) ? age : null,
+            };
+        }    
 
-            bool parse = int.TryParse(Age.Text, out int age);
-
-            if (parse)
-                _relationship.Age = age;
-        }
-
-        public FamilyRelationship? GetRelationship() => _relationship;
-
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            FullName.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
-            Age.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
-            Income.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
-            Occupation.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
-            Schooling.TextChanged += (object sender, TextChangedEventArgs e) => FormularyChanged();
-            Relationship.SelectionChanged += (object sender, SelectionChangedEventArgs e) => FormularyChanged();
-        }
-
-        private void Remove_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Remove_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
                 "Deseja realmente remover esse registro?",
