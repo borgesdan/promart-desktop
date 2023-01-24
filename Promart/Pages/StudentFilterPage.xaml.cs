@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -53,15 +54,16 @@ namespace Promart.Pages
             columns.ToList().ForEach(c =>
             {
                 if (c.Visibility != Visibility.Visible)
-                    return;
+                    return;                
 
                 var checkbox = new CheckBox
                 {
                     Tag = c,
                     Content = c.Header,
                     MinWidth = 180,
-                    IsChecked = true,
                 };
+                
+                checkbox.IsChecked = true;
 
                 checkbox.Click += ColumnsCheckbox_Click;
                 ColumnsList.Children.Add(checkbox);
@@ -247,7 +249,12 @@ namespace Promart.Pages
         {
             await SearchAsync();
 
-            foreach(var col in ColumnsList.Children)
+            if(DataGridResult.Items.Count == 0)
+                Export.Visibility = Visibility.Collapsed;
+            else
+                Export.Visibility = Visibility.Visible;
+
+            foreach (var col in ColumnsList.Children)
             {
                 var checkbox = col as CheckBox;
                 CheckColumnList(checkbox);

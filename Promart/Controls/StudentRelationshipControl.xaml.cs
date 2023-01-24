@@ -38,12 +38,10 @@ namespace Promart.Controls
             if (_relationship == null)
                 return;
 
-            MainGrid.TrimAllTextBox();
-
-            _relationship.FullName = FullName.Text;
-            _relationship.Income = Income.Text;
-            _relationship.Occupation = Occupation.Text;
-            _relationship.Schooling = Schooling.Text;
+            _relationship.FullName = FullName.Text.Trim();
+            _relationship.Income = Income.Text.Trim();
+            _relationship.Occupation = Occupation.Text.Trim();
+            _relationship.Schooling = Schooling.Text.Trim();
             _relationship.Relationship = Relationship.GetEnum<FamilyRelationshipType>() ?? FamilyRelationshipType.Indefinido;
 
             bool parse = int.TryParse(Age.Text, out int age);

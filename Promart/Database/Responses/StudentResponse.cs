@@ -44,7 +44,7 @@ namespace Promart.Database.Responses
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
         public virtual ICollection<Workshop> Workshops { get; set; } = new HashSet<Workshop>();
-        public virtual ICollection<FamilyRelationship> FamilyRelationships { get; set; } = new HashSet<FamilyRelationship>();
+        public virtual ICollection<FamilyRelationshipResponse> FamilyRelationships { get; set; } = new HashSet<FamilyRelationshipResponse>();
 
         public StudentResponse() { }
 
@@ -83,7 +83,7 @@ namespace Promart.Database.Responses
             Observations = student.Observations;
             RegistryStatus = student.RegistryStatus;
             Workshops = student.Workshops.Select(s => new Workshop(s)).ToList();
-            FamilyRelationships = student.FamilyRelationships.Select(f => new FamilyRelationship(f)).ToList();
+            FamilyRelationships = student.FamilyRelationships.Select(f => new FamilyRelationshipResponse(f)).ToList();
         }
 
         public Student GetStudent()

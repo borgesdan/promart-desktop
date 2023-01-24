@@ -23,6 +23,8 @@ namespace Promart.Filters
         public string? Registry { get; set; }
         [DisplayName("Data Matrícula")]
         public string? RegistryDate { get; set; }
+        [DisplayName("Turno no Projeto")]
+        public string? ProjectShift { get; set; }
         [DisplayName("Nome do Responsável")]
         public string? ResponsibleName { get; set; }
         [DisplayName("Endereço")]
@@ -55,6 +57,7 @@ namespace Promart.Filters
             Status = student.ProjectStatus.Description();                        
             Registry = student.ProjectRegistry;
             RegistryDate = student.ProjectRegistryDate?.ToShortDateString();
+            ProjectShift = student.ProjectShift.Description();
             ResponsibleName = student.ResponsibleName;
             AddressComplement = student.AddressComplement;
             AddressDistrict = student.AddressDistrict;
