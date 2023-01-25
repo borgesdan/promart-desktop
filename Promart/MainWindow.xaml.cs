@@ -121,5 +121,27 @@ namespace Promart
 
             NavigateTo(header, studentPage, navigationUIVisibility);
         }
+
+        public void NavigateToWorkshopPage(int workshopId, string? workshopName, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        {
+            var workshopPage = new WorkshopRegistryPage(workshopId);
+            var header = workshopName;
+
+            NavigateTo(header, workshopPage, navigationUIVisibility);
+        }
+
+        public void NavigateToWorkshopPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        {
+            var workshopPage = new WorkshopRegistryPage();            
+
+            NavigateTo("Cadastro de Oficina", workshopPage, navigationUIVisibility);
+        }
+
+        public void NavigateToWorkshopListPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        {
+            var workshopPage = new WorkshopListPage();
+
+            NavigateTo("Lista de Oficinas", workshopPage, navigationUIVisibility);
+        }
     }
 }

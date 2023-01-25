@@ -44,11 +44,17 @@
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
         <Setter Property="Foreground" Value="{StaticResource Color1}" />
         <Setter Property="Background" Value="{StaticResource Color2}" />        
-    </Style>    
+    </Style>
+    <Style BasedOn="{StaticResource DefaultButton}" TargetType="Button" x:Key="UnfilledButton">
+        <Setter Property="Foreground" Value="{StaticResource Color1}" />
+        <Setter Property="Background" Value="{StaticResource Color4}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Color2}" />
+        <Setter Property="BorderThickness" Value="5" />
+    </Style>
     <Style BasedOn="{StaticResource DefaultButton}" TargetType="Button" x:Key="WindowButton">
         <Setter Property="Width" Value="200" />
         <Setter Property="Height" Value="40" />
-    </Style>
+    </Style>    
     <Style BasedOn="{StaticResource BaseButton}"
                    TargetType="Button"
                    x:Key="RemoveButton">

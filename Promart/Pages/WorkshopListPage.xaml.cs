@@ -13,6 +13,8 @@ namespace Promart.Pages
     /// </summary>
     public partial class WorkshopListPage : Page
     {
+        AppDbContext context = AppDbContextFactory.Create();
+
         public WorkshopListPage()
         {
             InitializeComponent();
@@ -20,7 +22,7 @@ namespace Promart.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            using var context = AppDbContextFactory.Create();
+            MainPanel.Children.Clear();            
 
             var workshops = await context.Workshops
                 .Select(w => new WorkshopDetailData
@@ -28,12 +30,20 @@ namespace Promart.Pages
                     Workshop = w,
                     StudentCount = w.Students.Count,
                     RegisteredStudentsCount = w.Students.Where(s => s.ProjectStatus == Database.ProjectStatusType.Matriculado).Count(),
-                    
+
                 })
                 .AsNoTracking()
                 .ToListAsync();
 
-            workshops.ForEach(w => MainPanel.Children.Add(new WorkshopDetailControl(w)));
+            workshops.ForEach(w => {
+                var control = new WorkshopDetailControl(w);
+                control.MouseLeftButtonDown += (s, e) =>
+                {
+                    MainWindow.Instance?.NavigateToWorkshopPage(w.Workshop.Id, w.Workshop.Name);
+                };
+
+                MainPanel.Children.Add(control);
+            } );
         }
 
         public class WorkshopDetailData
@@ -41,6 +51,11 @@ namespace Promart.Pages
             public Workshop Workshop { get; set; }
             public int StudentCount { get; set; }
             public int RegisteredStudentsCount { get; set; }
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance?.NavigateToWorkshopPage();
         }
     }
 }

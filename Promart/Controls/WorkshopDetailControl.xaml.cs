@@ -1,19 +1,6 @@
 ﻿using Promart.Core;
 using Promart.Database.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using static Promart.Pages.WorkshopListPage;
 
 namespace Promart.Controls
@@ -35,6 +22,7 @@ namespace Promart.Controls
             Status.Content = _workshop.RegistryStatus.Description();
             StudentCount.Content = workshop.StudentCount;
             RegisteredStudentsCount.Content = workshop.RegisteredStudentsCount;
+            ToolTip = _workshop.Description ?? "Insira uma descrição na oficina para parecer aqui";
         }
     }
 }

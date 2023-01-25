@@ -20,7 +20,7 @@
     
 
     <Grid Background="White" x:Name="MainGrid">
-        <StackPanel>
+        <StackPanel Margin="0 0 0 150">
             <StackPanel x:Name="TopPanel">
                 <Button
                     x:Name="Print"
@@ -29,7 +29,7 @@
                     Width="200"
                     HorizontalAlignment="Right"
                     Click="Print_Click"
-                    Style="{StaticResource DefaultButton}"
+                    Style="{StaticResource UnfilledButton}"
                     ToolTip="Imprimir página"/>
             </StackPanel>
             <Expander 
@@ -123,7 +123,7 @@
                         Width="60"
                         VerticalAlignment="Bottom"
                         Margin="0 0 0 5"
-                        Style="{StaticResource DefaultButton}"
+                        Style="{StaticResource UnfilledButton}"
                         ToolTip="Procurar e preencher com dados de outro aluno"
                         Click="Search_Click"
                         >
@@ -332,7 +332,7 @@
                                 Width="200"
                                 HorizontalAlignment="Right"
                                 Click="AddRelationship_Click" 
-                                Style="{StaticResource DefaultButton}"
+                                Style="{StaticResource UnfilledButton}"
                                 ToolTip="Adicionar um membro da família"/>
                         </StackPanel>                        
                     </GroupBox>
@@ -573,7 +573,7 @@
                 Height="50"
                 Margin="160 10"                
                 Click="Register_Click"   
-                Style="{StaticResource DefaultButton}"
+                Style="{StaticResource UnfilledButton}"
             />
             <Button
                 x:Name="Update"
@@ -581,7 +581,7 @@
                 Height="50"
                 Margin="160 10"  
                 Click="Update_Click"
-                Style="{StaticResource DefaultButton}"
+                Style="{StaticResource UnfilledButton}"
             />
         </StackPanel>
     </Grid>
