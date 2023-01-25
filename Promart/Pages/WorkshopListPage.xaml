@@ -23,12 +23,11 @@
             <Button
                 x:Name="Register"
                 Content="CADASTRAR" 
-                Height="50"
                 Width="150"
                 Margin="20" 
                 HorizontalAlignment="Right"
                 Click="Register_Click"
-                Style="{StaticResource UnfilledButton}"
+                Style="{StaticResource DefaultButton}"
             />
             <ScrollViewer>
                 <StackPanel x:Name="MainPanel">

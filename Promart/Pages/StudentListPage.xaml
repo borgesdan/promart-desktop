@@ -48,7 +48,6 @@
                 x:Name="Search"
                 Content="PESQUISAR"                
                 Margin="100 10"
-                Height="30"
                 Click="Search_Click"
                 Style="{StaticResource DefaultButton}">
             </Button>            

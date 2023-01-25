@@ -27,6 +27,7 @@
     <Style BasedOn="{StaticResource {x:Type Button}}"
                    TargetType="Button"
                    x:Key="BaseButton">
+        <Setter Property="Height" Value="40" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="FontWeight" Value="Black" />

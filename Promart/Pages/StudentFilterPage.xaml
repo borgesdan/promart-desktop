@@ -43,13 +43,23 @@
                 Style="{StaticResource DefaultExpander}">
                 <StackPanel>
                     <Button 
-                        x:Name="Clear"
-                        Content="LIMPAR"                        
+                        x:Name="Clear"                      
                         HorizontalAlignment="Right"
                         Margin="10 10"
                         Click="Clear_Click"
+                        Height="40"
                         Width="200"                        
-                        Style="{StaticResource DefaultButton}">                        
+                        Style="{StaticResource UnfilledButton}">
+                        <Button.Content>
+                            <WrapPanel>
+                                <Image 
+                                    Source="/Content/clear-16.png" />
+                                <TextBlock 
+                                    Margin="10 0"
+                                    VerticalAlignment="Center"
+                                    Text="LIMPAR" />
+                            </WrapPanel>
+                        </Button.Content>
                     </Button>
                     <Grid x:Name="FiltersGrid">
                         <Grid.ColumnDefinitions>
@@ -487,7 +497,7 @@
             <Button 
                 x:Name="Search"
                 Content="PESQUISAR"
-                Height="30"
+                Height="40"
                 Margin="100 10"                
                 Click="Search_Click"
                 Style="{StaticResource DefaultButton}">
@@ -500,25 +510,21 @@
             </WrapPanel>
             <Button 
                 x:Name="Export"
-                Height="30"
+                Height="40"
                 Width="200"
                 HorizontalAlignment="Right"
                 Margin="10 2"
                 Click="Export_Click"
-                Style="{StaticResource DefaultButton}">
+                Style="{StaticResource UnfilledButton}">
                 <Button.Content>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
+                    <WrapPanel>
                         <Image 
-                            Source="/Content/download-16.png" Margin="10 5" />
+                            Source="/Content/download-16.png" />
                         <TextBlock 
-                            Grid.Column="1"
+                            Margin="10 0"
                             VerticalAlignment="Center"
                             Text="EXPORTAR" />
-                    </Grid>
+                    </WrapPanel>
                 </Button.Content>
             </Button>
             <Expander Header="Resultado"                       

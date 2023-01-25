@@ -115,18 +115,16 @@
             <Button
                 x:Name="Register"
                 Content="CADASTRAR" 
-                Height="50"
                 Margin="160 10" 
                 Click="Register_Click"
-                Style="{StaticResource UnfilledButton}"
+                Style="{StaticResource DefaultButton}"
             />
             <Button
                 x:Name="Update"
                 Content="ATUALIZAR" 
-                Height="50"
                 Margin="160 10"     
                 Click="Update_Click"
-                Style="{StaticResource UnfilledButton}"
+                Style="{StaticResource DefaultButton}"
             />
             <Expander Header="Matriculados"  
                       x:Name="StudentList"

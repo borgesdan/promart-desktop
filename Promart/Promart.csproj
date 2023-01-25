@@ -9,12 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\clear-16.png" />
     <None Remove="Content\download-16.png" />
+    <None Remove="Content\person-16.png" />
+    <None Remove="Content\print-16.png" />
     <None Remove="Content\search-16.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\clear-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\download-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\person-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\print-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\search-16.png">
