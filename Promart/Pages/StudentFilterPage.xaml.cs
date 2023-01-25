@@ -50,7 +50,7 @@ namespace Promart.Pages
 
             await SearchAsync();
 
-            if (DataGridResult.Columns.Count > 0)
+            if (ColumnsList.Children.Count == 0 && DataGridResult.Items.Count > 0)
                 CreateCheckBoxes();
 
             Export.IsEnabled = DataGridResult.Items.Count > 0;
@@ -245,6 +245,11 @@ namespace Promart.Pages
                 students = students.Where(s => s.ProjectShift == value);
             }
 
+            if (CheckBirthMonth.IsChecked == true)
+            {
+                students = students.Where(s => s.BirthDate != null && s.BirthDate.Value.Month == BirthMonth.SelectedIndex + 1);
+            }
+
             var result = await students.AsNoTracking().ToListAsync();
 
             DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
@@ -255,8 +260,8 @@ namespace Promart.Pages
             await SearchAsync();
 
             Export.IsEnabled = DataGridResult.Items.Count > 0;
-
-            if (ColumnsList.Children.Count == 0)
+            
+            if (ColumnsList.Children.Count == 0 && DataGridResult.Items.Count > 0)
                 CreateCheckBoxes();
 
             foreach (var col in ColumnsList.Children)

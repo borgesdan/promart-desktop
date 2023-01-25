@@ -440,7 +440,46 @@
                                     </Style.Triggers>
                                 </Style>
                             </GroupBox.Style>
-                        </GroupBox>                        
+                        </GroupBox>
+                        <GroupBox                        
+                            Grid.Column="8"
+                            Grid.Row="8"                            
+                            Grid.ColumnSpan="4">
+                            <ComboBox
+                                Name="BirthMonth"
+                                SelectedIndex="0" 
+                                IsEnabled="{Binding ElementName=CheckBirthMonth, Path=IsChecked, TargetNullValue=False}"
+                                Style="{StaticResource DefaultComboBox}">
+                                <ComboBoxItem Content="Janeiro" />
+                                <ComboBoxItem Content="Fevereiro" />
+                                <ComboBoxItem Content="Março" />
+                                <ComboBoxItem Content="Abril" />
+                                <ComboBoxItem Content="Maio" />
+                                <ComboBoxItem Content="Junho" />
+                                <ComboBoxItem Content="Julho" />
+                                <ComboBoxItem Content="Agosto" />
+                                <ComboBoxItem Content="Setembro"/>
+                                <ComboBoxItem Content="Outubro" />
+                                <ComboBoxItem Content="Novembro" />
+                                <ComboBoxItem Content="Dezembro" />
+                            </ComboBox>
+                            <GroupBox.Header>
+                                <CheckBox
+                                    x:Name="CheckBirthMonth"
+                                    VerticalContentAlignment="Center">
+                                    Mês de Nascimento
+                                </CheckBox>
+                            </GroupBox.Header>
+                            <GroupBox.Style>
+                                <Style TargetType="GroupBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=CheckBirthMonth, Path=IsChecked}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GroupBox.Style>
+                        </GroupBox>
                     </Grid>
                 </StackPanel>
             </Expander>

@@ -145,8 +145,7 @@ namespace Promart.Pages
                 _workshop.Name = FullName.Text;
                 _workshop.Description = Description.Text;
                 _workshop.RegistryStatus = (RegistryStatus)Situation.GetEnum<RegistryStatus>();
-
-                //_context.Update(_workshop);
+                
                 _context.SaveChanges();
                 MessageBox.Show("Oficina atualizada com sucesso", "Oficina Atualizada", MessageBoxButton.OK, MessageBoxImage.Information);
             }
