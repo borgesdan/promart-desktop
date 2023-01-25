@@ -46,18 +46,14 @@
             </Grid>
             <Button  
                 x:Name="Search"
-                Content="PESQUISAR"
-                Height="30"
+                Content="PESQUISAR"                
                 Margin="100 10"
-                Background="{StaticResource Color2}"
-                Foreground="White"
-                FontSize="{StaticResource DefaultSize}"
-                FontWeight="Bold"
-                Click="Search_Click">
+                Height="30"
+                Click="Search_Click"
+                Style="{StaticResource DefaultButton}">
             </Button>            
-            <Expander 
-                Header="Resultado"                 
-                Style="{StaticResource DefaultExpander}">
+            <GroupBox 
+                Header="Resultado">
                 <StackPanel>                    
                     <ScrollViewer 
                         MaxHeight="1000"
@@ -66,7 +62,7 @@
                             x:Name="ResultPanel"/>
                     </ScrollViewer>
                 </StackPanel>
-            </Expander>
+            </GroupBox>
         </StackPanel>
     </Grid>
 </Page>

@@ -100,6 +100,7 @@
                             Background="White"
                             FontWeight="Bold"
                             Click="StudentReEnroll_Click"
+                            Visibility="Collapsed"
                             FontSize="{StaticResource NormalSize }"
                             />
                     </StackPanel>

@@ -24,6 +24,7 @@ namespace Promart.Pages
     public partial class StudentFilterPage : Page
     {
         bool isLoaded = false;
+        AppDbContext context = AppDbContextFactory.Create();
 
         public StudentFilterPage()
         {
@@ -38,7 +39,6 @@ namespace Promart.Pages
                 return;
 
             Age.ApplyOnlyNumbers();
-
             Gender.AddEnum<GenderType>();
             FamilyRelationship.AddEnum<StudentRelationshipType>();
             Dwelling.AddEnum<DwellingType>();
@@ -50,20 +50,26 @@ namespace Promart.Pages
 
             await SearchAsync();
 
-            var columns = DataGridResult.Columns;
-            columns.ToList().ForEach(c =>
+            if (DataGridResult.Columns.Count > 0)
+                CreateCheckBoxes();
+
+            Export.IsEnabled = DataGridResult.Items.Count > 0;
+        }
+
+        private void CreateCheckBoxes()
+        {
+            DataGridResult.Columns.ToList().ForEach(c =>
             {
                 if (c.Visibility != Visibility.Visible)
-                    return;                
+                    return;
 
                 var checkbox = new CheckBox
                 {
                     Tag = c,
                     Content = c.Header,
                     MinWidth = 180,
+                    IsChecked = true
                 };
-                
-                checkbox.IsChecked = true;
 
                 checkbox.Click += ColumnsCheckbox_Click;
                 ColumnsList.Children.Add(checkbox);
@@ -116,8 +122,7 @@ namespace Promart.Pages
         private async Task SearchAsync()
         {
             MainGrid.TrimAllTextBox();
-
-            using var context = AppDbContextFactory.Create();
+            
             var students = context.Students.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(SearchBar.Text))
@@ -240,7 +245,7 @@ namespace Promart.Pages
                 students = students.Where(s => s.ProjectShift == value);
             }
 
-            var result = await students.ToListAsync();
+            var result = await students.AsNoTracking().ToListAsync();
 
             DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
         }
@@ -249,10 +254,10 @@ namespace Promart.Pages
         {
             await SearchAsync();
 
-            if(DataGridResult.Items.Count == 0)
-                Export.Visibility = Visibility.Collapsed;
-            else
-                Export.Visibility = Visibility.Visible;
+            Export.IsEnabled = DataGridResult.Items.Count > 0;
+
+            if (ColumnsList.Children.Count == 0)
+                CreateCheckBoxes();
 
             foreach (var col in ColumnsList.Children)
             {

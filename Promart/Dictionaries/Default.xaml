@@ -43,9 +43,8 @@
                    x:Key="DefaultButton">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
         <Setter Property="Foreground" Value="{StaticResource Color1}" />
-        <Setter Property="Background" Value="{StaticResource Color2}" />
-        
-    </Style>
+        <Setter Property="Background" Value="{StaticResource Color2}" />        
+    </Style>    
     <Style BasedOn="{StaticResource DefaultButton}" TargetType="Button" x:Key="WindowButton">
         <Setter Property="Width" Value="200" />
         <Setter Property="Height" Value="40" />

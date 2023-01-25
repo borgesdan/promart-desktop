@@ -459,6 +459,29 @@
                 Height="50"
                 VerticalAlignment="Stretch">
             </WrapPanel>
+            <Button 
+                x:Name="Export"
+                Height="30"
+                Width="200"
+                HorizontalAlignment="Right"
+                Margin="10 2"
+                Click="Export_Click"
+                Style="{StaticResource DefaultButton}">
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                            Source="/Content/download-16.png" Margin="10 5" />
+                        <TextBlock 
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="EXPORTAR" />
+                    </Grid>
+                </Button.Content>
+            </Button>
             <Expander Header="Resultado"                       
                 Style="{StaticResource DefaultExpander}">                
                 <DataGrid 
@@ -470,18 +493,7 @@
                     CanUserResizeColumns="True" CanUserSortColumns="True"
                     AutoGeneratingColumn="DataGridResult_AutoGeneratingColumn">
                 </DataGrid>
-            </Expander>            
-            
-            <Button 
-                x:Name="Export"
-                Content="EXPORTAR"
-                Height="30"
-                Width="200"
-                HorizontalAlignment="Right"
-                Margin="10"
-                Click="Export_Click"
-                Style="{StaticResource DefaultButton}">
-            </Button>
+            </Expander>  
         </StackPanel>
     </Grid>
 </Page>
