@@ -28,9 +28,18 @@
         </Grid.RowDefinitions>
 
         <Menu>
-            <MenuItem Header="Arquivo" />
-            <MenuItem Header="Cadastro" />
-            <MenuItem Header="Relatórios" />
+            <MenuItem Header="Arquivo">
+                <MenuItem Header="Sair" x:Name="ExitMenuItem" Click="ExitMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="Cadastro">
+                <MenuItem Header="Aluno" Click="StudentRegister_Click" />
+                <MenuItem Header="Oficina" Click="WorkshopRegister_Click" />
+                <Separator />
+                <MenuItem Header="Lista de Alunos" Click="StudentList_Click" />
+            </MenuItem>
+            <MenuItem Header="Filtros">
+                <MenuItem Header="Aluno" Click="StudentFilter_Click" />
+            </MenuItem>
             <MenuItem Header="Configurações" />
         </Menu>
         <DockPanel

@@ -157,7 +157,7 @@
                         <GroupBox
                             Grid.Column="7"
                             Grid.Row="0"
-                            Grid.ColumnSpan="4">
+                            Grid.ColumnSpan="5">
                             <ComboBox
                                 Name="FamilyRelationship"
                                 SelectedIndex="0"
@@ -267,7 +267,7 @@
                         <GroupBox
                             Grid.Column="0"
                             Grid.Row="4"
-                            Grid.ColumnSpan="8">
+                            Grid.ColumnSpan="7">
                             <TextBox
                                 x:Name="Address"
                                 IsEnabled="{Binding ElementName=CheckAddress, Path=IsChecked, TargetNullValue=False}"
@@ -291,9 +291,9 @@
                             </GroupBox.Style>
                         </GroupBox>
                         <GroupBox
-                            Grid.Column="8"
+                            Grid.Column="7"
                             Grid.Row="4"
-                            Grid.ColumnSpan="4">
+                            Grid.ColumnSpan="5">
                             <TextBox
                                 x:Name="AddressDistrict"
                                 IsEnabled="{Binding ElementName=CheckAddressDistrict, Path=IsChecked, TargetNullValue=False}"

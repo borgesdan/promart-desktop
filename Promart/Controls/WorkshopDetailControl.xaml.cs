@@ -22,7 +22,7 @@ namespace Promart.Controls
             Status.Content = _workshop.RegistryStatus.Description();
             StudentCount.Content = workshop.StudentCount;
             RegisteredStudentsCount.Content = workshop.RegisteredStudentsCount;
-            ToolTip = _workshop.Description ?? "Insira uma descrição na oficina para parecer aqui";
+            ToolTip = string.IsNullOrWhiteSpace(_workshop.Description) ? "Insira uma descrição na oficina para parecer aqui" : _workshop.Description;
         }
     }
 }

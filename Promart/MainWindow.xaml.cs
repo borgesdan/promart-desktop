@@ -90,6 +90,12 @@ namespace Promart
             MainTab.Items.Add(tabItem);
         }
 
+        private void WorkshopRegister_Click(object sender, RoutedEventArgs e)
+        {
+            var tabItem = CreateNewTab("Nova Oficina", new WorkshopRegistryPage());
+            MainTab.Items.Add(tabItem);
+        }
+
         private void StudentFilter_Click(object sender, RoutedEventArgs e)
         {
             var tabItem = CreateNewTab("Filtro de Aluno", new StudentFilterPage());
@@ -142,6 +148,16 @@ namespace Promart
             var workshopPage = new WorkshopListPage();
 
             NavigateTo("Lista de Oficinas", workshopPage, navigationUIVisibility);
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Deseja encerrar o programa?", "Encerrar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            this.Close();
         }
     }
 }

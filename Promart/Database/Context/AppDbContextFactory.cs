@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Promart.Core;
 
 namespace Promart.Database.Context
 {
@@ -13,9 +14,11 @@ namespace Promart.Database.Context
         public static AppDbContext Create()
         {
             DbContextOptionsBuilder<AppDbContext> builder = new DbContextOptionsBuilder<AppDbContext>();
-            builder.UseSqlServer(@"Data Source=DESKTOP-P4JVSUH;Initial Catalog=PromartDesktop;Integrated Security=True;Trust Server Certificate=True");
+            var configuration = ConfigManager.Open();
+
+            builder.UseSqlServer(configuration.ConnectionString);
 
             return new AppDbContext(builder.Options);
-        }
+        }        
     }
 }
