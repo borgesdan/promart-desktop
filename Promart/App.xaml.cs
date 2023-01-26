@@ -1,5 +1,4 @@
-﻿using Promart.Database.Context;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Promart
 {
@@ -8,5 +7,8 @@ namespace Promart
     /// </summary>
     public partial class App : Application
     { 
+        public App()
+        {
+        }
     }
 }

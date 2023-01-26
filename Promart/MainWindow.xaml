@@ -40,7 +40,11 @@
             <MenuItem Header="Filtros">
                 <MenuItem Header="Aluno" Click="StudentFilter_Click" />
             </MenuItem>
-            <MenuItem Header="Configurações" />
+            <MenuItem Header="Configurações">
+                <MenuItem Header="Backup">
+                    <MenuItem Header="Banco de Dados" />
+                </MenuItem>
+            </MenuItem>
         </Menu>
         <DockPanel
             Grid.Row="1">
