@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Promart.Core;
+using System.Windows;
 
 namespace Promart
 {
