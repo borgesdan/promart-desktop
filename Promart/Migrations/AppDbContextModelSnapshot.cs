@@ -22,21 +22,6 @@ namespace Promart.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FamilyRelationshipStudent", b =>
-                {
-                    b.Property<int>("FamilyRelationshipsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FamilyRelationshipsId", "StudentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("FamilyRelationshipStudent");
-                });
-
             modelBuilder.Entity("Promart.Database.Entities.FamilyRelationship", b =>
                 {
                     b.Property<int>("Id")
@@ -71,7 +56,12 @@ namespace Promart.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("FamilyRelationships");
                 });
@@ -147,6 +137,10 @@ namespace Promart.Migrations
                     b.Property<string>("Observations")
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ProjectRegistry")
                         .HasMaxLength(20)
@@ -235,19 +229,13 @@ namespace Promart.Migrations
                     b.ToTable("StudentWorkshop");
                 });
 
-            modelBuilder.Entity("FamilyRelationshipStudent", b =>
+            modelBuilder.Entity("Promart.Database.Entities.FamilyRelationship", b =>
                 {
-                    b.HasOne("Promart.Database.Entities.FamilyRelationship", null)
-                        .WithMany()
-                        .HasForeignKey("FamilyRelationshipsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Promart.Database.Entities.Student", "Student")
+                        .WithMany("FamilyRelationships")
+                        .HasForeignKey("StudentId");
 
-                    b.HasOne("Promart.Database.Entities.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("StudentWorkshop", b =>
@@ -263,6 +251,11 @@ namespace Promart.Migrations
                         .HasForeignKey("WorkshopsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Promart.Database.Entities.Student", b =>
+                {
+                    b.Navigation("FamilyRelationships");
                 });
 #pragma warning restore 612, 618
         }

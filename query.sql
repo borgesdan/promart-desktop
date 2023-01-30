@@ -1,6 +1,6 @@
 INSERT into [PromartDesktop].dbo.Students	
 	(
-		FullName, BirthDate, Gender, Certidao,
+		FullName, BirthDate, Gender, RG, CPF, Certidao,
 		ResponsibleName, Relationship, 
 		IsGovernmentBeneficiary, Dwelling, MonthlyIncome,
 		SchoolName, SchoolYear, SchoolShift,
@@ -13,6 +13,8 @@ INSERT into [PromartDesktop].dbo.Students
 		NomeCompleto,
 		DataNascimento,
 		Sexo,
+		RG,
+		CPF,
 		Certidao,
 		NomeResponsavel,
 		VinculoFamiliar,
@@ -36,3 +38,7 @@ INSERT into [PromartDesktop].dbo.Students
 		DataMatricula,
 		0
 	from [PromartBD].dbo.Alunos
+
+INSERT into [PromartDesktop].dbo.Workshops(Name, Description, RegistryStatus)
+SELECT Nome, Descricao, 0
+from [PromartBD].dbo.Oficinas

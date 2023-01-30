@@ -6,30 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Promart.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "FamilyRelationships",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: true),
-                    Relationship = table.Column<byte>(type: "tinyint", nullable: false),
-                    Occupation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Schooling = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Income = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    RegistryStatus = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FamilyRelationships", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Students",
                 columns: table => new
@@ -61,9 +42,10 @@ namespace Promart.Migrations
                     SchoolShift = table.Column<byte>(type: "tinyint", nullable: false),
                     ProjectStatus = table.Column<byte>(type: "tinyint", nullable: false),
                     ProjectShift = table.Column<byte>(type: "tinyint", nullable: false),
-                    Registry = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    RegistryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Observations = table.Column<string>(type: "nvarchar(3000)", maxLength: 3000, nullable: true),
+                    ProjectRegistry = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ProjectRegistryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Observations = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    PhotoUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     RegistryStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -87,27 +69,28 @@ namespace Promart.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FamilyRelationshipStudent",
+                name: "FamilyRelationships",
                 columns: table => new
                 {
-                    RelationshipsId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: true),
+                    Relationship = table.Column<byte>(type: "tinyint", nullable: false),
+                    Occupation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Schooling = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Income = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    RegistryStatus = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FamilyRelationshipStudent", x => new { x.RelationshipsId, x.StudentId });
+                    table.PrimaryKey("PK_FamilyRelationships", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FamilyRelationshipStudent_FamilyRelationships_RelationshipsId",
-                        column: x => x.RelationshipsId,
-                        principalTable: "FamilyRelationships",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FamilyRelationshipStudent_Students_StudentId",
+                        name: "FK_FamilyRelationships_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -135,8 +118,8 @@ namespace Promart.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FamilyRelationshipStudent_StudentId",
-                table: "FamilyRelationshipStudent",
+                name: "IX_FamilyRelationships_StudentId",
+                table: "FamilyRelationships",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -149,13 +132,10 @@ namespace Promart.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FamilyRelationshipStudent");
+                name: "FamilyRelationships");
 
             migrationBuilder.DropTable(
                 name: "StudentWorkshop");
-
-            migrationBuilder.DropTable(
-                name: "FamilyRelationships");
 
             migrationBuilder.DropTable(
                 name: "Students");

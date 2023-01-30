@@ -31,7 +31,7 @@ namespace Promart.Database.Entities
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
-        public virtual ICollection<Student> Student { get; set; } = new HashSet<Student>();
+        public virtual Student? Student { get; set; }
 
         public FamilyRelationship() { }
 

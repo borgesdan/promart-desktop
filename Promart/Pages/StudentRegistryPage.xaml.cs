@@ -418,6 +418,7 @@ namespace Promart.Pages
                 if (child is StudentRelationshipControl relationshipControl)
                 {
                     var relationship = relationshipControl.GetRelationship();
+                    relationship.Id = 0;
 
                     if (relationship != null && relationshipControl.IsFormularyValid)
                         list.Add(relationship);

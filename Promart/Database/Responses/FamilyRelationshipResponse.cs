@@ -1,5 +1,4 @@
 ﻿using Promart.Database.Entities;
-using System.Collections.Generic;
 
 namespace Promart.Database.Responses
 {
@@ -13,7 +12,7 @@ namespace Promart.Database.Responses
         public string? Schooling { get; set; }
         public string? Income { get; set; }
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
-        public virtual ICollection<Student> Student { get; set; } = new HashSet<Student>();
+        public virtual Student? Student { get; set; }
 
         public FamilyRelationshipResponse() { }
 
