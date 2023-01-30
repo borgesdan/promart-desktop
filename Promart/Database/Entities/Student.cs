@@ -72,9 +72,7 @@ namespace Promart.Database.Entities
         public string? Observations { get; set; }
 
         [StringLength(500)]
-        public string? PhotoUrl { get; set; }
-        [StringLength(100)]
-        public string? PhotoTransform { get; set; } //x=50;y=50;sx=2;sy=2
+        public string? PhotoUrl { get; set; }       
 
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
