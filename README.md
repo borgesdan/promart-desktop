@@ -14,10 +14,13 @@ Projeto para gerenciamento de alunos, funcionários, voluntários e oficinas do 
 
 ## Tecnologias
 
-Microsoft SQL Server 2019: para banco de dados relacional;
-EntityFramework: Como ORM para acesso ao banco.
-.NET 6: e a linguagem C# como ambiente de desenvolvimento.
-WPF: como GUI para janelas.
+**Microsoft SQL Server 2019:** para banco de dados relacional;
+
+**EntityFramework:** Como ORM para acesso ao banco.
+
+**.NET 6:** e a linguagem C# como ambiente de desenvolvimento.
+
+**WPF:** como GUI para janelas.
 
 
 ## Installation
