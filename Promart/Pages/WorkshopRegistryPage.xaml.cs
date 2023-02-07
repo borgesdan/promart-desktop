@@ -131,7 +131,7 @@ namespace Promart.Pages
             }
             catch(Exception ex)
             {
-                Error.ShowMessageBox("Ocorreu um erro ao criar a oficina", ex);
+                Error.ShowDatabaseError("Ocorreu um erro ao criar a oficina", ex);
             }
         }
 
@@ -151,7 +151,7 @@ namespace Promart.Pages
             }
             catch (Exception ex)
             {
-                Error.ShowMessageBox("Ocorreu um erro ao atualizar a oficina", ex);
+                Error.ShowDatabaseError("Ocorreu um erro ao atualizar a oficina", ex);
             }
         }
     }

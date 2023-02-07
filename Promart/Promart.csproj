@@ -5,10 +5,12 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>icone.ico</ApplicationIcon>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="about.txt" />
+    <None Remove="Backups\about.txt" />
     <None Remove="config.json" />
     <None Remove="Content\clear-16.png" />
     <None Remove="Content\download-16.png" />
@@ -18,6 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="about.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Backups\about.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -36,7 +44,7 @@
     <Content Include="Content\search-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="icone.ico" />
+    <Content Include="logo.ico" />
   </ItemGroup>
 
   <ItemGroup>

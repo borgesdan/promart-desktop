@@ -154,7 +154,7 @@ namespace Promart.Pages
             }
             catch (Exception ex)
             {
-                Error.ShowMessageBox("Ocorreu um erro ao matricular o aluno.", ex);
+                Error.ShowDatabaseError("Ocorreu um erro ao matricular o aluno.", ex);
             }
         }
 
@@ -215,7 +215,7 @@ namespace Promart.Pages
             }
             catch(Exception ex )
             {
-                Error.ShowMessageBox("Ocorreu um erro ao atualizar o cadastro do aluno", ex);
+                Error.ShowDatabaseError("Ocorreu um erro ao atualizar o cadastro do aluno", ex);
             }            
         }
 
@@ -442,7 +442,7 @@ namespace Promart.Pages
             }
             catch (Exception ex)
             {
-                Error.ShowMessageBox("Não foi possível carregar as oficinas do projeto.", ex);
+                Error.ShowDatabaseError("Não foi possível carregar as oficinas do projeto.", ex);
             }
         }
 

@@ -40,9 +40,11 @@
             <MenuItem Header="Filtros">
                 <MenuItem Header="Aluno" Click="StudentFilter_Click" />
             </MenuItem>
-            <MenuItem Header="Configurações">
+            <MenuItem Header="Banco de Dados">
                 <MenuItem Header="Backup">
-                    <MenuItem Header="Banco de Dados" />
+                    <MenuItem x:Name="BDBackupMenuItem" Header="Criar Backup" Click="BDBackupMenuItem_Click" />
+                    <MenuItem x:Name="BDBackupOpenDirectoryMenuItem" Header="Abrir Pasta" Click="BDBackupOpenDirectoryMenuItem_Click" />
+                    <MenuItem x:Name="BDBackupRestoreMenuItem" Header="Restaurar" Click="BDBackupRestoreMenuItem_Click" />
                 </MenuItem>
             </MenuItem>
         </Menu>

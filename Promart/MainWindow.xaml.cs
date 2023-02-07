@@ -19,6 +19,11 @@ using Promart.Pages;
 using Promart.Controls;
 using Promart.Database.Entities;
 using System.Reflection.PortableExecutable;
+using Microsoft.Win32;
+using Promart.Core;
+using System.Configuration;
+using System.IO;
+using System.Diagnostics;
 
 namespace Promart
 {
@@ -158,6 +163,41 @@ namespace Promart
                 return;
 
             this.Close();
+        }
+
+        private async void BDBackupMenuItem_Click(object sender, RoutedEventArgs e)
+        {   
+            var now = DateTime.Now;
+
+            var year = now.Year.ToString();
+            var month = now.Month < 10 ? $"0{now.Month}" : now.Month.ToString();
+            var day = now.Day < 10 ? $"0{now.Day}" : now.Day.ToString();
+            
+            var timeString = DateTime.Now.ToShortTimeString().Replace(":", "-");
+
+            this.IsEnabled = false;
+
+            var configuration = ConfigManager.Open();
+            var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{year}-{month}-{day}-{timeString}.bak");
+
+            var result = await Backup.FromDatabase("PromartDesktop", configuration.ConnectionString, destionationFile);
+
+            this.IsEnabled = true;
+
+            if (result)
+                MessageBox.Show("Backup realizado com sucesso!", "Backup realizado", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void BDBackupRestoreMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BDBackupOpenDirectoryMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var destination = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups");
+
+            Process.Start("explorer.exe", destination);
         }
     }
 }

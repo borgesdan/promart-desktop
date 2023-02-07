@@ -5,7 +5,7 @@ namespace Promart.Core
 {
     public static class Error
     {
-        public static void ShowMessageBox(string message, Exception ex)
+        public static void ShowDatabaseError(string message, Exception ex)
         {
             MessageBox.Show(
                 $"{message}\n" +

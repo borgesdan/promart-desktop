@@ -14,7 +14,7 @@ namespace Promart.Core
                 using var conn = new SqlConnection(connectionString);
                 await conn.OpenAsync();
 
-                string sql = @$"BACKUP DATABASE [{databaseName}] TO DISK = N'{destinationFilePath}' WITH NOFORMAT, NOINIT, NAME = N'{databaseName}', SKIP, NOREWIND, NOUNLOAD, STATS = 10;";
+                string sql = @$"BACKUP DATABASE [{databaseName}] TO DISK = N'{destinationFilePath}'";
 
                 var command = new SqlCommand(sql, conn);
                 await command.ExecuteNonQueryAsync();
@@ -23,7 +23,7 @@ namespace Promart.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocorreu um erro ao tentar realizar o backup.\n\n{ex.Message}");
+                Error.ShowDatabaseError($"Ocorreu um erro ao tentar realizar o backup do banco de dados.", ex);
                 return false;
             }
         }
@@ -35,7 +35,7 @@ namespace Promart.Core
                 using var conn = new SqlConnection(connectionString);
                 await conn.OpenAsync();
 
-                string sql = @$"RESTORE DATABASE [{databaseName}] FROM DISK = N'{filePath}' WITH  FILE = 1, NOUNLOAD, STATS = 5;";
+                string sql = @$"RESTORE DATABASE [{databaseName}] FROM DISK = N'{filePath}'";
                 
                 var command = new SqlCommand(sql, conn);                
                 await command.ExecuteNonQueryAsync();
@@ -44,7 +44,7 @@ namespace Promart.Core
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocorreu um erro ao tentar realizar a restauração.\n\n{ex.Message}");
+                Error.ShowDatabaseError($"Ocorreu um erro ao tentar restaurar o backup do banco de dados.", ex);
                 return false;
             }
         }

@@ -81,7 +81,7 @@ namespace Promart.Windows
             }
             catch(Exception ex)
             {
-                Error.ShowMessageBox("Ocorreu um erro ao realizar a pesquisa", ex);
+                Error.ShowDatabaseError("Ocorreu um erro ao realizar a pesquisa", ex);
             }
         }
 
