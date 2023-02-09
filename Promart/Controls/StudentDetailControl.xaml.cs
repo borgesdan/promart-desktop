@@ -1,6 +1,7 @@
 ﻿using Promart.Core;
 using Promart.Database.Entities;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Promart.Controls
 {
@@ -21,7 +22,22 @@ namespace Promart.Controls
             Age.Content = _student.BirthDate?.GetAge().ToString();
             Registry.Content = _student.ProjectRegistry;
             RegistryDate.Content = _student.ProjectRegistryDate?.ToShortDateString();
-            Status.Content = _student.ProjectStatus.Description();
+            Status.Content = _student.ProjectStatus.Description().ToUpper();
+
+            var status = _student.ProjectStatus;
+
+            switch (status)
+            {
+                case Database.ProjectStatusType.Matriculado:
+                    Status.Background = Brushes.Green;
+                    break;
+                case Database.ProjectStatusType.Desistente:
+                    Status.Background = Brushes.Red;
+                    break;
+                default:
+                    Status.Background = Brushes.DarkOrange;
+                    break;
+            }
         }
 
         public Student? GetStudent() => _student;

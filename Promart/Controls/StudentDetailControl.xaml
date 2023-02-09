@@ -54,6 +54,7 @@
                      VerticalContentAlignment="Top">
                     <Label
                         x:Name="Age"                        
+                        HorizontalContentAlignment="Center"
                         FontSize="{StaticResource DefaultSize}"
                         />
                 </GroupBox>
@@ -63,7 +64,8 @@
                     FontSize="{StaticResource MinSize}"
                      VerticalContentAlignment="Top">
                     <Label
-                        x:Name="Registry"                        
+                        x:Name="Registry"                  
+                        HorizontalContentAlignment="Center"
                         FontSize="{StaticResource DefaultSize}"
                         />
                 </GroupBox>
@@ -74,19 +76,15 @@
                      VerticalContentAlignment="Top">
                     <Label
                         x:Name="RegistryDate"                        
+                        HorizontalContentAlignment="Center"
                         FontSize="{StaticResource DefaultSize}"
                         />
                 </GroupBox>
-                <GroupBox
-                    Header="Situação"
+                <Label
+                    x:Name="Status"   
                     Grid.Column="4"
-                    FontSize="{StaticResource MinSize}"
-                     VerticalContentAlignment="Top">
-                    <Label
-                        x:Name="Status"                        
-                        FontSize="{StaticResource DefaultSize}"
-                        />
-                </GroupBox>
+                    Margin="10 10"
+                    Style="{StaticResource FilledInfoLabel}"/>
             </Grid>            
         </GroupBox>
     </Grid>

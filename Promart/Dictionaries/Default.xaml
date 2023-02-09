@@ -89,7 +89,21 @@
     <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label" x:Key="DefaultLabel">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>    
+    </Style>
+
+    <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label" x:Key="FilledInfoLabel">
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{StaticResource NormalSize}" />
+        <Setter Property="Background" Value="LightGray" />
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </Style.Resources>
+    </Style>
 
     <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox" x:Key="DefaultTextBox">
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
