@@ -48,16 +48,12 @@
                         Margin="10 10"
                         Click="Clear_Click"
                         Height="40"
-                        Width="200"                        
-                        Style="{StaticResource UnfilledButton}">
+                        Width="100"
+                        Style="{StaticResource DefaultButton2}">
                         <Button.Content>
                             <WrapPanel>
                                 <Image 
-                                    Source="/Content/clear-16.png" />
-                                <TextBlock 
-                                    Margin="10 0"
-                                    VerticalAlignment="Center"
-                                    Text="LIMPAR" />
+                                    Source="/Content/clear-32.png" Margin="2" />
                             </WrapPanel>
                         </Button.Content>
                     </Button>
@@ -515,11 +511,9 @@
                 HorizontalAlignment="Right"
                 Margin="10 2"
                 Click="Export_Click"
-                Style="{StaticResource UnfilledButton}">
+                Style="{StaticResource DefaultButton2}">
                 <Button.Content>
                     <WrapPanel>
-                        <Image 
-                            Source="/Content/download-16.png" />
                         <TextBlock 
                             Margin="10 0"
                             VerticalAlignment="Center"

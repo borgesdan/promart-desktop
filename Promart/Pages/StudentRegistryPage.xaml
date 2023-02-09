@@ -22,15 +22,14 @@
             <StackPanel x:Name="TopPanel" Margin="0 20 10 10">
                 <Button
                     x:Name="Print"
-                    Width="200"
+                    Width="100"
                     HorizontalAlignment="Right"
                     Click="Print_Click"
-                    Style="{StaticResource UnfilledButton}"
+                    Style="{StaticResource DefaultButton2}"
                     ToolTip="Imprimir página">
                     <Button.Content>
                         <WrapPanel>
-                            <Image Source="/Content/print-16.png" Margin="2" VerticalAlignment="Center" />
-                            <TextBlock Text="IMPRIMIR" Margin="2 0" VerticalAlignment="Center"/>
+                            <Image Source="/Content/print-32.png" Margin="2" VerticalAlignment="Center" />                            
                         </WrapPanel>
                     </Button.Content>
                 </Button>
@@ -130,12 +129,12 @@
                         Width="60"
                         VerticalAlignment="Bottom"
                         Margin="0 0 0 5"
-                        Style="{StaticResource UnfilledButton}"
+                        Style="{StaticResource DefaultButton2}"
                         ToolTip="Procurar e preencher com dados de outro aluno"
                         Click="Search_Click"
                         >
                         <Button.Content>
-                            <Image Source="/Content/search-16.png" Margin="5" />
+                            <Image Source="/Content/search-32.png" Margin="5" />
                         </Button.Content>
                     </Button>
 
@@ -334,15 +333,14 @@
                             </StackPanel>
                             <Button
                                 x:Name="AddRelationship"
-                                Width="200"
+                                Width="100"
                                 HorizontalAlignment="Right"
                                 Click="AddRelationship_Click" 
-                                Style="{StaticResource UnfilledButton}"
+                                Style="{StaticResource DefaultButton2}"
                                 ToolTip="Adicionar um membro da família">
                                 <Button.Content>
                                     <WrapPanel>
-                                        <Image Source="/Content/person-16.png" Margin="2" VerticalAlignment="Center" />
-                                        <TextBlock Text="ADICIONAR" Margin="2 0" VerticalAlignment="Center"/>
+                                        <Image Source="/Content/person-add-filled-32.png" Margin="4" VerticalAlignment="Center" />                                        
                                     </WrapPanel>
                                 </Button.Content>
                             </Button>

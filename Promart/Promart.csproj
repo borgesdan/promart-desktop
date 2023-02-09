@@ -15,8 +15,11 @@
     <None Remove="Content\clear-16.png" />
     <None Remove="Content\download-16.png" />
     <None Remove="Content\person-16.png" />
+    <None Remove="Content\person-add-filled-32.png" />
     <None Remove="Content\print-16.png" />
+    <None Remove="Content\print-32.png" />
     <None Remove="Content\search-16.png" />
+    <None Remove="Content\search-32.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +41,19 @@
     <Content Include="Content\person-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\person-add-filled-32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\print-16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\print-32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\search-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\search-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="logo.ico" />

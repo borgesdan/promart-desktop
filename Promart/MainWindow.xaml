@@ -51,7 +51,7 @@
             Grid.Row="1">
             <StackPanel 
                 Width="250"
-                Background="{StaticResource Color1}">
+                Background="{StaticResource Color2}">
                 <Expander 
                     IsExpanded="True"
                     Margin="5"
