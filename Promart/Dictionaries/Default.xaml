@@ -9,10 +9,10 @@
     <System:Double x:Key="ErrorSize">12</System:Double>
     <System:Double x:Key="MinSize">10</System:Double>
 
-    <SolidColorBrush x:Key="Color1">#1A1B41</SolidColorBrush>
-    <SolidColorBrush x:Key="Color2">#a288e3</SolidColorBrush>
-    <SolidColorBrush x:Key="Color3">#bbd5ed</SolidColorBrush>
-    <SolidColorBrush x:Key="Color4">#cefdff</SolidColorBrush>
+    <SolidColorBrush x:Key="Color1">#191919</SolidColorBrush>
+    <SolidColorBrush x:Key="Color2">#530082</SolidColorBrush>
+    <SolidColorBrush x:Key="Color3">#8A05BE</SolidColorBrush>
+    <SolidColorBrush x:Key="Color4">#BA4DE3</SolidColorBrush>
     <SolidColorBrush x:Key="Color5">#ccffcb</SolidColorBrush>
     <SolidColorBrush x:Key="Color6">White</SolidColorBrush>
     <SolidColorBrush x:Key="Color7">IndianRed</SolidColorBrush>
@@ -45,14 +45,10 @@
         <Setter Property="FontSize" Value="{StaticResource DefaultSize}" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="{StaticResource Color2}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Color1}" />
-        <Setter Property="BorderThickness" Value="3" />
     </Style>
     <Style BasedOn="{StaticResource DefaultButton}" TargetType="Button" x:Key="UnfilledButton">
-        <Setter Property="Foreground" Value="{StaticResource Color1}" />
-        <Setter Property="Background" Value="{StaticResource Color4}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Color2}" />
-        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{StaticResource Color4}" />        
     </Style>
     <Style BasedOn="{StaticResource DefaultButton}" TargetType="Button" x:Key="WindowButton">
         <Setter Property="Width" Value="200" />

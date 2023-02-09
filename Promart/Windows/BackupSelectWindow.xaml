@@ -1,0 +1,38 @@
+﻿<Window x:Class="Promart.Windows.BackupSelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Promart.Windows"
+        mc:Ignorable="d"
+        Title="Selecionar Backup" Height="450" Width="400"
+        WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Data.xaml"/>
+                <ResourceDictionary Source="../Dictionaries/Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <ListView
+            x:Name="MainListView"
+            Margin="10 10 10 80"
+            SelectionMode="Single"
+            Style="{StaticResource DefaultListBox}">            
+        </ListView>
+        <Button
+            x:Name="Select"
+            Content="SELECIONAR"             
+            Margin="0 0 10 20"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Click="Select_Click"
+            Style="{StaticResource WindowButton}">
+        </Button>
+    </Grid>
+</Window>

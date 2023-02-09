@@ -24,6 +24,7 @@ using Promart.Core;
 using System.Configuration;
 using System.IO;
 using System.Diagnostics;
+using Promart.Windows;
 
 namespace Promart
 {
@@ -173,7 +174,7 @@ namespace Promart
             var month = now.Month < 10 ? $"0{now.Month}" : now.Month.ToString();
             var day = now.Day < 10 ? $"0{now.Day}" : now.Day.ToString();
             
-            var timeString = DateTime.Now.ToShortTimeString().Replace(":", "-");
+            var timeString = DateTime.Now.ToLongTimeString().Replace(":", "-");
 
             this.IsEnabled = false;
 
@@ -190,7 +191,8 @@ namespace Promart
 
         private void BDBackupRestoreMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            var backupSelect = new BackupSelectWindow();
+            backupSelect.ShowDialog();
         }
 
         private void BDBackupOpenDirectoryMenuItem_Click(object sender, RoutedEventArgs e)

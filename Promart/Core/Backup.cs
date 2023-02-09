@@ -34,8 +34,8 @@ namespace Promart.Core
             {
                 using var conn = new SqlConnection(connectionString);
                 await conn.OpenAsync();
-
-                string sql = @$"RESTORE DATABASE [{databaseName}] FROM DISK = N'{filePath}'";
+                
+                string sql = @$"DROP DATABASE IF EXISTS [{databaseName}]; RESTORE DATABASE [{databaseName}] FROM DISK = N'{filePath}'";
                 
                 var command = new SqlCommand(sql, conn);                
                 await command.ExecuteNonQueryAsync();
