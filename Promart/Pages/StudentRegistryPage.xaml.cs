@@ -432,7 +432,7 @@ namespace Promart.Pages
         {
             try
             {
-                var workshops = await context.Workshops.ToListAsync();
+                var workshops = await context.Workshops.Where(w => w.RegistryStatus == RegistryStatus.Active).ToListAsync();
 
                 workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
                 {

@@ -5,7 +5,7 @@
     <System:Int32 x:Key="FullNameMaxLength">150</System:Int32>
     <System:Int32 x:Key="FullNameMediumLength">75</System:Int32>
     <System:Int32 x:Key="CPFLength">11</System:Int32>
-    <System:Int32 x:Key="RGLength">15</System:Int32>
+    <System:Int32 x:Key="RGLength">16</System:Int32>
     <System:Int32 x:Key="CertidaoLength">40</System:Int32>
     <System:Int32 x:Key="PhoneLength">11</System:Int32>
     <System:Int32 x:Key="PhoneWithMaskLength">15</System:Int32>

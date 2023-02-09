@@ -19,7 +19,7 @@ namespace Promart.Database.Entities
         [Required]
         public GenderType Gender { get; set; }
 
-        [StringLength(14)]
+        [StringLength(20)]
         public string? CPF { get; set; }
 
         [StringLength(20)] 
