@@ -1,3 +1,6 @@
 {
-  "connectionString": "Data Source=./;Initial Catalog=PromartDesktop;Integrated Security=True;Trust Server Certificate=True"
+  "connectionStrings": {
+    "noInitialCalog": "Data Source=./;Integrated Security=True;Trust Server Certificate=True",
+    "default": "Data Source=./;Initial Catalog=PromartDesktop;Integrated Security=True;Trust Server Certificate=True"
+  }
 }

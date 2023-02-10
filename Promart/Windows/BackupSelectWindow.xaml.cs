@@ -1,6 +1,7 @@
 ﻿using Promart.Core;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -54,7 +55,7 @@ namespace Promart.Windows
             string fileInfo = selectedItem as string;
             var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{fileInfo}");
 
-            await Backup.RestoreDatabase("PromartDesktop", config.ConnectionString, destionationFile);
+            await Backup.RestoreDatabase("PromartDesktop", config.ConnectionStrings.Default, destionationFile);
 
         }
     }

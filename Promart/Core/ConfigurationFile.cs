@@ -4,7 +4,17 @@ namespace Promart.Core
 {
     public class ConfigurationFile
     {
-        [JsonPropertyName("connectionString")]
-        public string? ConnectionString { get; set; }
+        [JsonPropertyName("connectionStrings")]
+        public ConnectionString? ConnectionStrings { get; set; }
+
+        public class ConnectionString
+        {
+            [JsonPropertyName("default")]
+            public string? Default { get; set; }
+
+            [JsonPropertyName("noInitialCalog")]
+            public string? NoInitialCatalog { get; set; }
+        }
     }
+    
 }

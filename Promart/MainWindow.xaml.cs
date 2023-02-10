@@ -181,7 +181,7 @@ namespace Promart
             var configuration = ConfigManager.Open();
             var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{year}-{month}-{day}-{timeString}.bak");
 
-            var result = await Backup.FromDatabase("PromartDesktop", configuration.ConnectionString, destionationFile);
+            var result = await Backup.FromDatabase("PromartDesktop", configuration.ConnectionStrings.Default, destionationFile);
 
             this.IsEnabled = true;
 
