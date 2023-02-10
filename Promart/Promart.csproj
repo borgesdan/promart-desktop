@@ -6,6 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>logo.ico</ApplicationIcon>
+    <Authors>Danilo Borges Santos</Authors>
+    <Description>Gerenciador do Centro Comunitário Batista Sete de Setemro</Description>
+    <PackageProjectUrl>https://www.dandev.com.br/2022/05/programa-promartbd.html</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +16,7 @@
     <None Remove="Backups\about.txt" />
     <None Remove="config.json" />
     <None Remove="Content\clear-16.png" />
+    <None Remove="Content\clear-32.png" />
     <None Remove="Content\download-16.png" />
     <None Remove="Content\person-16.png" />
     <None Remove="Content\person-add-filled-32.png" />
@@ -33,6 +37,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\clear-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\clear-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\download-16.png">
@@ -74,12 +81,6 @@
 
   <ItemGroup>
     <Folder Include="Templates\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Content\clear-32.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
