@@ -84,6 +84,7 @@ namespace Promart
             tabItem.Header = new HeaderControl(header);
 
             var scrollViewer = (ScrollViewer)MainTab.SelectedContent;
+            scrollViewer.ScrollToHome();
             var frame = (Frame)scrollViewer.Content;
 
             frame.NavigationUIVisibility = navigationUIVisibility;

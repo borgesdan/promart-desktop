@@ -220,10 +220,8 @@
             <Expander Header="Alunos"  
                       x:Name="StudentList"
                 Style="{StaticResource DefaultExpander}">
-                <ScrollViewer Margin="0 0 0 500">
-                    <StackPanel x:Name="CurrentStudentsList">
-                    </StackPanel>
-                </ScrollViewer>                
+                <StackPanel x:Name="CurrentStudentsList" Margin="0 0 0 500">
+                </StackPanel>
             </Expander>
         </StackPanel>
     </Grid>

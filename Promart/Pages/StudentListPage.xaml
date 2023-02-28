@@ -146,11 +146,9 @@
             </Grid>
             <GroupBox 
                 Header="Resultado">
-                <ScrollViewer x:Name="ResultScroll" Margin="0 0 0 500" VerticalAlignment="Stretch">
-                    <StackPanel
-                        x:Name="ResultPanel">
-                    </StackPanel>
-                </ScrollViewer>
+                <StackPanel
+                        x:Name="ResultPanel" Margin="0 0 0 500">
+                </StackPanel>
             </GroupBox>
         </StackPanel>
     </Grid>

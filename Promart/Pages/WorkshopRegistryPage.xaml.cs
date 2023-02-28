@@ -85,7 +85,7 @@ namespace Promart.Pages
 
         void SearchStudents()
         {
-            PageManagerPanel.IsEnabled = false;
+            PageManagerPanel.IsEnabled = true;
             Next.IsEnabled = true;
             Preview.IsEnabled = true;
             CurrentStudentsList.Children.Clear();
@@ -118,17 +118,7 @@ namespace Promart.Pages
                 _total = students.Count();                              
 
                 Total.Text = _total.ToString();
-                PageNumber.Text = _page.ToString();
-
-                if ((_page * _pageCount) >= _total)
-                {
-                    Next.IsEnabled = false;
-                }
-
-                if (_page == 1)
-                {
-                    Preview.IsEnabled = false;
-                }
+                PageNumber.Text = _page.ToString();                
 
                 students.ForEach(s =>
                 {
@@ -146,6 +136,16 @@ namespace Promart.Pages
                 _total = 0;
                 _page = 1;                
                 PageManagerPanel.IsEnabled = false;
+            }
+
+            if ((_page * _pageCount) >= _total)
+            {
+                Next.IsEnabled = false;
+            }
+
+            if (_page == 1)
+            {
+                Preview.IsEnabled = false;
             }
         }
 
