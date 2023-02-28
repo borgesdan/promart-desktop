@@ -19,6 +19,10 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentListPage : Page
     {
+        int _page = 1;
+        int _pageCount = 30;
+        int _total = -1;
+
         public StudentListPage()
         {
             InitializeComponent();
@@ -35,12 +39,12 @@ namespace Promart.Pages
                                     .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(FullName.Text))
-                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));            
-            
-            if(!string.IsNullOrWhiteSpace(RegistryAge.Text))
-                students = students.Where(s => s.ProjectRegistryDate != null && s.ProjectRegistryDate.Value.Year.ToString() == RegistryAge.Text);
+                students = students.Where(s => s.FullName != null && s.FullName.Contains(FullName.Text));
 
-            var result = await students                
+            if (OnlyRegistered.IsChecked == true)
+                students = students.Where(s => s.ProjectStatus == Database.ProjectStatusType.Matriculado);
+
+            var result = await students
                 .Select(s => new Student
                 {
                     Id = s.Id,
@@ -50,7 +54,13 @@ namespace Promart.Pages
                     ProjectRegistryDate = s.ProjectRegistryDate,
                     ProjectStatus = s.ProjectStatus
                 })
+                .OrderBy(s => s.FullName)
+                .Skip((_page - 1) * _pageCount)
+                .Take(_pageCount)
                 .ToListAsync();
+
+
+            _total = await students.CountAsync();
 
             return result;
         }
@@ -59,30 +69,52 @@ namespace Promart.Pages
         {
             MainGrid.TrimAllTextBox();
             ResultPanel.Children.Clear();
+            Next.IsEnabled = true;
+            Preview.IsEnabled = true;
+            
+            var pageCountContent = ((ComboBoxItem)PageCount.SelectedItem).Content;
+            _pageCount = int.Parse((string)pageCountContent);
 
-            var result = await GetStudentsAsync();            
+            var result = await GetStudentsAsync();
 
             if (result.Count > 0)
             {
-                result.ForEach(s => {
+                Total.Text = _total.ToString();
+                PageNumber.Text = _page.ToString();
+
+                if ((_page * _pageCount) >= _total)
+                {
+                    Next.IsEnabled = false;
+                }
+
+                if (_page == 1)
+                {
+                    Preview.IsEnabled = false;
+                }
+
+                result.ForEach(s =>
+                {
                     var control = new StudentDetailControl(s);
                     control.MouseLeftButtonDown += Control_MouseLeftButtonDown;
                     ResultPanel.Children.Add(control);
                 });
-            }                
+            }
             else
             {
-                if(showNotFoundMessage)
+                if (showNotFoundMessage)
                     MessageBox.Show(
                         "Não foi encontrado nenhum resultado para essa busca.",
                         "Nada foi encontrado",
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
-            }                            
+
+                PageManagerPanel.IsEnabled = false;
+            }
         }
 
         private async void Search_Click(object sender, RoutedEventArgs e)
         {
+            _page = 1;
             await SearchAsync();
         }
 
@@ -91,14 +123,48 @@ namespace Promart.Pages
             var controlStudent = ((StudentDetailControl)sender).GetStudent();
 
             if (controlStudent == null)
-                return;            
+                return;
 
             MainWindow.Instance.NavigateToStudentRegisterPage(controlStudent.Id, controlStudent.FullName);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            _page = 1;
             await SearchAsync(false);
+        }
+
+        private async void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if ((_page * _pageCount) < _total)
+            {
+                _page++;
+                await SearchAsync();
+            }
+        }
+
+        private async void Preview_Click(object sender, RoutedEventArgs e)
+        {
+            if (_page > 1)
+            {
+                _page--;
+                await SearchAsync();
+            }
+        }
+
+        private async void PageCount_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+
+            _page = 1;
+            await SearchAsync();
+        }
+
+        private async void OnlyRegistered_Click(object sender, RoutedEventArgs e)
+        {
+            _page = 1;
+            await SearchAsync();
         }
     }
 }
