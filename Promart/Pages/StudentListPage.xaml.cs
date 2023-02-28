@@ -69,6 +69,7 @@ namespace Promart.Pages
         {
             MainGrid.TrimAllTextBox();
             ResultPanel.Children.Clear();
+            PageManagerPanel.IsEnabled = true;
             Next.IsEnabled = true;
             Preview.IsEnabled = true;
             

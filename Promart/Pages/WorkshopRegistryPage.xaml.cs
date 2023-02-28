@@ -5,7 +5,10 @@ using Promart.Database;
 using Promart.Database.Context;
 using Promart.Database.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,6 +23,9 @@ namespace Promart.Pages
         Workshop? _workshop;
         AppDbContext _context = AppDbContextFactory.Create();
         bool isUpdateMode = false;
+        int _page = 1;
+        int _pageCount = 30;
+        int _total = -1;
 
         public WorkshopRegistryPage() 
         {
@@ -28,7 +34,8 @@ namespace Promart.Pages
             StudentsCountGroup.Visibility = Visibility.Collapsed;
             StudentsRegisteredCountGroup.Visibility = Visibility.Collapsed;
             StudentList.Visibility = Visibility.Collapsed;
-            SituationGroup.Visibility = Visibility.Collapsed;            
+            SituationGroup.Visibility = Visibility.Collapsed;
+            PageManagerPanel.Visibility = Visibility.Collapsed;
         }
 
         public WorkshopRegistryPage(int workshopId)
@@ -53,6 +60,7 @@ namespace Promart.Pages
             StudentsRegisteredCountGroup.Visibility = Visibility.Visible;
             StudentList.Visibility = Visibility.Visible;
             SituationGroup.Visibility = Visibility.Visible;
+            PageManagerPanel.Visibility = Visibility.Visible;
 
             _workshop = _context.Workshops
                 .Include(w => w.Students)   
@@ -72,11 +80,57 @@ namespace Promart.Pages
                 .Count()
                 .ToString();
 
+            SearchStudents();            
+        }
 
-            _workshop.Students
-                .Where(s => s.ProjectStatus == Database.ProjectStatusType.Matriculado)
-                .ToList()
-                .ForEach(s =>
+        void SearchStudents()
+        {
+            PageManagerPanel.IsEnabled = false;
+            Next.IsEnabled = true;
+            Preview.IsEnabled = true;
+            CurrentStudentsList.Children.Clear();
+
+            var pageCountContent = ((ComboBoxItem)PageCount.SelectedItem).Content;
+            _pageCount = int.Parse((string)pageCountContent);
+
+            List<Student> students = null;
+
+            if (OnlyRegistered.IsChecked == true)
+            {
+                students = _workshop.Students
+                    .Where(s => s.ProjectStatus == Database.ProjectStatusType.Matriculado)
+                    .OrderBy(s => s.FullName)
+                    .Skip((_page - 1) * _pageCount)
+                    .Take(_pageCount)
+                    .ToList();
+            }
+            else
+            {
+                students = _workshop.Students
+                    .OrderBy(s => s.FullName)
+                    .Skip((_page - 1) * _pageCount)
+                    .Take(_pageCount)
+                    .ToList();
+            }
+
+            if (students.Count > 0)
+            {
+                _total = students.Count();                              
+
+                Total.Text = _total.ToString();
+                PageNumber.Text = _page.ToString();
+
+                if ((_page * _pageCount) >= _total)
+                {
+                    Next.IsEnabled = false;
+                }
+
+                if (_page == 1)
+                {
+                    Preview.IsEnabled = false;
+                }
+
+                students.ForEach(s =>
                 {
                     var control = new StudentDetailControl(s);
                     control.MouseLeftButtonDown += (o, e) =>
@@ -86,6 +140,13 @@ namespace Promart.Pages
 
                     CurrentStudentsList.Children.Add(control);
                 });
+            }
+            else
+            {
+                _total = 0;
+                _page = 1;                
+                PageManagerPanel.IsEnabled = false;
+            }
         }
 
         private bool Validate()
@@ -153,6 +214,39 @@ namespace Promart.Pages
             {
                 Error.ShowDatabaseError("Ocorreu um erro ao atualizar a oficina", ex);
             }
+        }
+
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if ((_page * _pageCount) < _total)
+            {
+                _page++;
+                SearchStudents();
+            }
+        }
+
+        private void Preview_Click(object sender, RoutedEventArgs e)
+        {
+            if (_page > 1)
+            {
+                _page--;
+                SearchStudents();
+            }
+        }
+
+        private void PageCount_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+
+            _page = 1;
+            SearchStudents();
+        }
+
+        private void OnlyRegistered_Click(object sender, RoutedEventArgs e)
+        {
+            _page = 1;
+            SearchStudents();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Promart.Pages
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (isLoaded)
-                return;
+                return;            
 
             FullName.ApplyOnlyLetterOrWhiteSpace();
             Responsible.ApplyOnlyLetterOrWhiteSpace();
