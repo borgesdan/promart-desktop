@@ -146,8 +146,8 @@ namespace Promart.Pages
                 ApplyStudentData();
 
                 MessageBox.Show(
-                $"Aluno matrículado com sucesso. Matrícula: {_student.ProjectRegistry}",
-                "Aluno matriculado",
+                $"Aluno registrado com sucesso. Matrícula: {_student.ProjectRegistry}",
+                "Aluno registrado",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
                 );
@@ -269,7 +269,6 @@ namespace Promart.Pages
 
             if (fields.ProjectData)
             {
-                ProjectStatus.SelectedIndex = (int)student.ProjectStatus;
                 ProjectShift.SelectedItem = (int)student.ProjectShift;
                 Observations.Text = student.Observations;
 

@@ -1,12 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace Promart.Core
 {
-    public class Backup
+    public class DataBaseManager
     {
-        public static async Task<bool> FromDatabase(string databaseName, string connectionString, string destinationFilePath)
+        public static async Task<Exception> FromDatabaseAsync(string databaseName, string connectionString, string destinationFilePath)
         {
             try
             {
@@ -18,16 +19,15 @@ namespace Promart.Core
                 var command = new SqlCommand(sql, conn);
                 await command.ExecuteNonQueryAsync();
 
-                return true;
+                return null;
             }
             catch (Exception ex)
-            {
-                Error.ShowDatabaseError($"Ocorreu um erro ao tentar realizar o backup do banco de dados.", ex);
-                return false;
+            {                
+                return ex;
             }
         }
 
-        public static async Task<bool> RestoreDatabase(string databaseName, string connectionString, string filePath)
+        public static async Task<Exception> RestoreDatabaseAsync(string databaseName, string connectionString, string filePath)
         {
             try
             {
@@ -39,16 +39,15 @@ namespace Promart.Core
                 var command = new SqlCommand(sql, conn);                
                 await command.ExecuteNonQueryAsync();
 
-                return true;
+                return null;
             }
             catch (Exception ex)
             {
-                Error.ShowDatabaseError($"Ocorreu um erro ao tentar restaurar o backup do banco de dados.", ex);
-                return false;
+				return ex;
             }
         }
 
-        public static async Task<bool> MigrateOldDatabase(string connectionString)
+        public static async Task<Exception> MigrateOldDatabaseAsync(string connectionString)
         {
             try
             {
@@ -132,12 +131,11 @@ namespace Promart.Core
                 var command = new SqlCommand(sql, conn);
                 await command.ExecuteNonQueryAsync();
 
-                return true;
+                return null;
             }
             catch(Exception ex)
-            {
-                Error.ShowDatabaseError($"Ocorreu um erro ao tentar migrar os dados.", ex);
-                return false;
+            {                
+                return ex;
             }
         }
     }

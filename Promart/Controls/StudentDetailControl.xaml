@@ -83,7 +83,9 @@
                 <Label
                     x:Name="Status"   
                     Grid.Column="4"
-                    Margin="10 10"
+                    Margin="10 14 10 10"
+                    VerticalAlignment="Center"
+                    Height="50"
                     Style="{StaticResource FilledInfoLabel}"/>
             </Grid>            
         </GroupBox>

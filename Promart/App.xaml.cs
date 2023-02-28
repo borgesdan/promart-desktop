@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Promart.Core;
 using Promart.Database.Context;
+using System;
 using System.Windows;
 
 namespace Promart
@@ -11,12 +13,19 @@ namespace Promart
     { 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            var appDbContext = AppDbContextFactory.Create();
+            try
+            {
+                var appDbContext = AppDbContextFactory.Create();
 
-            var canConnect = await appDbContext.Database.CanConnectAsync();
+                var canConnect = await appDbContext.Database.CanConnectAsync();
 
-            if (!canConnect)
-                await appDbContext.Database.MigrateAsync();
+                if (!canConnect)
+                    await appDbContext.Database.MigrateAsync();
+            }
+            catch(Exception ex)
+            {
+                Error.ShowDatabaseError("Ocorreu um erro ao verificar a disponibilidade do banco de dados.", ex);
+            }
         }
     }
 }

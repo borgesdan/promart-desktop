@@ -55,8 +55,10 @@ namespace Promart.Windows
             string fileInfo = selectedItem as string;
             var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{fileInfo}");
 
-            await Backup.RestoreDatabase("PromartDesktop", config.ConnectionStrings.Default, destionationFile);
+            var result = await DataBaseManager.RestoreDatabaseAsync("PromartDesktop", config.ConnectionStrings.Default, destionationFile);
 
+            if(result != null)
+                Error.ShowDatabaseError($"Ocorreu um erro ao tentar restaurar o backup do banco de dados.", result);
         }
     }
 }

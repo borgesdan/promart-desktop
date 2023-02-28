@@ -166,7 +166,7 @@ namespace Promart
             this.Close();
         }
 
-        private async void BDBackupMenuItem_Click(object sender, RoutedEventArgs e)
+        private async void Backup_Click(object sender, RoutedEventArgs e)
         {   
             var now = DateTime.Now;
 
@@ -181,31 +181,38 @@ namespace Promart
             var configuration = ConfigManager.Open();
             var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{year}-{month}-{day}-{timeString}-promartdesktop.bak");
 
-            var result = await Backup.FromDatabase("PromartDesktop", configuration.ConnectionStrings.Default, destionationFile);
+            var result = await DataBaseManager.FromDatabaseAsync("PromartDesktop", configuration.ConnectionStrings.Default, destionationFile);
 
             this.IsEnabled = true;
 
-            if (result)
+            if (result == null)
                 MessageBox.Show("Backup realizado com sucesso!", "Backup realizado", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                Error.ShowDatabaseError($"Ocorreu um erro ao tentar realizar o backup do banco de dados.", result);
         }
 
-        private void BDBackupRestoreMenuItem_Click(object sender, RoutedEventArgs e)
+        private void RestoreBackup_Click(object sender, RoutedEventArgs e)
         {
             var backupSelect = new BackupSelectWindow();
             backupSelect.ShowDialog();
         }
 
-        private void BDBackupOpenDirectoryMenuItem_Click(object sender, RoutedEventArgs e)
+        private void OpenBackupDirectory_Click(object sender, RoutedEventArgs e)
         {
             var destination = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups");
 
             Process.Start("explorer.exe", destination);
         }
 
-        private void MigrateOldDb_Click(object sender, RoutedEventArgs e)
+        private async void MigrateOldDb_Click(object sender, RoutedEventArgs e)
         {
             var config = ConfigManager.Open();
-            Backup.MigrateOldDatabase(config.ConnectionStrings.Default);
+            var result = await DataBaseManager.MigrateOldDatabaseAsync(config.ConnectionStrings.Default);
+
+            if (result != null)
+                Error.ShowDatabaseError($"Ocorreu um erro ao tentar migrar os dados.", result);
+            else
+                MessageBox.Show("Migração realizada com sucesso.", "Migração", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

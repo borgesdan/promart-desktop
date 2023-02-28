@@ -9,7 +9,7 @@ namespace Promart.Core
         {
             MessageBox.Show(
                 $"{message}\n" +
-                "O banco de dados pode estar desconectado ou não foi possível acessar o banco de dados.\n\n\n" +
+                "O banco de dados pode estar desconectado ou não foi possível acessar o banco de dados.\n\n\n" +                
                 $"Erro completo: {ex.Message}",
                 "Ação não executada",
                 MessageBoxButton.OK,

@@ -31,8 +31,23 @@ namespace Promart.Controls
                 case Database.ProjectStatusType.Matriculado:
                     Status.Background = Brushes.Green;
                     break;
+                case Database.ProjectStatusType.Aprovado:
+                    Status.Background = Brushes.DeepSkyBlue;
+                    break;
                 case Database.ProjectStatusType.Desistente:
                     Status.Background = Brushes.Red;
+                    break;
+                case Database.ProjectStatusType.Desaprovado:
+                    Status.Background = Brushes.IndianRed;
+                    break;
+                case Database.ProjectStatusType.Espera:
+                    Status.Background = Brushes.DarkSlateBlue;
+                    break;
+                case Database.ProjectStatusType.ExAluno:
+                    Status.Background = Brushes.DarkGray;
+                    break;
+                case Database.ProjectStatusType.Inscrito:
+                    Status.Background = Brushes.BlueViolet;
                     break;
                 default:
                     Status.Background = Brushes.DarkOrange;
