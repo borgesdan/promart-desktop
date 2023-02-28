@@ -45,6 +45,10 @@
                     <MenuItem x:Name="BDBackupMenuItem" Header="Criar Backup" Click="BDBackupMenuItem_Click" />
                     <MenuItem x:Name="BDBackupOpenDirectoryMenuItem" Header="Abrir Pasta" Click="BDBackupOpenDirectoryMenuItem_Click" />                    
                 </MenuItem>
+                <Separator />
+                <MenuItem Header="Migração">
+                    <MenuItem x:Name="MigrateOldDb" Header="do Antigo Banco..." Click="MigrateOldDb_Click" />
+                </MenuItem>
             </MenuItem>
         </Menu>
         <DockPanel

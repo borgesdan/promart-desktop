@@ -44,9 +44,7 @@ namespace Promart.Database
         [Description("Pai")]
         Pai,
         [Description("Mãe")]
-        Mae,
-        [Description("Filho")]
-        Filho,
+        Mae,        
         [Description("Irmão")]
         Irmao,
         [Description("Avô")]
@@ -106,6 +104,8 @@ namespace Promart.Database
         Meio_Salario_Minimo,
         [Description("1 salário")]
         Salario_Minimo,
+        [Description("1 salário e meio")]
+        Salario_Minimo_Meio,
         [Description("2 ou mais salários")]
         Dois_Salarios_Ou_Mais,
         [Description("Não informado")]

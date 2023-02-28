@@ -179,7 +179,7 @@ namespace Promart
             this.IsEnabled = false;
 
             var configuration = ConfigManager.Open();
-            var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{year}-{month}-{day}-{timeString}.bak");
+            var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{year}-{month}-{day}-{timeString}-promartdesktop.bak");
 
             var result = await Backup.FromDatabase("PromartDesktop", configuration.ConnectionStrings.Default, destionationFile);
 
@@ -200,6 +200,12 @@ namespace Promart
             var destination = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups");
 
             Process.Start("explorer.exe", destination);
+        }
+
+        private void MigrateOldDb_Click(object sender, RoutedEventArgs e)
+        {
+            var config = ConfigManager.Open();
+            Backup.MigrateOldDatabase(config.ConnectionStrings.Default);
         }
     }
 }

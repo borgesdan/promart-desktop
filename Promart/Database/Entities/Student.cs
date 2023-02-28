@@ -77,6 +77,8 @@ namespace Promart.Database.Entities
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
 
+        public int? OldId { get; set; }
+
         public virtual ICollection<Workshop> Workshops { get; set; } = new HashSet<Workshop>();
         public virtual ICollection<FamilyRelationship> FamilyRelationships { get; set; } = new HashSet<FamilyRelationship>();
 

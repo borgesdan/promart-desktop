@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace Promart.Database.Entities
 {
@@ -16,6 +15,8 @@ namespace Promart.Database.Entities
 
         [Required]
         public RegistryStatus RegistryStatus { get; set; } = RegistryStatus.Active;
+
+        public int? OldId { get; set; }
 
         public virtual ICollection<Student> Students { get; set; } = new HashSet<Student>();
 
