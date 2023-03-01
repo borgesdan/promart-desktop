@@ -7,8 +7,7 @@
         xmlns:p="clr-namespace:Promart.Pages"
         mc:Ignorable="d"
         Title="Promart Gerenciador" 
-        Height="450" MinWidth="1280" WindowState="Maximized"
-        Loaded="Window_Loaded">
+        Height="450" MinWidth="1280" WindowState="Maximized">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -107,18 +106,6 @@
                             BorderThickness="0"
                             Margin="2 0 2 5"
                             Background="White"
-                            FontSize="{StaticResource NormalSize }"
-                            />
-                        <Button
-                            x:Name="StudentReEnroll"
-                            Content="Rematricular"
-                            Height="30"
-                            BorderThickness="0"
-                            Margin="2 20 2 5"
-                            Background="White"
-                            FontWeight="Bold"
-                            Click="StudentReEnroll_Click"
-                            Visibility="Collapsed"
                             FontSize="{StaticResource NormalSize }"
                             />
                     </StackPanel>

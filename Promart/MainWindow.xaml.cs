@@ -25,6 +25,7 @@ using System.Configuration;
 using System.IO;
 using System.Diagnostics;
 using Promart.Windows;
+using Promart.Services;
 
 namespace Promart
 {
@@ -33,106 +34,46 @@ namespace Promart
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow Instance { get; private set; }        
+        public static MainWindow Instance { get; private set; }
+
+        private readonly MainWindowService _mainWindowService;
 
         public MainWindow()
         {   
             InitializeComponent();
             Instance = this;
-        }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            StudentReEnroll.Content = $"Rematrícula {DateTime.Now.Year + 1}";
-        }
-
-        private static TabItem CreateNewTab(string header, Page contentPage)
-        {
-            contentPage.MinWidth = 800;
-            contentPage.MaxWidth = 1280;
-            contentPage.Title = header;
-
-            var frame = new Frame
-            {
-                Content = contentPage,
-                NavigationUIVisibility = NavigationUIVisibility.Hidden
-            };
-
-            var scrollViewer = new ScrollViewer
-            {
-                Content = frame
-            };
-
-            var tabItem = new TabItem
-            {
-                Header = new HeaderControl(header),
-                Content = scrollViewer,
-                IsSelected = true,
-                Background = Brushes.Gray
-            };
-
-            return tabItem;
-        }  
-        
-        private void NavigateTo(string? header, Page contentPage, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
-        {
-            contentPage.MinWidth = 800;
-            contentPage.MaxWidth = 1280;
-            contentPage.Title = header;
-
-            var tabItem = (TabItem)MainTab.SelectedItem;
-            tabItem.Header = new HeaderControl(header);
-
-            var scrollViewer = (ScrollViewer)MainTab.SelectedContent;
-            scrollViewer.ScrollToHome();
-            var frame = (Frame)scrollViewer.Content;
-
-            frame.NavigationUIVisibility = navigationUIVisibility;
-            frame.Navigate(contentPage);
+            _mainWindowService = new MainWindowService(this);
         }
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
         {
-            var tabItem = CreateNewTab("Novo Aluno", new StudentRegistryPage());
-            MainTab.Items.Add(tabItem);
+            _mainWindowService.OpenStudentRegistryTab();
         }
 
         private void WorkshopRegister_Click(object sender, RoutedEventArgs e)
         {
-            var tabItem = CreateNewTab("Nova Oficina", new WorkshopRegistryPage());
-            MainTab.Items.Add(tabItem);
+            _mainWindowService.OpenWorkshopRegistryTab();
         }
 
         private void StudentFilter_Click(object sender, RoutedEventArgs e)
         {
-            var tabItem = CreateNewTab("Filtro de Aluno", new StudentFilterPage());
-            MainTab.Items.Add(tabItem);
+            _mainWindowService.OpenStudentFilterTab();
         }
 
         private void WorkshopList_Click(object sender, RoutedEventArgs e)
         {
-            var tabItem = CreateNewTab("Lista de Oficinas", new WorkshopListPage());
-            MainTab.Items.Add(tabItem);
-        }
-
-        private void StudentReEnroll_Click(object sender, RoutedEventArgs e)
-        {
-            var tabItem = CreateNewTab("Rematricular", new StudenReEnrollPage());
-            MainTab.Items.Add(tabItem);
-        }
+            _mainWindowService.OpenWorkshopList();
+        }        
 
         private void StudentList_Click(object sender, RoutedEventArgs e)
         {
-            var tabItem = CreateNewTab("Lista de Alunos", new StudentListPage());
-            MainTab.Items.Add(tabItem);
+            _mainWindowService.OpenStudentListTab();
         }                
 
         public void NavigateToStudentRegisterPage(int studentId, string? studentName, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
         {
-            var studentPage = new StudentRegistryPage(studentId);
-            var header = studentName;
-
-            NavigateTo(header, studentPage, navigationUIVisibility);
+            _mainWindowService.NavigateToStudentRegistryPage(studentId, studentName, navigationUIVisibility);
         }
 
         public void NavigateToWorkshopPage(int workshopId, string? workshopName, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
@@ -140,21 +81,21 @@ namespace Promart
             var workshopPage = new WorkshopRegistryPage(workshopId);
             var header = workshopName;
 
-            NavigateTo(header, workshopPage, navigationUIVisibility);
+            _mainWindowService.NavigateTo(header, workshopPage, navigationUIVisibility);
         }
 
         public void NavigateToWorkshopPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
         {
-            var workshopPage = new WorkshopRegistryPage();            
+            var workshopPage = new WorkshopRegistryPage();
 
-            NavigateTo("Cadastro de Oficina", workshopPage, navigationUIVisibility);
+            _mainWindowService.NavigateTo("Cadastro de Oficina", workshopPage, navigationUIVisibility);
         }
 
         public void NavigateToWorkshopListPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
         {
             var workshopPage = new WorkshopListPage();
 
-            NavigateTo("Lista de Oficinas", workshopPage, navigationUIVisibility);
+            _mainWindowService.NavigateTo("Lista de Oficinas", workshopPage, navigationUIVisibility);
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
