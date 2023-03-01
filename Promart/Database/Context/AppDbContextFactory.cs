@@ -14,7 +14,7 @@ namespace Promart.Database.Context
         public static AppDbContext Create()
         {
             DbContextOptionsBuilder<AppDbContext> builder = new DbContextOptionsBuilder<AppDbContext>();
-            var configuration = ConfigManager.Open();
+            var configuration = ConfigurationManager.Open();
 
             builder.UseSqlServer(configuration.ConnectionStrings.Default);
 

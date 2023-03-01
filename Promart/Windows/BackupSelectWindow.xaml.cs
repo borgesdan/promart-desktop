@@ -51,7 +51,7 @@ namespace Promart.Windows
                 return;
             }
                 
-            var config = ConfigManager.Open();
+            var config = Core.ConfigurationManager.Open();
             string fileInfo = selectedItem as string;
             var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{fileInfo}");
 

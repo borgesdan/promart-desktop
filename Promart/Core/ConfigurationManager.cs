@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Promart.Core
 {
-    public static class ConfigManager
+    public static class ConfigurationManager
     {
         private static string defaultConfigFile =
             @"

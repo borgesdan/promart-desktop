@@ -35,11 +35,13 @@ namespace Promart
     public partial class MainWindow : Window
     {
         private readonly MainWindowService _mainWindowService;
+        private readonly DataBaseService _dbService;
 
         public MainWindow()
         {   
             InitializeComponent();
             _mainWindowService = new MainWindowService(this);
+            _dbService = new DataBaseService();
         }
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
@@ -64,29 +66,7 @@ namespace Promart
             => _mainWindowService.Exit();
 
         private async void Backup_Click(object sender, RoutedEventArgs e)
-        {   
-            var now = DateTime.Now;
-
-            var year = now.Year.ToString();
-            var month = now.Month < 10 ? $"0{now.Month}" : now.Month.ToString();
-            var day = now.Day < 10 ? $"0{now.Day}" : now.Day.ToString();
-            
-            var timeString = DateTime.Now.ToLongTimeString().Replace(":", "-");
-
-            this.IsEnabled = false;
-
-            var configuration = ConfigManager.Open();
-            var destionationFile = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups", $"{year}-{month}-{day}-{timeString}-promartdesktop.bak");
-
-            var result = await DataBaseManager.FromDatabaseAsync("PromartDesktop", configuration.ConnectionStrings.Default, destionationFile);
-
-            this.IsEnabled = true;
-
-            if (result == null)
-                MessageBox.Show("Backup realizado com sucesso!", "Backup realizado", MessageBoxButton.OK, MessageBoxImage.Information);
-            else
-                Error.ShowDatabaseError($"Ocorreu um erro ao tentar realizar o backup do banco de dados.", result);
-        }
+            => await _dbService.CreateBackup();
 
         private void RestoreBackup_Click(object sender, RoutedEventArgs e)
         {
@@ -103,7 +83,7 @@ namespace Promart
 
         private async void MigrateOldDb_Click(object sender, RoutedEventArgs e)
         {
-            var config = ConfigManager.Open();
+            var config = Core.ConfigurationManager.Open();
             var result = await DataBaseManager.MigrateOldDatabaseAsync(config.ConnectionStrings.Default);
 
             if (result != null)
