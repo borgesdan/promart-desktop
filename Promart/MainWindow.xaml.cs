@@ -68,28 +68,10 @@ namespace Promart
         private async void Backup_Click(object sender, RoutedEventArgs e)
             => await _dbService.CreateBackup();
 
-        private void RestoreBackup_Click(object sender, RoutedEventArgs e)
-        {
-            var backupSelect = new BackupSelectWindow();
-            backupSelect.ShowDialog();
-        }
-
         private void OpenBackupDirectory_Click(object sender, RoutedEventArgs e)
-        {
-            var destination = System.IO.Path.Combine(Environment.CurrentDirectory, "Backups");
-
-            Process.Start("explorer.exe", destination);
-        }
+            => _dbService.OpenBackupFolder();
 
         private async void MigrateOldDb_Click(object sender, RoutedEventArgs e)
-        {
-            var config = Core.ConfigurationManager.Open();
-            var result = await DataBaseManager.MigrateOldDatabaseAsync(config.ConnectionStrings.Default);
-
-            if (result != null)
-                Error.ShowDatabaseError($"Ocorreu um erro ao tentar migrar os dados.", result);
-            else
-                MessageBox.Show("Migração realizada com sucesso.", "Migração", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+            => await _dbService.MigrateFromOldDataBase();
     }
 }
