@@ -34,14 +34,11 @@ namespace Promart
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow Instance { get; private set; }
-
         private readonly MainWindowService _mainWindowService;
 
         public MainWindow()
         {   
             InitializeComponent();
-            Instance = this;
 
             _mainWindowService = new MainWindowService(this);
         }

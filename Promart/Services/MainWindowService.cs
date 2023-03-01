@@ -4,6 +4,7 @@ using Promart.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -118,6 +119,28 @@ namespace Promart.Services
             var header = studentName;
 
             NavigateTo(header, studentPage, navigationUIVisibility);
+        }
+
+        public void NavigateToWorkshopRegistryPage(int workshopId, string? workshopName, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        {
+            var workshopPage = new WorkshopRegistryPage(workshopId);
+            var header = workshopName;
+
+            NavigateTo(header, workshopPage, navigationUIVisibility);
+        }
+
+        public void NavigateToWorkshopRegistryPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        {
+            var workshopPage = new WorkshopRegistryPage();
+
+            NavigateTo("Cadastro de Oficina", workshopPage, navigationUIVisibility);
+        }
+
+        public void NavigateToWorkshopListPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
+        {
+            var workshopPage = new WorkshopListPage();
+
+            NavigateTo("Lista de Oficinas", workshopPage, navigationUIVisibility);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Promart.Controls;
 using Promart.Database.Context;
 using Promart.Database.Entities;
+using Promart.Services;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,8 @@ namespace Promart.Pages
     /// </summary>
     public partial class WorkshopListPage : Page
     {
+        readonly MainWindowService _mainWindowService = new MainWindowService();
+
         AppDbContext context = AppDbContextFactory.Create();
 
         public WorkshopListPage()
@@ -39,7 +42,7 @@ namespace Promart.Pages
                 var control = new WorkshopDetailControl(w);
                 control.MouseLeftButtonDown += (s, e) =>
                 {
-                    MainWindow.Instance?.NavigateToWorkshopPage(w.Workshop.Id, w.Workshop.Name);
+                    _mainWindowService.NavigateToWorkshopRegistryPage(w.Workshop.Id, w.Workshop.Name);
                 };
 
                 MainPanel.Children.Add(control);
@@ -55,7 +58,7 @@ namespace Promart.Pages
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance?.NavigateToWorkshopPage();
+            _mainWindowService.NavigateToWorkshopRegistryPage();
         }
     }
 }

@@ -4,6 +4,7 @@ using Promart.Core;
 using Promart.Database.Context;
 using Promart.Database.Entities;
 using Promart.Database.Responses;
+using Promart.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentListPage : Page
     {
+        readonly MainWindowService _mainWindow;
+
         int _page = 1;
         int _pageCount = 30;
         int _total = -1;
@@ -27,6 +30,7 @@ namespace Promart.Pages
         {
             InitializeComponent();
 
+            _mainWindow = new MainWindowService();
             RegistryAge.Text = DateTime.Now.Year.ToString();
         }
 
@@ -126,7 +130,7 @@ namespace Promart.Pages
             if (controlStudent == null)
                 return;
 
-            MainWindow.Instance.NavigateToStudentRegisterPage(controlStudent.Id, controlStudent.FullName);
+            _mainWindow.NavigateToStudentRegistryPage(controlStudent.Id, controlStudent.FullName);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)

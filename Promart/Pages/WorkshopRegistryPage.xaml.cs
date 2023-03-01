@@ -4,6 +4,7 @@ using Promart.Core;
 using Promart.Database;
 using Promart.Database.Context;
 using Promart.Database.Entities;
+using Promart.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace Promart.Pages
     /// </summary>
     public partial class WorkshopRegistryPage : Page
     {
+        readonly MainWindowService _mainWindowService = new MainWindowService();
+
         int _workshopId;
         Workshop? _workshop;
         AppDbContext _context = AppDbContextFactory.Create();
@@ -29,7 +32,8 @@ namespace Promart.Pages
 
         public WorkshopRegistryPage() 
         {
-            InitializeComponent();
+            InitializeComponent();            
+
             Update.Visibility = Visibility.Collapsed;
             StudentsCountGroup.Visibility = Visibility.Collapsed;
             StudentsRegisteredCountGroup.Visibility = Visibility.Collapsed;
@@ -140,7 +144,7 @@ namespace Promart.Pages
                     var control = new StudentDetailControl(s);
                     control.MouseLeftButtonDown += (o, e) =>
                     {
-                        MainWindow.Instance?.NavigateToStudentRegisterPage(s.Id, s.FullName);
+                        _mainWindowService.NavigateToStudentRegistryPage(s.Id, s.FullName);
                     };
 
                     CurrentStudentsList.Children.Add(control);
@@ -193,7 +197,7 @@ namespace Promart.Pages
                 MessageBox.Show("Oficina criada com sucesso", "Oficina Criada", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 isUpdateMode = true;
-                MainWindow.Instance?.NavigateToWorkshopListPage(System.Windows.Navigation.NavigationUIVisibility.Hidden);
+                _mainWindowService.NavigateToWorkshopListPage(System.Windows.Navigation.NavigationUIVisibility.Hidden);
             }
             catch(Exception ex)
             {
