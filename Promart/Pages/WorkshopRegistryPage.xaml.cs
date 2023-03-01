@@ -94,6 +94,7 @@ namespace Promart.Pages
             _pageCount = int.Parse((string)pageCountContent);
 
             List<Student> students = null;
+            int count = 0;
 
             if (OnlyRegistered.IsChecked == true)
             {
@@ -103,6 +104,8 @@ namespace Promart.Pages
                     .Skip((_page - 1) * _pageCount)
                     .Take(_pageCount)
                     .ToList();
+
+                count = _workshop.Students.Where(s => s.ProjectStatus == Database.ProjectStatusType.Matriculado).Count();
             }
             else
             {
@@ -111,14 +114,26 @@ namespace Promart.Pages
                     .Skip((_page - 1) * _pageCount)
                     .Take(_pageCount)
                     .ToList();
+
+                count = _workshop.Students.Count();
             }
 
             if (students.Count > 0)
             {
-                _total = students.Count();                              
+                _total = count;   
 
                 Total.Text = _total.ToString();
-                PageNumber.Text = _page.ToString();                
+                PageNumber.Text = _page.ToString();
+
+                if ((_page * _pageCount) >= _total)
+                {
+                    Next.IsEnabled = false;
+                }
+
+                if (_page == 1)
+                {
+                    Preview.IsEnabled = false;
+                }
 
                 students.ForEach(s =>
                 {
@@ -136,16 +151,6 @@ namespace Promart.Pages
                 _total = 0;
                 _page = 1;                
                 PageManagerPanel.IsEnabled = false;
-            }
-
-            if ((_page * _pageCount) >= _total)
-            {
-                Next.IsEnabled = false;
-            }
-
-            if (_page == 1)
-            {
-                Preview.IsEnabled = false;
             }
         }
 
