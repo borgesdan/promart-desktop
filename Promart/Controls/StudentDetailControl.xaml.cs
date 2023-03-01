@@ -20,7 +20,7 @@ namespace Promart.Controls
 
             FullName.Content = _student.FullName;
             Age.Content = _student.BirthDate?.GetAge().ToString();
-            Registry.Content = _student.ProjectRegistry;
+            ProjectShift.Content = _student.ProjectShift.Description();
             RegistryDate.Content = _student.ProjectRegistryDate?.ToShortDateString();
             Status.Content = _student.ProjectStatus.Description().ToUpper();
 

@@ -39,24 +39,14 @@
                 </Grid.ColumnDefinitions>
                 <GroupBox
                     Header="Nome"
+                    Grid.ColumnSpan="2"
                     FontSize="{StaticResource MinSize}"
                     VerticalContentAlignment="Top">
                     <Label
                         x:Name="FullName"     
                         FontSize="{StaticResource DefaultSize}"
                         />
-                </GroupBox>
-                <GroupBox
-                    Header="Registrados"
-                    Grid.Column="1"
-                    FontSize="{StaticResource MinSize}"
-                     VerticalContentAlignment="Top">
-                    <Label
-                        x:Name="StudentCount"      
-                        HorizontalContentAlignment="Center"
-                        FontSize="{StaticResource DefaultSize}"
-                        />
-                </GroupBox>
+                </GroupBox>                
                 <GroupBox
                     Header="Matriculados"
                     Grid.Column="2"

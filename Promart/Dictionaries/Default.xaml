@@ -10,10 +10,10 @@
     <System:Double x:Key="MinSize">10</System:Double>
 
     <SolidColorBrush x:Key="Color1">#191919</SolidColorBrush>
-    <SolidColorBrush x:Key="Color2">#530082</SolidColorBrush>
-    <SolidColorBrush x:Key="Color3">#8A05BE</SolidColorBrush>
-    <SolidColorBrush x:Key="Color4">#BA4DE3</SolidColorBrush>
-    <SolidColorBrush x:Key="Color5">#ccffcb</SolidColorBrush>
+    <SolidColorBrush x:Key="Color2">DarkBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="Color3">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="Color4">DodgerBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="Color5">LightSkyBlue</SolidColorBrush>
     <SolidColorBrush x:Key="Color6">White</SolidColorBrush>
     <SolidColorBrush x:Key="Color7">IndianRed</SolidColorBrush>
     <SolidColorBrush x:Key="Color8">Red</SolidColorBrush>
@@ -47,7 +47,7 @@
         <Setter Property="Foreground" Value="{StaticResource Color2}" />
         <Setter Property="Background" Value="{StaticResource Color5}" />
         <Setter Property="BorderBrush" Value="{StaticResource Color2}" />
-        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
     
     <Style BasedOn="{StaticResource DefaultButton}" TargetType="Button" x:Key="WindowButton">

@@ -21,9 +21,8 @@ namespace Promart.Controls
 
             FullName.Content = _workshop.Name;
             Status.Content = _workshop.RegistryStatus.Description().ToUpper();
-            StudentCount.Content = workshop.StudentCount;
             RegisteredStudentsCount.Content = workshop.RegisteredStudentsCount;
-            ToolTip = string.IsNullOrWhiteSpace(_workshop.Description) ? "Insira uma descrição na oficina para parecer aqui" : _workshop.Description;
+            ToolTip = string.IsNullOrWhiteSpace(_workshop.Description) ? "Insira uma descrição na oficina para aparecer aqui" : _workshop.Description;
 
             var status = _workshop.RegistryStatus;
 
