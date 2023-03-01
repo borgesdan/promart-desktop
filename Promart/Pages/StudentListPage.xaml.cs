@@ -56,7 +56,8 @@ namespace Promart.Pages
                     BirthDate = s.BirthDate,
                     ProjectRegistry = s.ProjectRegistry,
                     ProjectRegistryDate = s.ProjectRegistryDate,
-                    ProjectStatus = s.ProjectStatus
+                    ProjectStatus = s.ProjectStatus,  
+                    ProjectShift = s.ProjectShift,
                 })
                 .OrderBy(s => s.FullName)
                 .Skip((_page - 1) * _pageCount)

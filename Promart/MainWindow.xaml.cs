@@ -39,71 +39,29 @@ namespace Promart
         public MainWindow()
         {   
             InitializeComponent();
-
             _mainWindowService = new MainWindowService(this);
         }
 
         private void StudentRegister_Click(object sender, RoutedEventArgs e)
-        {
-            _mainWindowService.OpenStudentRegistryTab();
-        }
+            => _mainWindowService.OpenStudentRegistryTab();
 
         private void WorkshopRegister_Click(object sender, RoutedEventArgs e)
-        {
-            _mainWindowService.OpenWorkshopRegistryTab();
-        }
+            => _mainWindowService.OpenWorkshopRegistryTab();
 
         private void StudentFilter_Click(object sender, RoutedEventArgs e)
-        {
-            _mainWindowService.OpenStudentFilterTab();
-        }
+            => _mainWindowService.OpenStudentFilterTab();
 
         private void WorkshopList_Click(object sender, RoutedEventArgs e)
-        {
-            _mainWindowService.OpenWorkshopList();
-        }        
+            => _mainWindowService.OpenWorkshopList();
 
         private void StudentList_Click(object sender, RoutedEventArgs e)
-        {
-            _mainWindowService.OpenStudentListTab();
-        }                
+            => _mainWindowService.OpenStudentListTab();
 
         public void NavigateToStudentRegisterPage(int studentId, string? studentName, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
-        {
-            _mainWindowService.NavigateToStudentRegistryPage(studentId, studentName, navigationUIVisibility);
-        }
-
-        public void NavigateToWorkshopPage(int workshopId, string? workshopName, NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
-        {
-            var workshopPage = new WorkshopRegistryPage(workshopId);
-            var header = workshopName;
-
-            _mainWindowService.NavigateTo(header, workshopPage, navigationUIVisibility);
-        }
-
-        public void NavigateToWorkshopPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
-        {
-            var workshopPage = new WorkshopRegistryPage();
-
-            _mainWindowService.NavigateTo("Cadastro de Oficina", workshopPage, navigationUIVisibility);
-        }
-
-        public void NavigateToWorkshopListPage(NavigationUIVisibility navigationUIVisibility = NavigationUIVisibility.Visible)
-        {
-            var workshopPage = new WorkshopListPage();
-
-            _mainWindowService.NavigateTo("Lista de Oficinas", workshopPage, navigationUIVisibility);
-        }
+            => _mainWindowService.NavigateToStudentRegistryPage(studentId, studentName, navigationUIVisibility);
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("Deseja encerrar o programa?", "Encerrar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result != MessageBoxResult.Yes)
-                return;
-
-            this.Close();
-        }
+            => _mainWindowService.Exit();
 
         private async void Backup_Click(object sender, RoutedEventArgs e)
         {   

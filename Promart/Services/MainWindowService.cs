@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
@@ -141,6 +142,16 @@ namespace Promart.Services
             var workshopPage = new WorkshopListPage();
 
             NavigateTo("Lista de Oficinas", workshopPage, navigationUIVisibility);
+        }
+
+        public void Exit()
+        {
+            var result = MessageBox.Show("Deseja encerrar o programa?", "Encerrar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            _mainWindow.Close();            
         }
     }
 }
