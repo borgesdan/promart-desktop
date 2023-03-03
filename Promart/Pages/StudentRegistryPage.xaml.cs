@@ -35,6 +35,7 @@ namespace Promart.Pages
         public StudentRegistryPage()
         {
             InitializeComponent();
+
             RegistryExpander.Visibility = Visibility.Collapsed;
             TopPanel.Visibility = Visibility.Collapsed;
             Update.Visibility = Visibility.Collapsed;
@@ -87,9 +88,7 @@ namespace Promart.Pages
         }
 
         private void BirthDate_SelectedDateChanged(object? sender, SelectionChangedEventArgs e)
-        {
-            Age.Content = BirthDate.SelectedDate?.GetAge();
-        }
+            => Age.Content = BirthDate.SelectedDate?.GetAge();
 
         private void AddRelationship_Click(object sender, RoutedEventArgs e)
         {
@@ -438,7 +437,6 @@ namespace Promart.Pages
         {
             try
             {
-                //var workshops = await context.Workshops.Where(w => w.RegistryStatus == RegistryStatus.Active).ToListAsync();
                 var workshops = await _workshopService.GetAll();
 
                 workshops.ToList().ForEach(w => Workshops.Items.Add(new CheckBox()

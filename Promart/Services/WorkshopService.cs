@@ -11,12 +11,7 @@ namespace Promart.Services
 {
     public class WorkshopService
     {
-        private readonly AppDbContext _context;
-
-        public WorkshopService() 
-        {
-            _context = AppDbContextFactory.Create();
-        }
+        private readonly AppDbContext _context;        
 
         public WorkshopService(AppDbContext context)
         {
@@ -25,10 +20,7 @@ namespace Promart.Services
 
         public async Task<IEnumerable<Workshop>> GetAll()
             => await _context.Workshops
-            .Where(w => w.RegistryStatus == RegistryStatus.Active)
-            //.AsNoTracking()
-            //.Select(ws => new WorkshopContract(ws))
-            //.AsNoTracking()            
-            .ToListAsync();
+            .Where(w => w.RegistryStatus == RegistryStatus.Active)              
+            .ToListAsync();        
     }
 }

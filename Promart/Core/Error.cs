@@ -8,8 +8,13 @@ namespace Promart.Core
         public static void ShowDatabaseError(string message, Exception ex)
         {
             MessageBox.Show(
-                $"{message}\n" +
-                "O banco de dados pode estar desconectado ou não foi possível acessar o banco de dados.\n\n\n" +                
+                $"{message}" +
+                Environment.NewLine +
+                Environment.NewLine +
+                "O banco de dados pode estar desconectado, houve erro na execução dos dados ou não foi possível acessar o banco de dados." +
+                Environment.NewLine +
+                Environment.NewLine +
+                Environment.NewLine +
                 $"Erro completo: {ex.Message}",
                 "Ação não executada",
                 MessageBoxButton.OK,
