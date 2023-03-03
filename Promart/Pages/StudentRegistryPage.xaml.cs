@@ -5,6 +5,7 @@ using Promart.Database;
 using Promart.Database.Context;
 using Promart.Database.Entities;
 using Promart.Pages.Print;
+using Promart.Services;
 using Promart.Windows;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentRegistryPage : Page
     {
+        private readonly WorkshopService _workshopService;
+
         AppDbContext context = AppDbContextFactory.Create();
         readonly int studentId = 0;
         bool isLoaded = false;
@@ -35,6 +38,8 @@ namespace Promart.Pages
             RegistryExpander.Visibility = Visibility.Collapsed;
             TopPanel.Visibility = Visibility.Collapsed;
             Update.Visibility = Visibility.Collapsed;
+
+            _workshopService = new WorkshopService(context);
         }
 
         public StudentRegistryPage(int studentId)
@@ -43,6 +48,8 @@ namespace Promart.Pages
 
             updateMode = true;
             this.studentId = studentId;
+
+            _workshopService = new WorkshopService(context);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -431,9 +438,10 @@ namespace Promart.Pages
         {
             try
             {
-                var workshops = await context.Workshops.Where(w => w.RegistryStatus == RegistryStatus.Active).ToListAsync();
+                //var workshops = await context.Workshops.Where(w => w.RegistryStatus == RegistryStatus.Active).ToListAsync();
+                var workshops = await _workshopService.GetAll();
 
-                workshops.ForEach(w => Workshops.Items.Add(new CheckBox()
+                workshops.ToList().ForEach(w => Workshops.Items.Add(new CheckBox()
                 {
                     Content = w,
                     VerticalContentAlignment = VerticalAlignment.Center

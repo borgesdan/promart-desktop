@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Promart.Database.Responses;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Promart.Database.Entities
@@ -31,7 +32,16 @@ namespace Promart.Database.Entities
             Name = workshop.Name;
             Description = workshop.Description;
             RegistryStatus = workshop.RegistryStatus;
-            //Students = workshop.Students.Select(s => new Student(s)).ToList();
+            Students = workshop.Students;
+        }
+
+        public Workshop(WorkshopResponse workshop)
+        {
+            Id = workshop.Id;
+            Name = workshop.Name;
+            Description = workshop.Description;
+            RegistryStatus = workshop.RegistryStatus;
+            Students = workshop.Students;
         }
 
         public override string ToString()
