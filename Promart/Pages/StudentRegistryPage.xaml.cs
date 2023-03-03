@@ -25,6 +25,7 @@ namespace Promart.Pages
     public partial class StudentRegistryPage : Page
     {
         private readonly WorkshopService _workshopService;
+        private readonly StudentService _studentService;
 
         AppDbContext context = AppDbContextFactory.Create();
         readonly int studentId = 0;
@@ -41,6 +42,7 @@ namespace Promart.Pages
             Update.Visibility = Visibility.Collapsed;
 
             _workshopService = new WorkshopService(context);
+            _studentService = new StudentService(context);
         }
 
         public StudentRegistryPage(int studentId)
@@ -51,6 +53,7 @@ namespace Promart.Pages
             this.studentId = studentId;
 
             _workshopService = new WorkshopService(context);
+            _studentService = new StudentService(context);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -76,10 +79,10 @@ namespace Promart.Pages
 
             if (updateMode)
             {
-                _student = await context.Students.Where(s => s.Id == studentId)
-                    .Include(s => s.Workshops)
-                    .Include(s => s.FamilyRelationships)
-                    .FirstOrDefaultAsync();
+                _student = await _studentService.GetById(studentId);
+
+                if (_student == null)
+                    throw new NullReferenceException("Não foi possível encontrar um estudante pelo identificador informado.");
 
                 ApplyStudentData();
             }
