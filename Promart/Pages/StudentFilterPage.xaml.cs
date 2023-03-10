@@ -12,9 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Promart.Pages
 {
@@ -25,6 +23,7 @@ namespace Promart.Pages
     {
         bool isLoaded = false;
         AppDbContext context = AppDbContextFactory.Create();
+        bool contextDisposed = false;
 
         public StudentFilterPage()
         {
@@ -250,9 +249,16 @@ namespace Promart.Pages
                 students = students.Where(s => s.BirthDate != null && s.BirthDate.Value.Month == BirthMonth.SelectedIndex + 1);
             }
 
-            var result = await students.AsNoTracking().ToListAsync();
+            try
+            {
+                var result = await students.AsNoTracking().ToListAsync();
 
-            DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
+                DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
+            }
+            catch(Exception ex)
+            {
+                Error.ShowDatabaseError("Ocorreu um erro na tentativa de filtrar os dados.", ex);
+            }
         }
 
         private async void Search_Click(object sender, RoutedEventArgs e)
@@ -296,6 +302,21 @@ namespace Promart.Pages
             catch (Exception ex)
             {
                 MessageBox.Show($"Ocorreu um erro ao tentar exportar os dados.\n\n Erro: {ex.Message}", "Erro ao Exportar", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            contextDisposed = true;
+            context.Dispose();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(contextDisposed)
+            {
+                context = AppDbContextFactory.Create();
+                contextDisposed = false;
             }
         }
     }
