@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Promart.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StudentListPage" Loaded="Page_Loaded">
+      Title="StudentListPage" Loaded="Page_Loaded" Unloaded="Page_Unloaded" >
 
     <Page.Resources>
         <ResourceDictionary>

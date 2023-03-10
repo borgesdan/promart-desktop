@@ -20,6 +20,9 @@ namespace Promart.Pages
     /// </summary>
     public partial class StudentListPage : Page
     {
+        AppDbContext context = AppDbContextFactory.Create();
+        bool contextDisposed = false;
+
         readonly MainWindowService _mainWindow;
 
         int _page = 1;
@@ -34,10 +37,26 @@ namespace Promart.Pages
             RegistryAge.Text = DateTime.Now.Year.ToString();
         }
 
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (contextDisposed)
+            {
+                context = AppDbContextFactory.Create();
+                contextDisposed = false;
+            }                
+
+            _page = 1;
+            await SearchAsync(false);
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {            
+            context.Dispose();
+            contextDisposed = true;
+        }
+
         private async Task<List<Student>> GetStudentsAsync()
         {
-            using var context = AppDbContextFactory.Create();
-
             var students = context.Students
                                     .AsNoTracking()
                                     .AsQueryable();
@@ -48,7 +67,9 @@ namespace Promart.Pages
             if (OnlyRegistered.IsChecked == true)
                 students = students.Where(s => s.ProjectStatus == Database.ProjectStatusType.Matriculado);
 
-            var result = await students
+            try
+            {
+                var result = await students
                 .Select(s => new Student
                 {
                     Id = s.Id,
@@ -56,7 +77,7 @@ namespace Promart.Pages
                     BirthDate = s.BirthDate,
                     ProjectRegistry = s.ProjectRegistry,
                     ProjectRegistryDate = s.ProjectRegistryDate,
-                    ProjectStatus = s.ProjectStatus,  
+                    ProjectStatus = s.ProjectStatus,
                     ProjectShift = s.ProjectShift,
                 })
                 .OrderBy(s => s.FullName)
@@ -65,9 +86,15 @@ namespace Promart.Pages
                 .ToListAsync();
 
 
-            _total = await students.CountAsync();
+                _total = await students.CountAsync();
 
-            return result;
+                return result;
+            }
+            catch(Exception ex)
+            {
+                Error.ShowDatabaseError("Ocorreu um erro ao obter a lista de alunos.", ex);
+                return new List<Student>();
+            }
         }
 
         private async Task SearchAsync(bool showNotFoundMessage = true)
@@ -132,13 +159,7 @@ namespace Promart.Pages
                 return;
 
             _mainWindow.NavigateToStudentRegistryPage(controlStudent.Id, controlStudent.FullName);
-        }
-
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            _page = 1;
-            await SearchAsync(false);
-        }
+        }        
 
         private async void Next_Click(object sender, RoutedEventArgs e)
         {
@@ -171,6 +192,6 @@ namespace Promart.Pages
         {
             _page = 1;
             await SearchAsync();
-        }
+        }        
     }
 }
