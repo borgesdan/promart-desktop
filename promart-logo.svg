@@ -9,6 +9,9 @@
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    sodipodi:docname="promart-logo.svg"
+   inkscape:export-filename="C:\dev\my-projects\promart-desktop\promart-logo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.18529742"
-     inkscape:cx="858.07995"
-     inkscape:cy="1125.218"
+     inkscape:zoom="0.52410025"
+     inkscape:cx="49.60883"
+     inkscape:cy="550.46721"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -39,29 +42,54 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#530082;fill-opacity:1;stroke:#666666;stroke-width:0.511929;stroke-opacity:0.890196"
+       style="fill:#0000ff;fill-opacity:1;stroke:#0000ff;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.890196"
        id="rect31"
        width="134.95474"
        height="134.95474"
        x="25.111652"
        y="47.600838"
-       ry="67.477371"
+       ry="17.921589"
        inkscape:export-filename="C:\dev\my-projects\promart-desktop\promart-ico.png"
        inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       inkscape:export-ydpi="96"
+       rx="67.477371" />
+    <rect
+       style="fill:#0000b2;fill-opacity:1;stroke:none;stroke-width:1.74307;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.890196"
+       id="rect2754"
+       width="88.90799"
+       height="88.90799"
+       x="71.158401"
+       y="93.647591"
+       ry="20.136469"
+       inkscape:export-filename="C:\dev\my-projects\promart-desktop\promart-ico.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       rx="44.453995" />
+    <rect
+       style="fill:#0000ff;fill-opacity:1;stroke:#ffffff;stroke-width:1.74307;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.890196"
+       id="rect2716"
+       width="88.90799"
+       height="88.90799"
+       x="48.135029"
+       y="70.624214"
+       ry="11.806717"
+       inkscape:export-filename="C:\dev\my-projects\promart-desktop\promart-ico.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       rx="44.453995" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:107.141px;line-height:1.25;font-family:'Engravers MT';-inkscape-font-specification:'Engravers MT';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.67852"
-       x="50.936188"
-       y="149.90443"
-       id="text1351"
+       style="font-style:normal;font-weight:normal;font-size:80.9638px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.0241"
+       x="68.508652"
+       y="140.16426"
+       id="text1078"
        inkscape:export-filename="C:\dev\my-projects\promart-desktop\promart-ico.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         id="tspan1349"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Engravers MT';-inkscape-font-specification:'Engravers MT';fill:#ffffff;stroke-width:2.67852"
-         x="50.936188"
-         y="149.90443">P</tspan></text>
+         id="tspan1076"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Sitka Small';-inkscape-font-specification:'Sitka Small';fill:#ffffff;stroke-width:2.0241"
+         x="68.508652"
+         y="140.16426">P</tspan></text>
   </g>
 </svg>

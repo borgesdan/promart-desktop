@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Database;
 using Promart.Database.Context;
+using Promart.Database.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Promart.Services.Contracts;
-using Promart.Database.Entities;
 
 namespace Promart.Services
 {

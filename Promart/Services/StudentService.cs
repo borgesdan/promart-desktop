@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Promart.Database.Context;
 using Promart.Database.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Promart.Services
@@ -18,11 +15,17 @@ namespace Promart.Services
             _context = context;
         }
 
-        public async Task<Student?> GetById(int id)
-            => await _context.Students
-                .Where(s => s.Id == id)
-                .Include(s => s.Workshops)
-                .Include(s => s.FamilyRelationships)
-                .FirstOrDefaultAsync();
+        public async Task<Student?> GetById(int id, bool includeWorkshops = true, bool includeFamilyRelationships = true)
+        {
+            var students = _context.Students.Where(s => s.Id == id);
+
+            if (includeWorkshops)
+                students = students.Include(s => s.Workshops);
+
+            if (includeFamilyRelationships)
+                students = students.Include(s => s.FamilyRelationships);                
+
+            return await students.FirstOrDefaultAsync();
+        }            
     }
 }

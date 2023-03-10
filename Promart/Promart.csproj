@@ -5,7 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
+    <ApplicationIcon>promart-logo.ico</ApplicationIcon>
     <Authors>Danilo Borges Santos</Authors>
     <Description>Gerenciador do Centro Comunitário Batista Sete de Setemro</Description>
     <PackageProjectUrl>https://www.dandev.com.br/2022/05/programa-promartbd.html</PackageProjectUrl>
@@ -63,7 +63,7 @@
     <Content Include="Content\search-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="logo.ico" />
+    <Content Include="promart-logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
