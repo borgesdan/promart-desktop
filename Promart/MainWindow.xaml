@@ -44,10 +44,12 @@
                     <MenuItem Header="Criar Backup" Click="Backup_Click" />
                     <MenuItem Header="Abrir Pasta" Click="OpenBackupDirectory_Click" />                    
                 </MenuItem>
+                <!--
                 <Separator />
                 <MenuItem Header="Migração">
                     <MenuItem Header="do Antigo Banco..." Click="MigrateOldDb_Click" />
                 </MenuItem>
+                -->
             </MenuItem>
         </Menu>
         <DockPanel

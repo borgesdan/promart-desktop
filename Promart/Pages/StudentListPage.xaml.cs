@@ -22,6 +22,7 @@ namespace Promart.Pages
     {
         AppDbContext context = AppDbContextFactory.Create();
         bool contextDisposed = false;
+        bool isLoaded = false;
 
         readonly MainWindowService _mainWindow;
 
@@ -43,14 +44,17 @@ namespace Promart.Pages
             {
                 context = AppDbContextFactory.Create();
                 contextDisposed = false;
-            }                
+            }
 
-            _page = 1;
+            if (isLoaded)
+                return;
+
+            //_page = 1;
             await SearchAsync(false);
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {            
+        {
             context.Dispose();
             contextDisposed = true;
         }
@@ -90,7 +94,7 @@ namespace Promart.Pages
 
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Error.ShowDatabaseError("Ocorreu um erro ao obter a lista de alunos.", ex);
                 return new List<Student>();
@@ -104,7 +108,7 @@ namespace Promart.Pages
             PageManagerPanel.IsEnabled = true;
             Next.IsEnabled = true;
             Preview.IsEnabled = true;
-            
+
             var pageCountContent = ((ComboBoxItem)PageCount.SelectedItem).Content;
             _pageCount = int.Parse((string)pageCountContent);
 
@@ -159,7 +163,7 @@ namespace Promart.Pages
                 return;
 
             _mainWindow.NavigateToStudentRegistryPage(controlStudent.Id, controlStudent.FullName);
-        }        
+        }
 
         private async void Next_Click(object sender, RoutedEventArgs e)
         {
@@ -192,6 +196,6 @@ namespace Promart.Pages
         {
             _page = 1;
             await SearchAsync();
-        }        
+        }
     }
 }
