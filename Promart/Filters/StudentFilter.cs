@@ -1,9 +1,7 @@
 ﻿using Promart.Core;
-using Promart.Database;
 using Promart.Database.Entities;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Promart.Filters
 {
@@ -59,6 +57,7 @@ namespace Promart.Filters
             RegistryDate = student.ProjectRegistryDate?.ToShortDateString();
             ProjectShift = student.ProjectShift.Description();
             ResponsibleName = student.ResponsibleName;
+            AddressStreet = student.AddressStreet;
             AddressComplement = student.AddressComplement;
             AddressDistrict = student.AddressDistrict;
             AddressNumber = student.AddressNumber;
