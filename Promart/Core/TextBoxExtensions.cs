@@ -11,6 +11,19 @@ namespace Promart.Core
             textBox.Foreground = Brushes.White;
         }
 
+        public static void ApplyPhoneNumbers(this TextBox textbox)
+        {
+            textbox.TextChanged += (object sender, TextChangedEventArgs e) =>
+            {
+                bool setCarentEnd = textbox.CaretIndex == textbox.Text.Length;
+
+                textbox.Text = textbox.Text.ApplyOnlyNumber().ApplyPhoneMask();
+
+                if (setCarentEnd)
+                    textbox.CaretIndex = textbox.Text.Length;
+            };
+        }
+
         public static void ApplyOnlyNumbers(this TextBox textbox)
         {
             textbox.TextChanged += (object sender, TextChangedEventArgs e) =>

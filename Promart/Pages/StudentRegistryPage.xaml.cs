@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Promart.Controls;
+﻿using Promart.Controls;
 using Promart.Core;
 using Promart.Database;
 using Promart.Database.Context;
@@ -13,9 +12,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace Promart.Pages
 {
@@ -28,6 +24,7 @@ namespace Promart.Pages
         private readonly StudentService _studentService;
 
         AppDbContext context = AppDbContextFactory.Create();
+
         readonly int studentId = 0;
         bool isLoaded = false;
         Student? _student;
@@ -64,7 +61,7 @@ namespace Promart.Pages
             FullName.ApplyOnlyLetterOrWhiteSpace();
             Responsible.ApplyOnlyLetterOrWhiteSpace();
             CPF.ApplyOnlyNumbers();
-            Phone.ApplyOnlyNumbers();
+            Phone.ApplyPhoneNumbers();
 
             Gender.AddEnum<GenderType>();
             FamilyRelationship.AddEnum<StudentRelationshipType>();
@@ -120,7 +117,7 @@ namespace Promart.Pages
                 RG = RG.Text,
                 Certidao = Certidao.Text,
                 ResponsibleName = Responsible.Text,
-                ResponsiblePhone = Phone.Text,
+                ResponsiblePhone = Phone.Text.ApplyOnlyNumber(),
                 Relationship = (StudentRelationshipType)FamilyRelationship.SelectedIndex,
                 IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0,
                 Dwelling = (DwellingType)Dwelling.SelectedIndex,
@@ -180,7 +177,7 @@ namespace Promart.Pages
                 _student.RG = RG.Text;
                 _student.Certidao = Certidao.Text;
                 _student.ResponsibleName = Responsible.Text;
-                _student.ResponsiblePhone = Phone.Text;
+                _student.ResponsiblePhone = Phone.Text.ApplyOnlyNumber();
                 _student.Relationship = (StudentRelationshipType)FamilyRelationship.SelectedIndex;
                 _student.IsGovernmentBeneficiary = BeneficiaryBox.SelectedIndex == 0;
                 _student.Dwelling = (DwellingType)Dwelling.SelectedIndex;

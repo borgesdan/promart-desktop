@@ -39,6 +39,11 @@ namespace Promart.Services
 
         public async Task MigrateFromOldDataBase()
         {
+            var messageResult = MessageBox.Show("Deseja migrar os dados antigos? Se já executou essa ação antes podem aparecer dados repetidos no banco de dados.", "Alerta!", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (messageResult != MessageBoxResult.Yes)
+                return;
+
             var config = ConfigurationManager.Open() ?? throw new NullReferenceException("Não foi possível carregar o arquivo de configuração");
 
             var result = await DataBaseManager.MigrateOldDatabaseAsync(config.ConnectionStrings.Default);

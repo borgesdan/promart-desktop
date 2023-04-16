@@ -7,6 +7,9 @@ namespace Promart.Core
 {
     public static class StringHelper
     {
+        public const int MIN_PHONE_LENGTH = 10;
+        public const int MAX_PHONE_LENGTH = 11;
+
         public static bool IsNumbers(this string? text)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -122,6 +125,27 @@ namespace Promart.Core
             return stringBuilder
                 .ToString()
                 .Normalize(NormalizationForm.FormC);
+        }
+
+        public static string ApplyPhoneMask(this string value)
+        {
+            if (value.Length < MIN_PHONE_LENGTH || value.Length > MAX_PHONE_LENGTH)
+                return value;
+
+            string phone = value;
+            string ddd = phone.Substring(0, 2);
+            string number = phone.Substring(ddd.Length, phone.Length - ddd.Length);
+
+            string lastNumbers = number.Substring(number.Length - 4);
+            string firstNumbers = number.Substring(0, number.Length - lastNumbers.Length);
+
+            return string.Concat(
+                "(",
+                ddd,
+                ") ",
+                firstNumbers,
+                "-",
+                lastNumbers);
         }
     }
 }

@@ -316,7 +316,7 @@
                         Style="{StaticResource DefaultGroupBox}">
                         <TextBox  
                             x:Name="Phone"
-                            MaxLength="{StaticResource PhoneLength}"
+                            MaxLength="{StaticResource PhoneWithMaskLength}"
                             Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
 
