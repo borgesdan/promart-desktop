@@ -7,6 +7,8 @@ namespace Promart.Filters
 {
     public class StudentFilter
     {
+        private int _id;
+
         [DisplayName("Nome")]
         public string? FullName { get; set; }
         [DisplayName("Sexo")]
@@ -43,11 +45,13 @@ namespace Promart.Filters
         public string? SchoolShift { get; set; }
 
         public Student? Student { get; set; }
+        public int GetId() => _id;
 
         public StudentFilter() { }
 
         public StudentFilter(Student student)
         {
+            _id = student.Id;
             FullName = student.FullName;
             Gender = student.Gender.Description();
             Age = student.BirthDate != null ? ((int)((DateTime.Now - student.BirthDate.Value).TotalDays / 365)).ToString() : null;

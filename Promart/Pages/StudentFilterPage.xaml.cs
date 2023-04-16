@@ -4,6 +4,7 @@ using Promart.Core;
 using Promart.Database;
 using Promart.Database.Context;
 using Promart.Filters;
+using Promart.Services;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -24,6 +25,7 @@ namespace Promart.Pages
         bool isLoaded = false;
         AppDbContext context = AppDbContextFactory.Create();
         bool contextDisposed = false;
+        readonly MainWindowService _mainWindow = new MainWindowService();
 
         public StudentFilterPage()
         {
@@ -322,6 +324,19 @@ namespace Promart.Pages
                 context = AppDbContextFactory.Create();
                 contextDisposed = false;
             }
+        }
+
+        private void DataGridResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var datagrid = DataGridResult;
+
+            var selected = datagrid.SelectedValue;
+
+            if (selected == null)
+                return;
+
+            var studentFilter = (StudentFilter)selected;
+            _mainWindow.NavigateToStudentRegistryPage(studentFilter.GetId(), studentFilter.FullName);
         }
     }
 }
