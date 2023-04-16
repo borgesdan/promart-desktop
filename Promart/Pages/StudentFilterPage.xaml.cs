@@ -254,9 +254,13 @@ namespace Promart.Pages
                 var result = await students.AsNoTracking().ToListAsync();
 
                 DataGridResult.ItemsSource = result.Select(s => new StudentFilter(s));
+                TotalFilterRegistry.Content = result.Count;
             }
             catch(Exception ex)
             {
+                DataGridResult.ItemsSource = null;
+                TotalFilterRegistry.Content = 0;
+
                 Error.ShowDatabaseError("Ocorreu um erro na tentativa de filtrar os dados.", ex);
             }
         }
