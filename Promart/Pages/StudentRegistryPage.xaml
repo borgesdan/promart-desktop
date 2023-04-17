@@ -67,6 +67,7 @@
                         <TextBox
                             x:Name="RegistryNumber"         
                             IsReadOnly="True"
+                            BorderThickness="0"
                             Style="{StaticResource DefaultTextBox}"/>
                     </GroupBox>
                     <GroupBox
@@ -77,7 +78,8 @@
                         Style="{StaticResource DefaultGroupBox}">
                         <TextBox
                             x:Name="RegistryDate"
-                            IsReadOnly="True"                       
+                            IsReadOnly="True"    
+                            BorderThickness="0"
                             Style="{StaticResource DefaultTextBox}"
                             />
                     </GroupBox>

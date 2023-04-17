@@ -9,6 +9,8 @@
     <Authors>Danilo Borges Santos</Authors>
     <Description>Gerenciador do Centro Comunitário Batista Sete de Setemro</Description>
     <PackageProjectUrl>https://www.dandev.com.br/2022/05/programa-promartbd.html</PackageProjectUrl>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
